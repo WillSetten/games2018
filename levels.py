@@ -7,8 +7,8 @@ except ImportError:
 class Level():
  #This will be used as a super-class to define a level.
 
-    canvas_height = 720
-    canvas_width = 1280
+    constant.canvas_height = 720
+    constant.canvas_width = 1280
 
     def __init__(self,player):
         #DATA WILL BE ADDED
