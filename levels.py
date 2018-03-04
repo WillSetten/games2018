@@ -3,6 +3,8 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
+import pygame
+
 
 class Level():
  #This will be used as a super-class to define a level.
@@ -11,14 +13,29 @@ class Level():
     constant.canvas_width = 1280
 
     def __init__(self,player):
-        #DATA WILL BE ADDED
+        #list of all sprites need to be added here, after we have decided the sprites to be utilised
+        self.platform_list = None
+        self.enemy_list = None
+
+        self.background = None
+
+        self.world_shift = 0
+        self.level_limit = -1000
+        self.platform_list = pygame.sprite.Group()
+        self.enemy_list = pygame.sprite.Group()
+        self.player = player
+
+
 
     def update(self):
-        #DATA WILL BE ADDDED
+        #all sprites need to be updated at this stage
+        self.platform_list.update()
+        self.enemy_list.update()
+
 
     def draw(self,screen):
-        #Drawing bakground for this level.
-
+        #Drawing background for this level.
+        frame = simplegui.create_frame("Dash ‘em ‘n’ Smash ‘em", CANVAS_WIDTH, CANVAS_HEIGHT)
 
         screen.fill(constants.BLUE)
         screen.blit(self.background,(self.world_shift // 3,0))
@@ -33,6 +50,12 @@ class Level():
     #Keep track of shift amount
     self.world_shift += shift_x
 
+    #Go through all the sprite lists and shift
+    for platform in self.platform_list:
+        platfor.rect.x += shift_x
+
+    for enemy in self.enemy_list:
+        enemy.rect.x += shift_x
 
 
 class Level_1(Level):
