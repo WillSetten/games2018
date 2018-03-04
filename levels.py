@@ -67,5 +67,7 @@ class Level_1(Level):
         self.background = pygame.image.load(#Add image file here)
         self.background.set_colourkey(constant.WHITE)
 
+        #Application of moving platforms needs to be added
+        #Array with type of platform, and x, y location of the platform, needs to be added
 
 frame.start()
