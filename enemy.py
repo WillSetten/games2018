@@ -2,7 +2,7 @@ import pygame, time
 #constructor should work by being called with an enemy type, then will set it up accordingly
 #assuming the main game class will select an enemy type and when to spawn it?
 #can discuss these issues in the week somewhen
-#Also not sure on how to track shots fired, whether to work them out in attacker class
+#will check whether bullets hit users through the Bullet class - distToEnemy???
 #or in the person who fired the shot
 class Enemy:
     def __init__(self, type):/
