@@ -18,12 +18,12 @@ class Enemy:
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = null
-        elif (type=="Drone"):
-            self.health = 3
-            self.speed = 5
-            self.type = type
-            self.pos = Vector(0,0)
-            self.sprite = null
+#        elif (type=="Drone"):
+#            self.health = 3
+#            self.speed = 5
+#            self.type = type
+#            self.pos = Vector(0,0)
+#            self.sprite = null
         else:
             self.health = 40
             self.speed = 0
@@ -31,16 +31,15 @@ class Enemy:
             self.pos = Vector(0,0)
             self.sprite = null
 
-    def action(self):
+    def play(self):
         spawn()
         while (self.health>0):
                 if (self.type=="Infantry"):
                     move()
-                    #check if the user is hit (use input from main class maybe/player fire class
-                    #if player shot is within range of player:
-                    #hit()
+                    checkIfHit()
                 else:
                     attack()
+                    checkIfHit()
                     #runs as per usual
                     #if player shot hits enemy
                         #hit()
@@ -50,19 +49,21 @@ class Enemy:
         #set self.pos to a place on platform off screen (account for sprite size etc)
 
     def attack(self):
-        if (self.type=="Infantry"):#
-            #if distance from enemy to player is within a couple pixels, lose health from player
-        else:
             #work out vector from enemy to player
             #fire shot, work out sprite/object to be fired
-            #get to travel towards the player
-            #check if hits player
+            #need to consider power ups etc.
 
     def move(self):
         self.pos.x=self.pos.x+1
         #only triggered if the enemy type is infantry
+        #if distance between enemy and player is less than x
+        #attack user - infantry attack needs to be run
 
-    def hit(self):
+    def checkIfHit(self):
+    #
+
+
+    #triggered if the user has been hit
         self.health=self.health-1
         if (self.health<1):
             remove()
