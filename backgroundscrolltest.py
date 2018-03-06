@@ -27,10 +27,10 @@ pygame.init()
 CLOCK = pygame.time.Clock()
 DS = pygame.display.set_mode((W,H))
 pygame.display.set_caption("Background Trial")
-FPS = 60
+FPS = 30
 
 #Contra map has been currently utilised in order to experiment whether this is succesful or not.
-bkgd = pygame.image.load("ContraMapStage1BG.png").convert()
+bkgd = pygame.image.load("ContraMapStage5BG.png").convert()
 x = 0
 
 

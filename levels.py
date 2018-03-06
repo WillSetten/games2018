@@ -60,8 +60,8 @@ class Level_1(Level):
 
         Level.__init__(self,player)
         frame = simplegui.create_frame("Dash ‘em ‘n’ Smash ‘em", constants.SCREEN_WIDTH, constants.CANVAS_HEIGHT)
-        self.background = pygame.image.load(#Add image file here)
-        #self.background.set_colourkey(constants.WHITE)
+        self.background = pygame.image.load("ContraMapStage5BG.png")
+        self.background.set_colourkey(constants.WHITE)
         #Application of moving platforms needs to be added
         #Array with type of platform, and x, y location of the platform, needs to be added
 frame.start()
