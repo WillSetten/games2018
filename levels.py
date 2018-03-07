@@ -5,6 +5,9 @@ except ImportError:
 
 import pygame
 import constants
+import platforms
+import player
+
 
 class Level():
  #This will be used as a super-class to define a level.
@@ -64,4 +67,3 @@ class Level_1(Level):
         self.background.set_colourkey(constants.WHITE)
         #Application of moving platforms needs to be added
         #Array with type of platform, and x, y location of the platform, needs to be added
-frame.start()
