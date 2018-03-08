@@ -33,16 +33,16 @@ class Enemy:
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None
-        spawn()
+        self.spawn()
 
     def update(self):
         if (self.health>0):
         if (self.type=="Infantry"):
-                move()
-                checkIfHit()
+                self.move()
+                self.checkIfHit()
             else:
-                attack()
-                checkIfHit()
+                self.attack()
+                self.checkIfHit()
 
     def spawn(self):
         #finds an empty platform - need implementation from platform class
@@ -64,7 +64,7 @@ class Enemy:
     #IF (Enemy has been hit)
         self.health=self.health-1
         if (self.health<1):
-            remove()
+            self.remove()
             #if the enemy is dead, remove it from the game
             if (self.type=="Boss"):
                 #score = score + 5000
