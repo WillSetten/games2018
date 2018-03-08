@@ -7,6 +7,7 @@ except ImportError:
 
 import pygame
 import constants
+import levels
 
 class player():
 
