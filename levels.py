@@ -42,6 +42,23 @@ class Level():
         #          [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
         #          ]
 
+        # for plaform in level:
+        #    block = platforms.Platform(platform[0])
+        #    block.rect.x = platform[1]
+        #    block.rect.y = platform[2]
+        #    block.player = self.player
+        #    self.playform_list.add(block)
+
+        # Add a custom moving platform
+        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
+        block.rect.x = 1350
+        block.rect.y = 280
+        block.boundary_left = 1350
+        block.boundary_right = 1600
+        block.change_x = 1
+        block.player = self.player
+        block.level = self
+        self.platform_list.add(block)
 
 
 
