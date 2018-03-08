@@ -38,11 +38,11 @@ class Enemy:
     def update(self):
         if (self.health>0):
             if (self.type=="Infantry"):
-                    self.move()
-                    self.checkIfHit()
-                else:
-                    self.attack()
-                    self.checkIfHit()
+                self.move()
+                self.checkIfHit()
+            else:
+                self.attack()
+                self.checkIfHit()
 
     def spawn(self):
         #finds an empty platform - need implementation from platform class
