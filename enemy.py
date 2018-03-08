@@ -1,7 +1,7 @@
 import pygame
 import levels
 import constants
-
+from vector import Vector
 #constructor should work by being called with an enemy type, then will set it up accordingly
 #assuming the main game class will select an enemy type and when to spawn it?
 #can discuss these issues in the week somewhen
