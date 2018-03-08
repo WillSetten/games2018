@@ -14,13 +14,13 @@ class Enemy:
             self.speed = 10 #value to be discussed later on
             self.type = type
             self.pos = Vector(0,0)
-            self.sprite = null #set as null for now while working on other areas
+            self.sprite = None #set as null for now while working on other areas
         elif (type=="Heavy"):
             self.health = 3
             self.speed = 0
             self.type = type
             self.pos = Vector(0,0)
-            self.sprite = null
+            self.sprite = None
 #        elif (type=="Drone"):
 #            self.health = 3
 #            self.speed = 5
@@ -32,7 +32,7 @@ class Enemy:
             self.speed = 0
             self.type = type
             self.pos = Vector(0,0)
-            self.sprite = null
+            self.sprite = None
         spawn()
 
     def update(self):
