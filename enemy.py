@@ -40,6 +40,7 @@ class Enemy:
             if (self.type=="Infantry"):
                 self.move()
                 self.checkIfHit()
+
             else:
                 self.attack()
                 self.checkIfHit()
@@ -48,7 +49,6 @@ class Enemy:
         pass
         #finds an empty platform - need implementation from platform class
         #set self.pos to a place on platform off screen (account for sprite size etc)
-
     def attack(self):
         pass
             #work out vector from enemy to player
@@ -69,12 +69,16 @@ class Enemy:
             self.remove()
             #if the enemy is dead, remove it from the game
             if (self.type=="Boss"):
+                pass
                 #score = score + 5000
             elif (self.type=="Heavy"):
+                pass
                 #score = score + 500
             elif (self.type=="Drone"):
+                pass
                 #score = score + 250
             else:
+                pass
                 #score = score + 100
             #increment score since the user has killed an enemy
         #potentially display different sprite if hit / blur sprite for x amount of time to indicate hit
