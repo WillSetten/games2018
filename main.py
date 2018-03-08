@@ -32,7 +32,7 @@ def main():
 
     while not done:
         for event in pygame.event.get(): #if user does something
-            if event.type == pygame.QUIT #game closed
+            if event.type == pygame.QUIT: #game closed
                 done = True
             if event.type == pygame.KEYDOWN: #key pressed
                 if event.key == pygame.K_LEFT:
@@ -77,4 +77,4 @@ def main():
         pygame.quit()
 
     if __name__ == "__main__":
-        main()        
+        main()
