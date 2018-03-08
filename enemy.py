@@ -43,6 +43,7 @@ class Enemy:
                     #runs as per usual
                     #if player shot hits enemy
                         #hit()
+        remove()
 
     def spawn(self):
         #finds an empty platform - need implementation from platform class
@@ -60,10 +61,8 @@ class Enemy:
         #attack user - infantry attack needs to be run
 
     def checkIfHit(self):
-    #
-
-
-    #triggered if the user has been hit
+    #need to set up code to work out whether enemy has been hit or not
+    #IF (Enemy has been hit)
         self.health=self.health-1
         if (self.health<1):
             remove()
