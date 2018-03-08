@@ -33,20 +33,16 @@ class Enemy:
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = null
-
-    def play(self):
         spawn()
-        while (self.health>0):
-                if (self.type=="Infantry"):
-                    move()
-                    checkIfHit()
-                else:
-                    attack()
-                    checkIfHit()
-                    #runs as per usual
-                    #if player shot hits enemy
-                        #hit()
-        remove()
+
+    def update(self):
+        if (self.health>0):
+        if (self.type=="Infantry"):
+                move()
+                checkIfHit()
+            else:
+                attack()
+                checkIfHit()
 
     def spawn(self):
         #finds an empty platform - need implementation from platform class

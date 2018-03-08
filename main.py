@@ -21,12 +21,12 @@ def main():
     current_level_no = 0
     current_level = level_list[current_level_no]
 
-    #active_sprite_list = pygame.sprite.Group()
+    active_sprite_list = pygame.sprite.Group()
     player_level = current_level
 
     player.rect.x = 340
     player.rect.y = constant.SCREEN_HEIGHT - player.rect.height
-    #active_sprite_list.add(player)
+    active_sprite_list.add(player)
     #loop until user quits the game
     done = False
     #manages how fast screen updates
@@ -57,16 +57,16 @@ def main():
             current_level.update()
 
             # If the player gets near the right side, shift the world left (-x)
-            #if player.rect.right >= 500:
-            #    diff = player.rect.right - 500
-            #    player.rect.right = 500
-            #    current_level.shift_world(-diff)
+            if player.rect.right >= 500:
+                diff = player.rect.right - 500
+                player.rect.right = 500
+                current_level.shift_world(-diff)
 
             # If the player gets near the left side, shift the world right (+x)
-            #if player.rect.left <= 120:
-            #    diff = 120 - player.rect.left
-            #    player.rect.left = 120
-            #    current_level.shift_world(diff)
+            if player.rect.left <= 120:
+                diff = 120 - player.rect.left
+                player.rect.left = 120
+                current_level.shift_world(diff)
 
             current_level.draw(screen)
             active_sprite_list.draw(screen)
@@ -80,3 +80,371 @@ def main():
 
     if __name__ == "__main__":
         main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#hi will
