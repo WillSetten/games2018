@@ -15,7 +15,7 @@ def events():
 
 
 #defining display
-W, H = 1080, 240
+W, H = 1280, 896
 HW, HH = W/2, H/2
 AREA = W * H
 
@@ -30,7 +30,7 @@ pygame.display.set_caption("Background Trial")
 FPS = 30
 
 #Contra map has been currently utilised in order to experiment whether this is succesful or not.
-bkgd = pygame.image.load("ContraMapStage5BG.png").convert()
+bkgd = pygame.image.load("bg2.png").convert()
 x = 0
 
 
@@ -48,15 +48,15 @@ while True:
 
 # The code that has been commented out below is an expansion on the above True loop. Instead, a red line is drawn every time the image is repeated.
 
-# while True:
-#	events()
+ while True:
+	events()
 
-#	rel_x = x % bkgd.get_rect().width
-#	DS.blit(bkgd, (rel_x - bkgd.get_rect().width, 0))
-#	if rel_x < W:
-#		DS.blit(bkgd, (rel_x, 0))
-#	x -= 1
-#	pygame.draw.line(DS, (255, 0, 0), (rel_x, 0), (rel_x, H), 3)
+	rel_x = x % bkgd.get_rect().width
+	DS.blit(bkgd, (rel_x - bkgd.get_rect().width, 0))
+	if rel_x < W:
+		DS.blit(bkgd, (rel_x, 0))
+	x -= 1
+	pygame.draw.line(DS, (255, 0, 0), (rel_x, 0), (rel_x, H), 1)
 
-#	pygame.display.update()
-#	CLOCK.tick(FPS)
+	pygame.display.update()
+	CLOCK.tick(FPS)
