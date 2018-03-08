@@ -97,12 +97,14 @@ def main():
             diff = player.rect.x - 500
             player.rect.x = 500
             current_level.shift_world(-diff)
+            current_level.draw(screen)
 
         # If the player gets near the left side, shift the world right (+x)
         if player.rect.x <= 120:
             diff = 120 - player.rect.x
             player.rect.x = 120
             current_level.shift_world(diff)
+            current_level.draw(screen)
 
         # If the player gets to the end of the level, go to the next level
         current_position = player.rect.x + current_level.world_shift
