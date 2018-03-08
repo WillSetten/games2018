@@ -6,6 +6,7 @@ import constants
 import levels
 import player
 
+
 def main():
     pygame.init()
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
