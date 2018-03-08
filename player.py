@@ -64,7 +64,8 @@ class player():
     def calcGrav(self): #Occurs when the user is not standing on the ground
         if self.changeY == 0:
             self.changeY = 1
-        else self.changeY += 0.35
+        else:
+            self.changeY += 0.35
 
         if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.changeY >= 0:
             self.changeY = 0
