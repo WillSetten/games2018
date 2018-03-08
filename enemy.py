@@ -45,10 +45,12 @@ class Enemy:
                 self.checkIfHit()
 
     def spawn(self):
+        pass
         #finds an empty platform - need implementation from platform class
         #set self.pos to a place on platform off screen (account for sprite size etc)
 
     def attack(self):
+        pass
             #work out vector from enemy to player
             #fire shot, work out sprite/object to be fired
             #need to consider power ups etc.
