@@ -20,7 +20,7 @@ class platforms(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-class MovingPlatform:
+class MovingPlatform(platforms):
 
     def __init__(self, sprite_sheet_data):
         super().__init__(sprite_sheet_data)
