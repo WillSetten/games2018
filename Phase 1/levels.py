@@ -39,7 +39,7 @@ class Level():
         # Draw the background
         # We don't shift the background as much as the sprites are shifted
         # to give a feeling of depth.
-        screen.fill(constants.BLUE)
+        screen.fill(constants.BLACK)
         screen.blit(self.background,(self.world_shift // 3,0))
 
         # Draw all the sprite lists that we have
@@ -83,12 +83,21 @@ class Level_01(Level):
                   [platforms.GRASS_RIGHT, 880, 510],
 
                   [platforms.GRASS_LEFT, 990, 400],
-                  [platforms.GRASS_MIDDLE, 1090, 400],
+                  [platforms.GRASS_MIDDLE, 1060, 400],
                   [platforms.GRASS_RIGHT, 1130, 400],
 
                   [platforms.STONE_PLATFORM_LEFT, 1820, 280],
                   [platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
                   [platforms.STONE_PLATFORM_RIGHT, 1960, 280],
+
+                  [platforms.GRASS_LEFT, 2250, 360],
+                  [platforms.GRASS_MIDDLE, 2320, 360],
+                  [platforms.GRASS_RIGHT, 2390, 360],
+
+                  [platforms.GRASS_LEFT, 2610, 430],
+                  [platforms.GRASS_MIDDLE, 2680, 430],
+                  [platforms.GRASS_RIGHT, 2750, 430],
+
                   ]
 
 
