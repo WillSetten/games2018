@@ -8,7 +8,7 @@ from vector import Vector
 #will check whether bullets hit users through the Bullet class - distToEnemy???
 #or in the person who fired the shot
 class Enemy:
-    def __init__(self, type):/
+    def __init__(self, type):
         if (type=="Infantry"):
             self.health = 1
             self.speed = 10 #value to be discussed later on
