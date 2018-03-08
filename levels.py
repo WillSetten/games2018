@@ -26,6 +26,24 @@ class Level():
         self.player = player
 
 
+        # Array needs to be implemented here in order to ensure that the platforms are prepared prior to the game.
+
+        #level = [ [platforms.GRASS_LEFT, 500, 500],
+        #          [platforms.GRASS_MIDDLE, 570, 500],
+        #          [platforms.GRASS_RIGHT, 640, 500],
+        #          [platforms.GRASS_LEFT, 800, 400],
+        #          [platforms.GRASS_MIDDLE, 870, 400],
+        #          [platforms.GRASS_RIGHT, 940, 400],
+        #          [platforms.GRASS_LEFT, 1000, 500],
+        #          [platforms.GRASS_MIDDLE, 1070, 500],
+        #          [platforms.GRASS_RIGHT, 1140, 500],
+        #          [platforms.STONE_PLATFORM_LEFT, 1120, 280],
+        #          [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
+        #          [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        #          ]
+
+
+
 
     def update(self):
         #all sprites need to be updated at this stage
