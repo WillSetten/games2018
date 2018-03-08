@@ -2,7 +2,9 @@
 #maybe use this to import sprite sheets and setup the whole game
 
 import pygame
-import constants, levels, player, platforms
+import constants
+import levels
+import player
 
 def main():
     pygame.init()

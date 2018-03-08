@@ -7,6 +7,7 @@ except ImportError:
 
 import pygame
 import constants
+import levels
 
 class player():
 
@@ -23,9 +24,36 @@ class player():
 
         self.rect.X += self.changeX #Move Left and right
         pos = self.rect.x + self.level.world_shift #Considers movement of the world with the movement of the player
-
+#TOM IS DOING A TING APOLOGIES
+         # See if we hit anything
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+            # If we are moving right,
+            # set our right side to the left side of the item we hit
+            if self.change_x > 0:
+                self.rect.right = block.rect.left
+            elif self.change_x < 0:
+                # Otherwise if we are moving left, do the opposite.
+                self.rect.left = block.rect.right
+#TOM IS DOING A TING APOLOGIES
         self.rect.Y += self.changeY #Move up and down (jump and gravity)
+#TOM IS DOING A TING APOLOGIES
+        # Check and see if we hit anything
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
 
+            # Reset our position based on the top/bottom of the object.
+            if self.change_y > 0:
+                self.rect.bottom = block.rect.top
+            elif self.change_y < 0:
+                self.rect.top = block.rect.bottom
+
+            # Stop our vertical movement
+            self.change_y = 0
+
+            if isinstance(block, MovingPlatform):
+                self.rect.x += block.change_x
+#TOM IS DOING A TING APOLOGIES
         if self.direction == "R":
             frame = (pos//30) % len(self.walkingFramesRight)
             self.image = self.walkingFramesRight[frame]

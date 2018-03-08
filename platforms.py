@@ -1,4 +1,5 @@
 import pygame
+import player
 
 """from spritesheet_functions import SpriteSheet"""
 
