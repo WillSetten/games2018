@@ -79,6 +79,7 @@ class Player(pygame.sprite.Sprite):
         #load the left facing jumping frame
         image = sprite_sheet.get_image(125, 60, 24, 32)
         self.jumping_frames_r.append(image)
+
         # Set the image the player starts with
         self.image = self.walking_frames_r[0]
 
@@ -89,6 +90,7 @@ class Player(pygame.sprite.Sprite):
         """ Move the player. """
         # Gravity
         self.calc_grav()
+
         # Move left/right
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
@@ -100,7 +102,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.walking_frames_l[frame]
 
         #checks if jumping
-        if self.change_y <1 or self.change_y >1:
+        if (self.change_y <1 or self.change_y >1) and not(self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0):
             if self.direction == "R":
                 self.image = self.jumping_frames_r[0]
             else:
@@ -140,6 +142,7 @@ class Player(pygame.sprite.Sprite):
         """ Calculate effect of gravity. """
         if self.change_y == 0:
             self.change_y = 1
+
         else:
             self.change_y += .35
 
@@ -174,4 +177,4 @@ class Player(pygame.sprite.Sprite):
 
     def stop(self):
         """ Called when the user lets off the keyboard. """
-        self.change_x = 0
+        self.change_x = 00
