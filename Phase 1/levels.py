@@ -74,18 +74,21 @@ class Level_01(Level):
         self.level_limit = -2500
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ [platforms.GRASS_LEFT, 500, 500],
-                  [platforms.GRASS_MIDDLE, 570, 500],
-                  [platforms.GRASS_RIGHT, 640, 500],
-                  [platforms.GRASS_LEFT, 800, 400],
-                  [platforms.GRASS_MIDDLE, 870, 400],
-                  [platforms.GRASS_RIGHT, 940, 400],
-                  [platforms.GRASS_LEFT, 1000, 500],
-                  [platforms.GRASS_MIDDLE, 1070, 500],
-                  [platforms.GRASS_RIGHT, 1140, 500],
-                  [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                  [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                  [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        level = [ [platforms.GRASS_LEFT, 500, 580],
+                  [platforms.GRASS_MIDDLE, 570, 580],
+                  [platforms.GRASS_RIGHT, 640, 580],
+
+                  [platforms.GRASS_LEFT, 740, 510],
+                  [platforms.GRASS_MIDDLE, 810, 510],
+                  [platforms.GRASS_RIGHT, 880, 510],
+
+                  [platforms.GRASS_LEFT, 990, 400],
+                  [platforms.GRASS_MIDDLE, 1090, 400],
+                  [platforms.GRASS_RIGHT, 1130, 400],
+
+                  [platforms.STONE_PLATFORM_LEFT, 1820, 280],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
+                  [platforms.STONE_PLATFORM_RIGHT, 1960, 280],
                   ]
 
 
