@@ -26,40 +26,6 @@ class Level():
         self.player = player
 
 
-        # Array needs to be implemented here in order to ensure that the platforms are prepared prior to the game.
-
-        #level = [ [platforms.GRASS_LEFT, 500, 500],
-        #          [platforms.GRASS_MIDDLE, 570, 500],
-        #          [platforms.GRASS_RIGHT, 640, 500],
-        #          [platforms.GRASS_LEFT, 800, 400],
-        #          [platforms.GRASS_MIDDLE, 870, 400],
-        #          [platforms.GRASS_RIGHT, 940, 400],
-        #          [platforms.GRASS_LEFT, 1000, 500],
-        #          [platforms.GRASS_MIDDLE, 1070, 500],
-        #          [platforms.GRASS_RIGHT, 1140, 500],
-        #          [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-        #          [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-        #          [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
-        #          ]
-
-        # for plaform in level:
-        #    block = platforms.Platform(platform[0])
-        #    block.rect.x = platform[1]
-        #    block.rect.y = platform[2]
-        #    block.player = self.player
-        #    self.playform_list.add(block)
-
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1350
-        block.rect.y = 280
-        block.boundary_left = 1350
-        block.boundary_right = 1600
-        block.change_x = 1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)
-
 
 
     def update(self):
@@ -102,3 +68,37 @@ class Level_1(Level):
         self.background.set_colourkey(constants.WHITE)
         #Application of moving platforms needs to be added
         #Array with type of platform, and x, y location of the platform, needs to be added
+
+        # Array needs to be implemented here in order to ensure that the platforms are prepared prior to the game.
+
+        #level = [ [platforms.GRASS_LEFT, 500, 500],
+        #          [platforms.GRASS_MIDDLE, 570, 500],
+        #          [platforms.GRASS_RIGHT, 640, 500],
+        #          [platforms.GRASS_LEFT, 800, 400],
+        #          [platforms.GRASS_MIDDLE, 870, 400],
+        #          [platforms.GRASS_RIGHT, 940, 400],
+        #          [platforms.GRASS_LEFT, 1000, 500],
+        #          [platforms.GRASS_MIDDLE, 1070, 500],
+        #          [platforms.GRASS_RIGHT, 1140, 500],
+        #          [platforms.STONE_PLATFORM_LEFT, 1120, 280],
+        #          [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
+        #          [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        #          ]
+
+        # for plaform in level:
+        #    block = platforms.Platform(platform[0])
+        #    block.rect.x = platform[1]
+        #    block.rect.y = platform[2]
+        #    block.player = self.player
+        #    self.playform_list.add(block)
+
+        # Add a custom moving platform
+        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
+        block.rect.x = 1350
+        block.rect.y = 280
+        block.boundary_left = 1350
+        block.boundary_right = 1600
+        block.change_x = 1
+        block.player = self.player
+        block.level = self
+        self.platform_list.add(block)
