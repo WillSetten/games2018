@@ -39,7 +39,7 @@ def main():
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Platformer with sprite sheets")
+    pygame.display.set_caption("Stick Warefare: Dash ‘em ‘n’ Smash ‘em")
 
     # Create the player
     player = Player()
