@@ -12,8 +12,8 @@ class platforms(pygame.sprite.Sprite):
 
     def __init__(self, sprite_sheet_data):
         super(). _init_(sprite_sheet_data)
-         sprite_sheet = SpriteSheet("tiles_spritesheet.png")
-         self.image = sprite_sheet.get_image(sprite_sheet_data[0],
+        sprite_sheet = SpriteSheet("tiles_spritesheet.png")
+        self.image = sprite_sheet.get_image(sprite_sheet_data[0],
                                             sprite_sheet_data[1],
                                             sprite_sheet_data[2],
                                             sprite_sheet_data[3])
