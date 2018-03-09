@@ -234,4 +234,5 @@ class Player(pygame.sprite.Sprite):
 
     def prone(self):
         self.change_x = 0
+        self.rect.bottom = constants.SCREEN_HEIGHT + 10
         self.isprone = True
