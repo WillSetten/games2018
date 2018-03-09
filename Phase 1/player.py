@@ -123,7 +123,7 @@ class Player(pygame.sprite.Sprite):
         pos = self.rect.x + self.level.world_shift
 
         #checks if jumping
-        if self.jumping:
+        if self.jumping and (self.change_y>1 or self.change_y<1):
             self.framespeed = 3
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
@@ -158,7 +158,6 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
             # If we are moving right,
-            # set our right side to the left side of the item we hit
             if self.change_x > 0:
                 self.rect.right = block.rect.left
             elif self.change_x < 0:
@@ -178,6 +177,7 @@ class Player(pygame.sprite.Sprite):
             elif self.change_y < 0:
                 self.rect.top = block.rect.bottom
 
+
             # Stop our vertical movement
             self.change_y = 0
 
@@ -192,8 +192,11 @@ class Player(pygame.sprite.Sprite):
         else:
             self.change_y += .35
 
+        #see if we are on top of the platform
+
+
         # See if we are on the ground.
-        if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
+        if (self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0): #add in trigger for on platform or ():
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
             self.jumping = False
