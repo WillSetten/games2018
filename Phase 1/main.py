@@ -39,7 +39,7 @@ def main():
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Stick Warefare: Dash ‘em ‘n’ Smash ‘em")
+    pygame.display.set_caption("Stick Warfare")
 
     # Create the player
     player = Player()
@@ -73,19 +73,19 @@ def main():
                 done = True # Flag that we are done so we exit this loop
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_a:
                     player.go_left()
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     player.go_right()
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_SPACE:
                     player.jump()
-            #    if event.key == pygame.K_DOWN:
-            #        player.prone()
+                if event.key == pygame.K_s:
+                    player.prone()
 
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT and player.change_x < 0:
+                if event.key == pygame.K_a and player.change_x < 0:
                     player.stop()
-                if event.key == pygame.K_RIGHT and player.change_x > 0:
+                if event.key == pygame.K_d and player.change_x > 0:
                     player.stop()
 
         # Update the player.
