@@ -37,6 +37,8 @@ def main():
             if event.type == pygame.QUIT: #game closed
                 done = True
             if event.type == pygame.KEYDOWN: #key pressed
+                if event.key == pygame.K_DOWN:
+                    player.prone()
                 if event.key == pygame.K_LEFT:
                     player.moveLeft()
                 if event.key == pygame.K_RIGHT:
