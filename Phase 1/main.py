@@ -77,7 +77,7 @@ def main():
                     player.go_left()
                 if event.key == pygame.K_RIGHT:
                     player.go_right()
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_k:
                     player.jump()
             #    if event.key == pygame.K_DOWN:
             #        player.prone()
