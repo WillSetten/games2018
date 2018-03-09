@@ -5,7 +5,6 @@ controlled sprite on the screen.
 import pygame
 import time
 import constants
-
 from platforms import MovingPlatform
 from spritesheet_functions import SpriteSheet
 
@@ -235,9 +234,11 @@ class Player(pygame.sprite.Sprite):
                 if self.direction == "L":
                     frame = (self.count) % len(self.aim_down_running_l)
                     self.image = self.aim_down_running_l[frame]
+                    self.rect.y += 10
                 else:
                     frame = (self.count) % len(self.aim_down_running_r)
                     self.image = self.aim_down_running_r[frame]
+                    self.rect.y += 10
             else:
                 if self.direction == "L":
                     frame = (self.count) % len(self.walking_frames_l)
@@ -248,8 +249,11 @@ class Player(pygame.sprite.Sprite):
         elif self.isprone:
             if self.direction == "L":
                 self.image = self.prone_frame_l
+                self.rect.y += 10
             else:
                 self.image = self.prone_frame_r
+                self.rect.y += 10
+
         else:
             if self.aiming == "UP":
                 if self.direction == "L":
@@ -310,6 +314,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
             self.jumping = False
 
+        if self.prone == True:
+            self.rect.y = self.rect.y + 10
+
     def jump(self):
         # move down a bit and see if there is a platform below us.
         # Move down 2 pixels because it doesn't work well if we only move down 1
@@ -345,7 +352,6 @@ class Player(pygame.sprite.Sprite):
     def prone(self):
 #<<<<<<< HEAD
         self.change_x = 0
-        self.rect.bottom = constants.SCREEN_HEIGHT + 10
 #=======
         self.aiming = "MID"
 #>>>>>>> d2d289be8061881cab7cdfdc3e3552f565a9b7ca
