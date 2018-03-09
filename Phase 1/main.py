@@ -68,7 +68,7 @@ def main():
     clock = pygame.time.Clock()
 
     # -------- Main Program Loop -----------
-        while not done:
+    while not done:
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
@@ -80,10 +80,13 @@ def main():
                     player.go_left()
                 if event.key == pygame.K_RIGHT:
                     player.go_right()
-                if event.key == pygame.K_k:
-                    player.jump()
                 if event.key == pygame.K_UP:
                     player.aimup()
+                if event.key == pygame.K_z:
+                    player.jump()
+                #if event_key == pygame.K_x:
+                    #player.attack()
+
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT and player.change_x < 0:

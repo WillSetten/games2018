@@ -343,12 +343,12 @@ class Player(pygame.sprite.Sprite):
         self.aiming = "MID"
 
     def prone(self):
-<<<<<<< HEAD
+#<<<<<<< HEAD
         self.change_x = 0
         self.rect.bottom = constants.SCREEN_HEIGHT + 10
-=======
+#=======
         self.aiming = "MID"
->>>>>>> d2d289be8061881cab7cdfdc3e3552f565a9b7ca
+#>>>>>>> d2d289be8061881cab7cdfdc3e3552f565a9b7ca
         self.isprone = True
 
     def aimup(self):
