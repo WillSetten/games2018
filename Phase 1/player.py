@@ -17,13 +17,24 @@ class Player(pygame.sprite.Sprite):
     # Set speed vector of player
     change_x = 0
     change_y = 0
-
+    count=1
+    #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
+    flag = 0
+    framespeed=4
+    #jumping tells us if the player is jumping.
+    jumping = False
+    #isprone tells us if the player is prone.
+    isprone = False
     # This holds all the images for the animated walk left/right
     # of our player
     walking_frames_l = []
     walking_frames_r = []
     jumping_frames_l = []
     jumping_frames_r = []
+    idle_frame_l = None
+    idle_frame_r = None
+    prone_frame_r = None
+    prone_frame_l = None
     # What direction is the player facing?
     direction = "R"
 
@@ -38,47 +49,64 @@ class Player(pygame.sprite.Sprite):
 
         sprite_sheet = SpriteSheet("player1.png")
         # Load all the right facing images into a list
-        image = sprite_sheet.get_image(322, 210, 42,51)
+        image = sprite_sheet.get_image(324, 261, 30, 45)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(364,210,42,51)
+        image = sprite_sheet.get_image(358, 262, 26, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(406,210,36,51)
+        image = sprite_sheet.get_image(388, 262, 24, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(442,210,34,51)
+        image = sprite_sheet.get_image(414, 260, 33, 46)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(476,210,35,51)
+        image = sprite_sheet.get_image(451, 259, 38, 47)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(511,210,38,51)
+        image = sprite_sheet.get_image(324, 210, 39, 45)
+        self.walking_frames_r.append(image)
+        image = sprite_sheet.get_image(367, 211, 36, 44)
+        self.walking_frames_r.append(image)
+        image = sprite_sheet.get_image(408, 211, 32, 44)
+        self.walking_frames_r.append(image)
+        image = sprite_sheet.get_image(444, 210, 28, 45)
+        self.walking_frames_r.append(image)
+        image = sprite_sheet.get_image(476, 212, 35, 43)
+        self.walking_frames_r.append(image)
+        image = sprite_sheet.get_image(515, 212, 38, 43)
         self.walking_frames_r.append(image)
 
         # Load all the right facing images, then flip them
         # to face left.
-        image = sprite_sheet.get_image(322, 210, 42,51)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(364,210,42,51)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(406,210,36,51)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(442,210,34,51)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(476,210,35,51)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(511,210,38,51)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
+        for x in self.walking_frames_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.walking_frames_l.append(image)
 
         #load the right facing jumping frame
-        image = sprite_sheet.get_image(125, 60, 24, 32)
-        image = pygame.transform.flip(image, True, False)
-        self.jumping_frames_l.append(image)
-
-        #load the left facing jumping frame
-        image = sprite_sheet.get_image(125, 60, 24, 32)
+        image = sprite_sheet.get_image(324, 63, 22, 22)
         self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(349, 65, 23, 20)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(375, 64, 22, 22)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(400, 64, 20, 25)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(423, 64, 22, 22)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(448, 66, 25, 20)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(476, 64, 20, 23)
+        self.jumping_frames_r.append(image)
+        image = sprite_sheet.get_image(499, 64, 20, 25)
+        self.jumping_frames_r.append(image)
+        #load the left facing jumping frame
+        for x in self.jumping_frames_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.jumping_frames_l.append(image)
+
+        self.idle_frame_r = sprite_sheet.get_image(324, 93, 35, 42)
+        self.idle_frame_l = pygame.transform.flip(self.idle_frame_r, True, False)
+
+        self.prone_frame_r = sprite_sheet.get_image(324, 139, 50, 19)
+        self.prone_frame_l = pygame.transform.flip(self.prone_frame_r, True, False)
 
         # Set the image the player starts with
         self.image = self.walking_frames_r[0]
@@ -90,24 +118,42 @@ class Player(pygame.sprite.Sprite):
         """ Move the player. """
         # Gravity
         self.calc_grav()
-
         # Move left/right
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
-        if self.direction == "R":
-            frame = (pos // 30) % len(self.walking_frames_r)
-            self.image = self.walking_frames_r[frame]
-        else:
-            frame = (pos // 30) % len(self.walking_frames_l)
-            self.image = self.walking_frames_l[frame]
 
         #checks if jumping
-        if (self.change_y <1 or self.change_y >1) and not(self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0):
-            if self.direction == "R":
-                self.image = self.jumping_frames_r[0]
+        if self.jumping:
+            self.framespeed = 3
+            if self.direction == "L":
+                frame = (self.count) % len(self.jumping_frames_l)
+                self.image = self.jumping_frames_l[frame]
             else:
-                self.image = self.jumping_frames_l[0]
-
+                frame = (self.count) % len(self.jumping_frames_r)
+                self.image = self.jumping_frames_r[frame]
+        elif(self.change_x!=0):
+            self.framespeed = 3
+            if self.direction == "R":
+                frame = (self.count) % len(self.walking_frames_r)
+                self.image = self.walking_frames_r[frame]
+            elif self.direction == "L":
+                frame = (self.count) % len(self.walking_frames_l)
+                self.image = self.walking_frames_l[frame]
+        elif self.isprone:
+            if self.direction == "L":
+                self.image = self.prone_frame_l
+            else:
+                self.image = self.prone_frame_r
+        else:
+            if self.direction == "L":
+                self.image = self.idle_frame_l
+            else:
+                self.image = self.idle_frame_r
+        if self.flag == 0:
+            self.count += 1
+            self.flag=self.framespeed
+        else:
+            self.flag-=1
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
@@ -150,6 +196,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
+            self.jumping = False
 
     def jump(self):
         # move down a bit and see if there is a platform below us.
@@ -158,23 +205,30 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += 2
         platform_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         self.rect.y -= 2
-
+        self.jumping = True
+        self.isprone = False
         # If it is ok to jump, set our speed upwards
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -10
-        self.direction = "U"
 
     # Player-controlled movement:
     def go_left(self):
         """ Called when the user hits the left arrow. """
+        self.isprone = False
         self.change_x = -6
         self.direction = "L"
 
     def go_right(self):
         """ Called when the user hits the right arrow. """
+        self.isprone = False
         self.change_x = 6
         self.direction = "R"
 
     def stop(self):
         """ Called when the user lets off the keyboard. """
         self.change_x = 00
+        self.isprone = False
+
+    def prone(self):
+        self.change_x = 0
+        self.isprone = True
