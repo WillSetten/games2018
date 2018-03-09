@@ -132,23 +132,35 @@ class Level_02(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("bg3.png").convert()
+        self.background = pygame.image.load("bg2.png").convert()
         self.background.set_colorkey(constants.WHITE)
         self.level_limit = -1000
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ [platforms.STONE_PLATFORM_LEFT, 500, 550],
-                  [platforms.STONE_PLATFORM_MIDDLE, 570, 550],
-                  [platforms.STONE_PLATFORM_RIGHT, 640, 550],
-                  [platforms.GRASS_LEFT, 800, 400],
-                  [platforms.GRASS_MIDDLE, 870, 400],
-                  [platforms.GRASS_RIGHT, 940, 400],
-                  [platforms.GRASS_LEFT, 1000, 500],
-                  [platforms.GRASS_MIDDLE, 1070, 500],
-                  [platforms.GRASS_RIGHT, 1140, 500],
-                  [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                  [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                  [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        level = [ [platforms.STONE_PLATFORM_LEFT, 500, 580],
+                  [platforms.STONE_PLATFORM_MIDDLE, 570, 580],
+                  [platforms.STONE_PLATFORM_RIGHT, 640, 580],
+
+                  [platforms.STONE_PLATFORM_LEFT, 740, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 810, 510],
+                  [platforms.STONE_PLATFORM_RIGHT, 880, 510],
+
+                  [platforms.STONE_PLATFORM_LEFT, 990, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1060, 400],
+                  [platforms.STONE_PLATFORM_RIGHT, 1130, 400],
+
+                  [platforms.STONE_PLATFORM_LEFT, 1820, 280],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
+                  [platforms.STONE_PLATFORM_RIGHT, 1960, 280],
+
+                  [platforms.STONE_PLATFORM_LEFT, 2250, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 2320, 360],
+                  [platforms.STONE_PLATFORM_RIGHT, 2390, 360],
+
+                  [platforms.STONE_PLATFORM_LEFT, 2610, 430],
+                  [platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
+                  [platforms.STONE_PLATFORM_RIGHT, 2750, 430],
+
                   ]
 
 
