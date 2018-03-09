@@ -12,6 +12,7 @@ from spritesheet_functions import SpriteSheet
 #   Width of sprite
 #   Height of sprite
 
+
 GRASS_LEFT            = (576, 720, 70, 70)
 GRASS_RIGHT           = (576, 576, 70, 70)
 GRASS_MIDDLE          = (504, 576, 70, 70)
