@@ -25,16 +25,27 @@ class Player(pygame.sprite.Sprite):
     jumping = False
     #isprone tells us if the player is prone.
     isprone = False
+    #aiming tells us which direction in which the player is aiming
+    aiming = "MID"
     # This holds all the images for the animated walk left/right
     # of our player
     walking_frames_l = []
     walking_frames_r = []
     jumping_frames_l = []
     jumping_frames_r = []
+    aim_up_running_r = []
+    aim_up_running_l = []
+
+    aim_down_running_r = []
+    aim_down_running_l = []
+
     idle_frame_l = None
     idle_frame_r = None
     prone_frame_r = None
     prone_frame_l = None
+
+    direct_upaim_l = None
+    direct_upaim_r = None
     # What direction is the player facing?
     direction = "R"
 
@@ -79,7 +90,7 @@ class Player(pygame.sprite.Sprite):
             image = pygame.transform.flip(image, True, False)
             self.walking_frames_l.append(image)
 
-        #load the right facing jumping frame
+        #load the right facing jumping frames
         image = sprite_sheet.get_image(324, 63, 22, 22)
         self.jumping_frames_r.append(image)
         image = sprite_sheet.get_image(349, 65, 23, 20)
@@ -102,9 +113,89 @@ class Player(pygame.sprite.Sprite):
             image = pygame.transform.flip(image, True, False)
             self.jumping_frames_l.append(image)
 
+        #load the sprites for aiming upwards whilst running right
+        image = sprite_sheet.get_image(323, 310, 35, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(362, 310, 34, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(402, 310, 32, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(439, 310, 31, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(474, 310, 29, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(509, 310, 29, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(544, 309, 29, 51)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(324, 367, 36, 48)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(368, 368, 38, 47)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(411, 365, 36, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(451, 365, 35, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(490, 365, 34, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(529, 365, 31, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(564, 365, 29, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(596, 365, 29, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(323, 310, 35, 50)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(323, 417, 29, 51)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(355, 417, 30, 51)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(389, 417, 33, 51)
+        self.aim_up_running_r.append(image)
+        image = sprite_sheet.get_image(425, 422, 36, 46)
+        self.aim_up_running_r.append(image)
+        #load the sprites for aiming upwards whilst running left
+        for x in self.aim_up_running_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.aim_up_running_l.append(image)
+
+        #load the sprites for aiming downwards whilst running right
+        image = sprite_sheet.get_image(323, 472, 34, 45)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(360, 473, 33, 44)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(396, 473, 31, 44)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(431, 473, 31, 44)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(467, 473, 31, 44)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(502, 473, 31, 44)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(535, 472, 31, 45)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(568, 472, 31, 45)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(602, 472, 31, 45)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(323, 523, 32, 45)
+        self.aim_down_running_r.append(image)
+        image = sprite_sheet.get_image(359, 523, 36, 45)
+        self.aim_down_running_r.append(image)
+
+        for x in self.aim_down_running_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.aim_down_running_l.append(image)
+
+        #load the idle aiming up frames
+        self.direct_upaim_r = sprite_sheet.get_image(613, 3, 24, 57)
+        self.direct_upaim_l = pygame.transform.flip(self.direct_upaim_r, True, False)
+        #load the idle frames
         self.idle_frame_r = sprite_sheet.get_image(324, 93, 35, 42)
         self.idle_frame_l = pygame.transform.flip(self.idle_frame_r, True, False)
-
+        #load the prone frames
         self.prone_frame_r = sprite_sheet.get_image(324, 139, 50, 19)
         self.prone_frame_l = pygame.transform.flip(self.prone_frame_r, True, False)
 
@@ -124,7 +215,7 @@ class Player(pygame.sprite.Sprite):
 
         #checks if jumping
         if self.jumping and (self.change_y>1 or self.change_y<1):
-            self.framespeed = 3
+            self.framespeed = 2
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
                 self.image = self.jumping_frames_l[frame]
@@ -133,22 +224,43 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.jumping_frames_r[frame]
         elif(self.change_x!=0):
             self.framespeed = 3
-            if self.direction == "R":
-                frame = (self.count) % len(self.walking_frames_r)
-                self.image = self.walking_frames_r[frame]
-            elif self.direction == "L":
-                frame = (self.count) % len(self.walking_frames_l)
-                self.image = self.walking_frames_l[frame]
+            if self.aiming == "UP":
+                if self.direction == "L":
+                    frame = (self.count) % len(self.aim_up_running_l)
+                    self.image = self.aim_up_running_l[frame]
+                else:
+                    frame = (self.count) % len(self.aim_up_running_r)
+                    self.image = self.aim_up_running_r[frame]
+            elif self.isprone == True:
+                if self.direction == "L":
+                    frame = (self.count) % len(self.aim_down_running_l)
+                    self.image = self.aim_down_running_l[frame]
+                else:
+                    frame = (self.count) % len(self.aim_down_running_r)
+                    self.image = self.aim_down_running_r[frame]
+            else:
+                if self.direction == "L":
+                    frame = (self.count) % len(self.walking_frames_l)
+                    self.image = self.walking_frames_l[frame]
+                else:
+                    frame = (self.count) % len(self.walking_frames_r)
+                    self.image = self.walking_frames_r[frame]
         elif self.isprone:
             if self.direction == "L":
                 self.image = self.prone_frame_l
             else:
                 self.image = self.prone_frame_r
         else:
-            if self.direction == "L":
-                self.image = self.idle_frame_l
+            if self.aiming == "UP":
+                if self.direction == "L":
+                    self.image = self.direct_upaim_l
+                else:
+                    self.image = self.direct_upaim_r
             else:
-                self.image = self.idle_frame_r
+                if self.direction == "L":
+                    self.image = self.idle_frame_l
+                else:
+                    self.image = self.idle_frame_r
         if self.flag == 0:
             self.count += 1
             self.flag=self.framespeed
@@ -158,6 +270,7 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
             # If we are moving right,
+            # set our right side to the left side of the item we hit
             if self.change_x > 0:
                 self.rect.right = block.rect.left
             elif self.change_x < 0:
@@ -177,7 +290,6 @@ class Player(pygame.sprite.Sprite):
             elif self.change_y < 0:
                 self.rect.top = block.rect.bottom
 
-
             # Stop our vertical movement
             self.change_y = 0
 
@@ -192,11 +304,8 @@ class Player(pygame.sprite.Sprite):
         else:
             self.change_y += .35
 
-        #see if we are on top of the platform
-
-
         # See if we are on the ground.
-        if (self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0): #add in trigger for on platform or ():
+        if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
             self.jumping = False
@@ -218,20 +327,28 @@ class Player(pygame.sprite.Sprite):
     def go_left(self):
         """ Called when the user hits the left arrow. """
         self.isprone = False
-        self.change_x = -5
+        self.change_x = -6
         self.direction = "L"
 
     def go_right(self):
         """ Called when the user hits the right arrow. """
         self.isprone = False
-        self.change_x = 5
+        self.change_x = 6
         self.direction = "R"
 
     def stop(self):
         """ Called when the user lets off the keyboard. """
         self.change_x = 00
         self.isprone = False
+        self.aiming = "MID"
 
     def prone(self):
-        self.change_x = 0
+        self.aiming = "MID"
         self.isprone = True
+
+    def aimup(self):
+        self.aiming = "UP"
+
+    def resetaim(self):
+        self.aiming = "MID"
+        self.isprone = False
