@@ -15,5 +15,5 @@ class SpriteSheet(object):
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
         """if the SpriteSheet has a colour in the background then you can use this line to make that colour transparent
         but we'll probably just"""
-        "image.set_colorkey( dont make a new colour here, make a new constant variable in the constants module pls )"
+        image.set_colorkey(constants.PINK)
         return image
