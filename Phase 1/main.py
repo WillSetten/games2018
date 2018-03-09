@@ -68,26 +68,30 @@ def main():
     clock = pygame.time.Clock()
 
     # -------- Main Program Loop -----------
-    while not done:
+        while not done:
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    player.go_left()
-                if event.key == pygame.K_d:
-                    player.go_right()
-                if event.key == pygame.K_SPACE:
-                    player.jump()
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_DOWN:
                     player.prone()
+                if event.key == pygame.K_LEFT:
+                    player.go_left()
+                if event.key == pygame.K_RIGHT:
+                    player.go_right()
+                if event.key == pygame.K_k:
+                    player.jump()
+                if event.key == pygame.K_UP:
+                    player.aimup()
 
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_a and player.change_x < 0:
+                if event.key == pygame.K_LEFT and player.change_x < 0:
                     player.stop()
-                if event.key == pygame.K_d and player.change_x > 0:
+                if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    player.resetaim()
 
         # Update the player.
         active_sprite_list.update()
