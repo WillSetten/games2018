@@ -2,6 +2,7 @@ import pygame
 
 import constants
 import platforms
+import enemy
 
 class Level():
     """ This is a generic super-class used to define a level.
@@ -11,7 +12,7 @@ class Level():
     # Lists of sprites used in all levels. Add or remove
     # lists as needed for your game. """
     platform_list = None
-    enemy_list = None
+    enemy_list = []
 
     # Background image
     background = None
@@ -72,6 +73,10 @@ class Level_01(Level):
         self.background = pygame.image.load("bg2.png").convert()
         self.background.set_colorkey(constants.WHITE)
         self.level_limit = -2500
+
+        for x in range(0,4):
+            e = enemy.Enemy("Infantry")
+            Level.enemy_list.append(e)
 
         # Array with type of platform, and x, y location of the platform.
         level = [ [platforms.GRASS_LEFT, 500, 580],

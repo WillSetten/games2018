@@ -1,13 +1,11 @@
 import pygame
+import random
 import levels
 import constants
 from vector import Vector
-#constructor should work by being called with an enemy type, then will set it up accordingly
-#assuming the main game class will select an enemy type and when to spawn it?
-#can discuss these issues in the week somewhen
-#will check whether bullets hit users through the Bullet class - distToEnemy???
-#or in the person who fired the shot
+
 class Enemy:
+    location = 0
     def __init__(self, type):
         if (type=="Infantry"):
             self.health = 1
@@ -21,12 +19,6 @@ class Enemy:
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None
-#        elif (type=="Drone"):
-#            self.health = 3
-#            self.speed = 5
-#            self.type = type
-#            self.pos = Vector(0,0)
-#            self.sprite = null
         else:
             self.health = 40
             self.speed = 0
@@ -46,9 +38,13 @@ class Enemy:
                 self.checkIfHit()
 
     def spawn(self):
+    #    self.location = levels.Level.platform_list[(random.randint(0,6))*3]
+    #    self.rect.x = self.location.rect.x
+    #    self.rect.y = self.location.rect.y+20
+        #self.rect.x = 0
+        #self.rect.y= 0
         pass
-        #finds an empty platform - need implementation from platform class
-        #set self.pos to a place on platform off screen (account for sprite size etc)
+
     def attack(self):
         pass
             #work out vector from enemy to player
@@ -63,26 +59,26 @@ class Enemy:
 
     def checkIfHit(self):
     #need to set up code to work out whether enemy has been hit or not
+        block_hit_list = pygame.sprite.spritecollide(self, levels.Level.platform_list, False)
+        if block_hit_list != None:
+
     #IF (Enemy has been hit)
-        self.health=self.health-1
-        if (self.health<1):
-            self.remove()
+            self.health=self.health-1
+            if (self.health<1):
+                self.remove()
             #if the enemy is dead, remove it from the game
-            if (self.type=="Boss"):
-                pass
+                if (self.type=="Boss"):
+                    pass
                 #score = score + 5000
-            elif (self.type=="Heavy"):
-                pass
-                #score = score + 500
-            elif (self.type=="Drone"):
-                pass
-                #score = score + 250
-            else:
-                pass
-                #score = score + 100
+                elif (self.type=="Heavy"):
+                    pass
+                    #score = score + 500
+                else:
+                    pass
+                    #score = score + 100
             #increment score since the user has killed an enemy
         #potentially display different sprite if hit / blur sprite for x amount of time to indicate hit
 
     def remove(self):
-        self.sprite = null #set to a blank sprite so it no longer appears
+        self.sprite = None #set to a blank sprite so it no longer appears
         #will run if the enemy is dead, to remove them from the environment

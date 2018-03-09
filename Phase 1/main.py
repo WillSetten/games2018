@@ -28,6 +28,7 @@ import pygame
 
 import constants
 import levels
+import enemy
 
 from player import Player
 
@@ -90,6 +91,10 @@ def main():
 
         # Update the player.
         active_sprite_list.update()
+
+        #update the enemies
+        #for enemy in levels.Level.enemy_list:
+        #    enemy.update()
 
         # Update items in the level
         current_level.update()
