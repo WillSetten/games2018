@@ -40,7 +40,7 @@ def main():
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Stick Warfare")
+    pygame.display.set_caption("Artnoc")
 
     # Create the player
     player = Player()
