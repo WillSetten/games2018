@@ -331,13 +331,13 @@ class Player(pygame.sprite.Sprite):
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -10
 
-    def shoot_left(self):
-        self.direction = "L"
-    def shoot_Right(self):
-        self.direction = "R"
-    def shoot_Up(self):
+    #def shoot_left(self):
+    #    self.direction = "L"
+    #def shoot_Right(self):
+    #    self.direction = "R"
+    #def shoot_Up(self):
         # All 4 of these need their respective spites and bullet link
-    def shoot_down(self):
+    #def shoot_down(self):
 
     # Player-controlled movement:
     def go_left(self):
