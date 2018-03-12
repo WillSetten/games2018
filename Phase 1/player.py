@@ -296,6 +296,7 @@ class Player(pygame.sprite.Sprite):
             if isinstance(block, MovingPlatform):
                 self.rect.x += block.change_x
 
+
     def calc_grav(self):
         """ Calculate effect of gravity. """
         if self.change_y == 0:
@@ -323,17 +324,25 @@ class Player(pygame.sprite.Sprite):
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -10
 
+    def shoot_left(self):
+        self.direction = "L"
+    def shoot_Right(self):
+        self.direction = "R"
+    def shoot_Up(self):
+        # All 4 of these need their respective spites and bullet link
+    def shoot_down(self):
+
     # Player-controlled movement:
     def go_left(self):
         """ Called when the user hits the left arrow. """
         self.isprone = False
-        self.change_x = -6
+        self.change_x = -5
         self.direction = "L"
 
     def go_right(self):
         """ Called when the user hits the right arrow. """
         self.isprone = False
-        self.change_x = 6
+        self.change_x = 5
         self.direction = "R"
 
     def stop(self):
