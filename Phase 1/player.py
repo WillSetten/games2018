@@ -25,6 +25,10 @@ class Player(pygame.sprite.Sprite):
     #isprone tells us if the player is prone.
     isprone = False
     #aiming tells us which direction in which the player is aiming
+
+    # Holds the cooldown of the shot being fired
+    cooldown = 0
+
     aiming = "MID"
     # This holds all the images for the animated walk left/right
     # of our player
@@ -331,13 +335,9 @@ class Player(pygame.sprite.Sprite):
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -10
 
-    #def shoot_left(self):
-    #    self.direction = "L"
-    #def shoot_Right(self):
-    #    self.direction = "R"
-    #def shoot_Up(self):
-        # All 4 of these need their respective spites and bullet link
-    #def shoot_down(self):
+    def shoot(self): #To be called with the user hits the shoot button, "x"?
+        self.cooldown = 1
+
 
     # Player-controlled movement:
     def go_left(self):

@@ -84,8 +84,8 @@ def main():
                     player.aimup()
                 if event.key == pygame.K_z:
                     player.jump()
-                #if event_key == pygame.K_x:
-                    #player.attack()
+                if event.key == pygame.K_x and player.cooldown == 0:
+                    player.shoot()
 
 
             if event.type == pygame.KEYUP:
