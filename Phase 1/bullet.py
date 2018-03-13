@@ -17,7 +17,7 @@ class Bullet:
     """Bullets will be sorted into two arrays - player and enemy bullets. If"""
     def draw(self, canvas):
         if self.destroyed is False:
-            canvas.draw.circle(constants.WHITE, self.position, self.radius, 0)
+            canvas.draw.circle(constants.WHITE, self.position, 3, 0)
     """Bullet will travel in set direction until it interacts with a character"""
     def update(self):
         self.position.add(self.direction)
