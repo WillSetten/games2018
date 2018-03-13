@@ -41,8 +41,8 @@ class Enemy:
     #    self.location = levels.Level.platform_list[(random.randint(0,6))*3]
     #    self.rect.x = self.location.rect.x
     #    self.rect.y = self.location.rect.y+20
-        #self.rect.x = 0
-        #self.rect.y= 0
+    #    self.rect.x = 0
+    #    self.rect.y= 0
         pass
 
     def attack(self):
