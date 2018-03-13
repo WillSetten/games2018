@@ -276,12 +276,29 @@ class Player(pygame.sprite.Sprite):
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
-            # If we are moving right,set our right side to the left side of the item we hit
-            if self.change_x > 0:
+            #if player walking right into wall and on platform
+            if self.change_x>0 and self.rect.bottom == block.rect.top:
                 self.rect.right = block.rect.left
-            elif self.change_x < 0:
-            # Otherwise if we are moving left, do the opposite.
+                self.change_x=0
+            elif self.change_x<0 and self.rect.bottom == block.rect.top:
                 self.rect.left = block.rect.right
+                self.change_x=0
+
+
+            #if self.rect.bottom == block.rect.top:
+            #    if self.change_x > 0: #wants to travel right
+            #        self.change_y = 0
+            #        self.rect.right = block.rect.left
+            #    elif self.change_x < 0: #wants to travel left
+            #        self.change_y = 0
+            #        self.rect.left= block.rect.right
+            #else:
+                # If we are moving right,set our right side to the left side of the item we hit
+            #    if self.change_x > 0:
+            #        self.rect.right = block.rect.left
+                #elif self.change_x < 0:
+                # Otherwise if we are moving left, do the opposite.
+                #    self.rect.left = block.rect.right
 
         # Move up/down
         self.rect.y += self.change_y
@@ -292,6 +309,9 @@ class Player(pygame.sprite.Sprite):
             if self.rect.bottom != block.rect.top:
                 # Reset our position based on the top/bottom of the object.
                 #THIS IS WHERE WE CODE LANDING ON PLATFORM
+                #previous moves player into platform
+                #when new collision occurs, as change_y is set to 1 re. calc_grav
+                #the player will move up
                 if self.change_y > 0:
                     self.rect.bottom = block.rect.top
                     self.jumping = False
