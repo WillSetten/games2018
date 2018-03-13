@@ -216,7 +216,7 @@ class Player(pygame.sprite.Sprite):
         # Move left/right
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
-        if self.jumping and (self.change_y>1 or self.change_y<1):
+        if self.jumping:
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
                 self.image = self.jumping_frames_l[frame]
@@ -264,6 +264,7 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.idle_frame_r
 
         self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
+        self.rect.height = self.image.get_height()
         if self.flag == 0:
             self.count += 1
             self.flag=self.framespeed
@@ -327,7 +328,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = True
         # If it is ok to jump, set our speed upwards
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
-            self.change_y = -10
+            self.change_y = -15
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
         self.cooldown = 1
