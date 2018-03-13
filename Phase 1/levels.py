@@ -60,6 +60,17 @@ class Level():
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
+#Development of a main menu
+class Level_main_menu(Level):
+    def __init__(self):
+        super(Level_menu_main, self).__init__()
+
+        self.create_gradient_background((0, 0, 0), (255, 255, 255))
+
+        self.menu = Main_menu(self)
+        self.list_draw.append(self.menu)
+        self.list_update.append(self.menu)
+
 # Create platforms for the level
 class Level_01(Level):
     """ Definition for level 1. """

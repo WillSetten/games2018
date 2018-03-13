@@ -270,6 +270,10 @@ class Player(pygame.sprite.Sprite):
             self.flag=self.framespeed
         else:
             self.flag-=1
+
+        #if on top of platform, stop jumping around
+
+
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
@@ -291,8 +295,11 @@ class Player(pygame.sprite.Sprite):
             # Reset our position based on the top/bottom of the object.
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
+                self.jumping = False
+            #THIS IS WHERE WE CODE LANIDN ON platform
             elif self.change_y < 0:
                 self.rect.top = block.rect.bottom
+
 
             # Stop our vertical movement
             self.change_y = 0
@@ -310,10 +317,16 @@ class Player(pygame.sprite.Sprite):
             self.change_y += .35
 
         # See if we are on the ground.
-        if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
+
+        if (self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0):
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
             self.jumping = False
+        #check if on platform
+        #if (not(self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height) and self.change_y>12):
+        #    self.change_y=0
+        #    self.jumping = False
+
 
         if self.prone == True:
             self.rect.y = self.rect.y + 10
