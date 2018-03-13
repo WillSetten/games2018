@@ -7,19 +7,21 @@ from vector import Vector
 class Enemy:
     location = 0
     def __init__(self, type):
-        if (type=="Infantry"):
+        if(type!="Melee" and type!="Shooter" and type!="Heavy"):
+            type = "Melee"
+        if (type=="Melee"):
             self.health = 1
             self.speed = 10 #value to be discussed later on
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None #set as null for now while working on other areas
-        elif (type=="Heavy"):
+        elif (type=="Shooter"):
             self.health = 3
             self.speed = 0
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None
-        else:
+        elif (type=="Heavy")
             self.health = 40
             self.speed = 0
             self.type = type
