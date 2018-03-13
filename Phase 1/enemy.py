@@ -6,10 +6,15 @@ from vector import Vector
 
 class Enemy:
     location = 0
+    death_frames = []
+    sprite_sheet = SpriteSheet("assets/enemies1.png")
     def __init__(self, type):
         if(type!="Melee" and type!="Shooter" and type!="Heavy"):
             type = "Melee"
-        if (type=="Melee"):
+        if (type=="Melee)
+            walking_frames_l = []
+            walking_frames_r = []
+            image =
             self.health = 1
             self.speed = 10 #value to be discussed later on
             self.type = type
