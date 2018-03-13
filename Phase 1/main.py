@@ -23,9 +23,7 @@ Game art from Kenney.nl:
 http://opengameart.org/content/platformer-art-deluxe
 
 """
-
 import pygame
-
 import constants
 import levels
 import enemy

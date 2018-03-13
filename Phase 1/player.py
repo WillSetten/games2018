@@ -25,11 +25,11 @@ class Player(pygame.sprite.Sprite):
     #isprone tells us if the player is prone.
     isprone = False
     #aiming tells us which direction in which the player is aiming
-
     # Holds the cooldown of the shot being fired
     cooldown = 0
-
     aiming = "MID"
+    #playerscale is the multiplier by which the size of the player sprite is increased
+    playerscale = 3
     # This holds all the images for the animated walk left/right
     # of our player
     walking_frames_l = []
@@ -205,6 +205,7 @@ class Player(pygame.sprite.Sprite):
         # Set the image the player starts with
         self.image = self.walking_frames_r[0]
 
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
@@ -215,60 +216,54 @@ class Player(pygame.sprite.Sprite):
         # Move left/right
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
-
-        #checks if jumping
         if self.jumping and (self.change_y>1 or self.change_y<1):
-            self.framespeed = 2
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
                 self.image = self.jumping_frames_l[frame]
             else:
                 frame = (self.count) % len(self.jumping_frames_r)
                 self.image = self.jumping_frames_r[frame]
-        elif(self.change_x!=0):
-            self.framespeed = 3
-            if self.aiming == "UP":
+        elif(self.aiming == "UP"):
+            if self.change_x != 0:
                 if self.direction == "L":
                     frame = (self.count) % len(self.aim_up_running_l)
                     self.image = self.aim_up_running_l[frame]
                 else:
                     frame = (self.count) % len(self.aim_up_running_r)
                     self.image = self.aim_up_running_r[frame]
-            elif self.isprone == True:
+            else:
+                if self.direction == "L":
+                    self.image = self.direct_upaim_l
+                else:
+                    self.image = self.direct_upaim_r
+        elif(self.aiming == "DOWN"):
+            if self.change_x != 0:
                 if self.direction == "L":
                     frame = (self.count) % len(self.aim_down_running_l)
                     self.image = self.aim_down_running_l[frame]
-                    self.rect.y += 10
                 else:
                     frame = (self.count) % len(self.aim_down_running_r)
                     self.image = self.aim_down_running_r[frame]
-                    self.rect.y += 10
             else:
+                if self.direction == "L":
+                    self.image = self.prone_frame_l
+                else:
+                    self.image = self.prone_frame_r
+        elif(self.aiming == "MID"):
+            if self.change_x != 0:
                 if self.direction == "L":
                     frame = (self.count) % len(self.walking_frames_l)
                     self.image = self.walking_frames_l[frame]
                 else:
                     frame = (self.count) % len(self.walking_frames_r)
                     self.image = self.walking_frames_r[frame]
-        elif self.isprone:
-            if self.direction == "L":
-                self.image = self.prone_frame_l
-                self.rect.y += 10
-            else:
-                self.image = self.prone_frame_r
-                self.rect.y += 10
-
-        else:
-            if self.aiming == "UP":
-                if self.direction == "L":
-                    self.image = self.direct_upaim_l
-                else:
-                    self.image = self.direct_upaim_r
             else:
                 if self.direction == "L":
                     self.image = self.idle_frame_l
                 else:
                     self.image = self.idle_frame_r
+
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
         if self.flag == 0:
             self.count += 1
             self.flag=self.framespeed
@@ -330,14 +325,12 @@ class Player(pygame.sprite.Sprite):
         platform_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         self.rect.y -= 2
         self.jumping = True
-        self.isprone = False
         # If it is ok to jump, set our speed upwards
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -10
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
         self.cooldown = 1
-
 
     # Player-controlled movement:
     def go_left(self):
@@ -355,20 +348,12 @@ class Player(pygame.sprite.Sprite):
     def stop(self):
         """ Called when the user lets off the keyboard. """
         self.change_x = 00
-        self.isprone = False
-        self.aiming = "MID"
 
     def prone(self):
-#<<<<<<< HEAD
-        self.change_x = 0
-#=======
-        self.aiming = "MID"
-#>>>>>>> d2d289be8061881cab7cdfdc3e3552f565a9b7ca
-        self.isprone = True
+        self.aiming = "DOWN"
 
     def aimup(self):
         self.aiming = "UP"
 
     def resetaim(self):
         self.aiming = "MID"
-        self.isprone = False
