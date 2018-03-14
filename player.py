@@ -277,17 +277,11 @@ class Player(pygame.sprite.Sprite):
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
-            #if player walking right into wall and on platform
+            #if player walking on platform
+            if self.rect.bottom == block.rect.top:
+                pass
 
-            if self.onPlatform == True:
-                self.change_y = 0
-                if self.change_x>0:
-                    self.rect.right = block.rect.left
-                elif self.change_x<0:
-                    self.rect.left = block.rect.right
-
-            #if self.change_y == 0:
-            if self.onPlatform == False:
+            elif self.onPlatform == False:
                 if self.change_x>0:
                     self.rect.right = block.rect.left
                 elif self.change_x<0:
@@ -300,10 +294,6 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
                 # Reset our position based on the top/bottom of the object.
-                #THIS IS WHERE WE CODE LANDING ON PLATFORM
-                #previous moves player into platform
-                #when new collision occurs, as change_y is set to 1 re. calc_grav
-                #the player will move up
 
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
