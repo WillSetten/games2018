@@ -5,7 +5,6 @@ import levels
 import enemy
 
 from player import Player
-
 def main():
     """ Main Program """
     pygame.init()
@@ -58,7 +57,7 @@ def main():
                     player.aimup()
                 if event.key == pygame.K_z:
                     player.jump()
-                if event.key == pygame.K_x and player.cooldown == 0:
+                if event.key == pygame.K_x:
                     player.shoot()
 
 
@@ -69,6 +68,8 @@ def main():
                     player.stop()
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player.resetaim()
+                if event.key == pygame.K_x:
+                    player.stopshooting()
 
         # Update the player.
         active_sprite_list.update()
