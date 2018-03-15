@@ -4,9 +4,12 @@
   <image source="Background.jpg" width="700" height="400"/>
  </tileset>
  <tileset firstgid="253" source="../Platforms.tsx"/>
- <layer name="Tile Layer 1" width="100" height="100">
+ <imagelayer name="Image Layer 1" offsetx="-3.33333" offsety="-4.66667">
+  <image source="Background.jpg" width="700" height="400"/>
+ </imagelayer>
+ <layer name="Tile Layer 1" width="100" height="100" offsetx="-6.33333" offsety="-18.6667">
   <data encoding="base64" compression="zlib">
-   eJzt02dsV1UYgPF/BUtxIhBcqECrYkCse6FBZYkDR1AQ26q4ouAWK2hAnKCiEFTcoowoSwVkaBSc4DYOUHCPuFEcOL743KRN2sb8zz0394vmeZJfILz39M05DYWCmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnZf6cSbIBmaI4NUYoWKENLbISNsQk2xWbYHK2wBVoHZmnOx+4LzbPeo03km+T1fsnetmiHLbEVtsY22BbtsR22xw7ogI7ohHJUYEfshJ0DszTnY/eF5lnv0TnyTfJ6v2TvLuiCrtgV3bAbKrE79sCe2At7Yx/si/2wPw7AgegemKU5H7svNM96j4Mi3ySv90v2HoweOASH4jD0RC/0Rh/0xeHohyNwJI7C0eiPY3BsYJbmfOy+0DzrPY6LfJO83i/ZezwG4ASciIEYhJMwGCejCtWowSk4FadhCE7HGTgzMEtzPnZfaJ71HmdFvkle75fsPRvn4FwMxTCch/NxAS7ERbgYl+BSDMdlqMXlGIGRgVma87H7QvOs97gi8k3yer9k75UYhdG4CmNwNa7BtbgO1+MGjMU43IibcDPG4xbcGpilOR+7LzTPeo8JkW+S1/sleydiEm7D7bgDk3En7sLduAf34j7cjwcwBQ/iIUzFtMAszfnYfaF51ntMj3yTvN4v2TsDD+MRzMQszMYczMWjeAyPYx4qSxpbxL8txhLMxwI8gYWFxrP688W++bd9xb4PzYvdo9i5JyPfJObb0N6n8DSewVIsw7N4Ds/jBbyIl7AcK/AyXsGreA2v443ALM352H2hedZ7vBn5Jnm9X7L3LbyNd/Au3sNKrML7+ABV/D+owYf8/SN8jE/wKT7D5/giMFtTCJ+v37c65fehedN7pP25X6Z4k4Y/K+bb0N6v8DW+wbd1b1+N2ro/k99D/e9jHfNf8Ct+w+9Yjz/wZ4NZKd+W16lAGX4uhM//iLX4qZDu+9D8e/yQ4ef+1eRNvgv8rJhvQ3v/LpiZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnZ/6V/AKP/Rwc=
+   eJzt1M0JgDAMBtBmCn/GcB91/yEEc/Ei0oMILfIefDQ9FAohKQXgn9YoZcvs0fon0NY1C+YB6I39BPRsyL00ZqbMHPX7VT+d93e8c2Qivs2iHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEDFCfPIB5Y=
   </data>
  </layer>
 </map>
