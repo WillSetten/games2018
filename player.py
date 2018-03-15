@@ -368,3 +368,5 @@ class Player(pygame.sprite.Sprite):
 
     def resetaim(self):
         self.aiming = "MID"
+    def stopshooting(self):
+        self.shooting=False
