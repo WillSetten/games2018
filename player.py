@@ -41,6 +41,8 @@ class Player(pygame.sprite.Sprite):
     aim_up_running_r = []
     aim_up_running_l = []
 
+    aim_mid_running_r = []
+    aim_mid_running_l = []
     aim_down_running_r = []
     aim_down_running_l = []
 
@@ -166,7 +168,7 @@ class Player(pygame.sprite.Sprite):
             self.aim_up_running_l.append(image)
 
         #load the sprites for aiming downwards whilst running right
-          image = sprite_sheet.get_image(323, 579, 40, 41)
+        image = sprite_sheet.get_image(323, 579, 40, 41)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(368, 575, 36, 45)
         self.aim_mid_running_r.append(image)
