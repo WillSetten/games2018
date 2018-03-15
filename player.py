@@ -20,7 +20,6 @@ class Player(pygame.sprite.Sprite):
     count=1
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
-    framespeed=4
     #jumping tells us if the player is jumping.
     jumping = False
     #shooting tells us if the player is shooting
@@ -321,12 +320,6 @@ class Player(pygame.sprite.Sprite):
         for block in block_hit_list:
                 # Reset our position based on the top/bottom of the object.
 
-
-
-
-
-
-
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
@@ -375,9 +368,32 @@ class Player(pygame.sprite.Sprite):
             self.change_y = -15
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
-        self.cooldown = 1
         self.shooting=True
-
+        if self.count%15:
+            if self.aiming = "UP":
+                if self.change_x!=0:
+                    if direction = "L":
+                        #spawn bullet travelling up and left
+                    else:
+                        #spawn bullet travelling up and right
+                else:
+                        #spawn bullet travelling upwards
+            elif self.aiming = "MID":
+                if direction = "L":
+                    #spawn bullet travelling left
+                else:
+                    #spawn bullet travelling right
+            elif self.aiming = "DOWN":
+                if self.change_x!=0:
+                    if direction = "L":
+                        #spawn bullet travelling down and left
+                    else:
+                        #spawn bullet travelling down and right
+                else:
+                    if direction = "L":
+                        #spawn bullet travelling left
+                    else:
+                        #spawn bullet travelling left
     # Player-controlled movement:
     def go_left(self):
         """ Called when the user hits the left arrow. """
