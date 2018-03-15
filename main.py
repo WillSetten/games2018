@@ -10,6 +10,7 @@ def main():
     """ Main Program """
     pygame.init()
 
+
     # Set the height and width of the screen
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
@@ -18,7 +19,6 @@ def main():
 
     # Create the player
     player = Player()
-
     enemy_list = []
 
 
@@ -88,7 +88,7 @@ def main():
 
         # Update the player.
         active_sprite_list.update()
-        enemy_sprite_list.update()
+        enemy_sprite_list.update(player)
         #update the enemies
         #for enemy in levels.Level.enemy_list:
         #    enemy.update()

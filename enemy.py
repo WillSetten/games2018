@@ -42,9 +42,9 @@ class Enemy(pygame.sprite.Sprite):
         self.image = sprite_sheet.get_image(30,0,60,40)
         self.rect = self.image.get_rect()
 
-    def update(self):
+    def update(self, player):
         if (self.type=="Infantry"):
-            self.move()
+            self.move(player)
             self.checkIfHit()
 
         else:
@@ -62,15 +62,23 @@ class Enemy(pygame.sprite.Sprite):
             #fire shot, work out sprite/object to be fired
             #need to consider power ups etc.
 
-    def move(self):
+    def move(self, player):
+        #gives them gravity physics so they fall if spawn in the sky
         self.calc_grav()
-        self.change_x = self.speed
+
+        #sets them to follow the user wherever they go
+        if player.rect.x > self.rect.x:
+            self.change_x = self.speed
+        else:
+            self.change_x = -self.speed
+
         self.rect.x+=self.change_x
 
+    #NEXT SECTION: collisions with platforms, means that enemies can sit on platforms if they wish to do so
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
 
-            #if self.change_y == 0:
+            #stops left/right collisions with platforms when on the ground
             if self.onPlatform == False:
                 if self.change_x>0:
                     self.rect.right = block.rect.left
@@ -83,11 +91,7 @@ class Enemy(pygame.sprite.Sprite):
         # Check and see if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
-                # Reset our position based on the top/bottom of the object.
-                #THIS IS WHERE WE CODE LANDING ON PLATFORM
-                #previous moves player into platform
-                #when new collision occurs, as change_y is set to 1 re. calc_grav
-                #the player will move up
+            #if they collide with a platform, this stops user and makes them stand on top
 
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
