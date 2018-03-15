@@ -81,13 +81,10 @@ class Level_01(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("bg2.png").convert()
+        self.background = pygame.image.load("newBac.jpg").convert()
         self.background.set_colorkey(constants.WHITE)
         #self.level_limit = -2500
 
-        for x in range(0,4):
-            e = enemy.Enemy("Infantry")
-            Level.enemy_list.append(e)
 
         # Array with type of platform, and x, y location of the platform.
         level = [ [platforms.STONE_PLATFORM_LEFT, 500, 580],
@@ -125,17 +122,6 @@ class Level_01(Level):
             block.player = self.player
             self.platform_list.add(block)
 
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1350
-        block.rect.y = 280
-        block.boundary_left = 1350
-        block.boundary_right = 1600
-        block.change_x = 1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)
-
 
 # Create platforms for the level
 
@@ -148,7 +134,7 @@ class Level_02(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("bg2.png").convert()
+        self.background = pygame.image.load("newBac.jpg").convert()
         self.background.set_colorkey(constants.WHITE)
         self.level_limit = -1000
 
@@ -187,14 +173,3 @@ class Level_02(Level):
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
-
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1500
-        block.rect.y = 300
-        block.boundary_top = 100
-        block.boundary_bottom = 550
-        block.change_y = -1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)

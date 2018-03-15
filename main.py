@@ -2,8 +2,8 @@
 import pygame
 import constants
 import levels
-import enemy
-
+from enemy import Enemy
+import random
 from player import Player
 
 def main():
@@ -19,6 +19,9 @@ def main():
     # Create the player
     player = Player()
 
+    enemy_list = []
+
+
     # Create all the levels
     level_list = []
     level_list.append(levels.Level_01(player))
@@ -28,8 +31,19 @@ def main():
     current_level_no = 0
     current_level = level_list[current_level_no]
 
+    for i in range(0,3):
+        enemy_list.append(Enemy("Infantry"))
+        enemy_list[i].level = current_level
+
     active_sprite_list = pygame.sprite.Group()
+    enemy_sprite_list = pygame.sprite.Group()
     player.level = current_level
+
+    for i in range(0,3):
+        x = random.randint(0,constants.SCREEN_WIDTH-5)
+        y = random.randint(0,constants.SCREEN_HEIGHT-5)
+        enemy_list[i].spawn(x,y)
+        enemy_sprite_list.add(enemy_list[i])
 
     player.rect.x = 340
     player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
@@ -58,7 +72,7 @@ def main():
                     player.aimup()
                 if event.key == pygame.K_z:
                     player.jump()
-                if event.key == pygame.K_x and player.cooldown == 0:
+                if event.key == pygame.K_x:
                     player.shoot()
 
 
@@ -69,10 +83,12 @@ def main():
                     player.stop()
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player.resetaim()
+                if event.key == pygame.K_x:
+                    player.stopshooting()
 
         # Update the player.
         active_sprite_list.update()
-
+        enemy_sprite_list.update()
         #update the enemies
         #for enemy in levels.Level.enemy_list:
         #    enemy.update()
@@ -106,6 +122,7 @@ def main():
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         current_level.draw(screen)
         active_sprite_list.draw(screen)
+        enemy_sprite_list.draw(screen)
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
