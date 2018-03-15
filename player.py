@@ -26,8 +26,8 @@ class Player(pygame.sprite.Sprite):
     #shooting tells us if the player is shooting
     shooting = False
     #aiming tells us which direction in which the player is aiming
-    # Holds the cooldown of the shot being fired
-    cooldown = 0
+
+    
     aiming = "MID"
     #playerscale is the multiplier by which the size of the player sprite is increased
     playerscale = 3
@@ -375,7 +375,6 @@ class Player(pygame.sprite.Sprite):
             self.change_y = -15
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
-        self.cooldown = 1
         self.shooting=True
 
     # Player-controlled movement:
