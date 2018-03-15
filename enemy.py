@@ -21,16 +21,19 @@ class Enemy(pygame.sprite.Sprite):
         sprite_sheet = SpriteSheet("enemies1.png")
 
         if (type=="Infantry"):
+            self.speed = 1
             self.health = 1
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None #set as null for now while working on other areas
         elif (type=="Heavy"):
+            self.speed = 0.5
             self.health = 3
             self.type = type
             self.pos = Vector(0,0)
             self.sprite = None
         else:
+            self.speed = 0.02
             self.health = 40
             self.type = type
             self.pos = Vector(0,0)
@@ -61,7 +64,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def move(self):
         self.calc_grav()
-
+        self.change_x = self.speed
         self.rect.x+=self.change_x
 
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
