@@ -85,9 +85,6 @@ class Level_01(Level):
         self.background.set_colorkey(constants.WHITE)
         #self.level_limit = -2500
 
-        for x in range(0,4):
-            e = enemy.Enemy("Infantry")
-            Level.enemy_list.append(e)
 
         # Array with type of platform, and x, y location of the platform.
         level = [ [platforms.STONE_PLATFORM_LEFT, 500, 580],
