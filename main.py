@@ -83,6 +83,8 @@ def main():
                     player.stop()
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player.resetaim()
+                if event.key == pygame.K_x:
+                    player.stopshooting()
 
         # Update the player.
         active_sprite_list.update()
