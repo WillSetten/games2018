@@ -20,8 +20,7 @@ def main():
     player = Player()
 
     enemy_list = []
-    for i in range(0,3):
-        enemy_list.append(Enemy("Infantry"))
+
 
     # Create all the levels
     level_list = []
@@ -31,6 +30,10 @@ def main():
     # Set the current level
     current_level_no = 0
     current_level = level_list[current_level_no]
+
+    for i in range(0,3):
+        enemy_list.append(Enemy("Infantry"))
+        enemy_list[i].level = current_level
 
     active_sprite_list = pygame.sprite.Group()
     enemy_sprite_list = pygame.sprite.Group()

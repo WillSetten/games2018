@@ -6,7 +6,14 @@ from vector import Vector
 from spritesheet_functions import SpriteSheet
 
 class Enemy(pygame.sprite.Sprite):
+
+    #Attributes
     location = 0
+    onPlatform = False
+    change_x = 0
+    change_y = 0
+    level = None
+
     def __init__(self, type):
 
         pygame.sprite.Sprite.__init__(self)
@@ -33,14 +40,13 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self):
-        if (self.health>0):
-            if (self.type=="Infantry"):
-                self.move()
-                self.checkIfHit()
+        if (self.type=="Infantry"):
+            self.move()
+            self.checkIfHit()
 
-            else:
-                self.attack()
-                self.checkIfHit()
+        else:
+            self.attack()
+            self.checkIfHit()
 
     def spawn(self,x,y):
         self.rect.x = x
@@ -54,10 +60,60 @@ class Enemy(pygame.sprite.Sprite):
             #need to consider power ups etc.
 
     def move(self):
-        self.pos.x=self.pos.x+1
+        self.calc_grav()
+
+        self.rect.x+=self.change_x
+
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+
+            #if self.change_y == 0:
+            if self.onPlatform == False:
+                if self.change_x>0:
+                    self.rect.right = block.rect.left
+                elif self.change_x<0:
+                    self.rect.left = block.rect.right
+
+        # Move up/down
+        self.rect.y += self.change_y
+
+        # Check and see if we hit anything
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+                # Reset our position based on the top/bottom of the object.
+                #THIS IS WHERE WE CODE LANDING ON PLATFORM
+                #previous moves player into platform
+                #when new collision occurs, as change_y is set to 1 re. calc_grav
+                #the player will move up
+
+            if self.change_y > 0:
+                self.rect.bottom = block.rect.top
+                self.jumping = False
+                self.onPlatform = True
+
+            elif self.change_y < 0:
+                self.rect.top = block.rect.bottom
+
+            # Stop our vertical movement
+            self.change_y = 0
+
         #only triggered if the enemy type is infantry
         #if distance between enemy and player is less than x
         #attack user - infantry attack needs to be run
+
+    def calc_grav(self):
+        """ Calculate effect of gravity. """
+        if self.change_y == 0:
+            self.change_y = 1
+
+        else:
+            self.change_y += .35
+
+        # See if we are on the ground.
+
+        if (self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0):
+            self.change_y = 0
+            self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
 
     def checkIfHit(self):
     #need to set up code to work out whether enemy has been hit or not
