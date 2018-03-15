@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite):
     jumping = False
     #isprone tells us if the player is prone.
     isprone = False
+    #shooting tells us if the player is shooting
+    shooting = False
     #aiming tells us which direction in which the player is aiming
     # Holds the cooldown of the shot being fired
     cooldown = 0
@@ -164,6 +166,20 @@ class Player(pygame.sprite.Sprite):
             self.aim_up_running_l.append(image)
 
         #load the sprites for aiming downwards whilst running right
+          image = sprite_sheet.get_image(323, 579, 40, 41)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(368, 575, 36, 45)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(406, 574, 35, 46)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(444, 574, 35, 46)
+        self.aim_mid_running_r.append(image)
+
+        for x in self.aim_mid_running_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.aim_mid_running_l.append(image)
+
         image = sprite_sheet.get_image(323, 472, 34, 45)
         self.aim_down_running_r.append(image)
         image = sprite_sheet.get_image(360, 473, 33, 44)
@@ -251,12 +267,20 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.prone_frame_r
         elif(self.aiming == "MID"):
             if self.change_x != 0:
-                if self.direction == "L":
-                    frame = (self.count) % len(self.walking_frames_l)
-                    self.image = self.walking_frames_l[frame]
+                if self.shooting is True:
+                    if self.direction == "L":
+                        frame = (self.count) % len(self.aim_mid_running_l)
+                        self.image = self.aim_mid_running_l[frame]
+                    else:
+                        frame = (self.count) % len(self.aim_mid_running_r)
+                        self.image = self.aim_mid_running_r[frame]
                 else:
-                    frame = (self.count) % len(self.walking_frames_r)
-                    self.image = self.walking_frames_r[frame]
+                    if self.direction == "L":
+                        frame = (self.count) % len(self.walking_frames_l)
+                        self.image = self.walking_frames_l[frame]
+                    else:
+                        frame = (self.count) % len(self.walking_frames_r)
+                        self.image = self.walking_frames_r[frame]
             else:
                 if self.direction == "L":
                     self.image = self.idle_frame_l
@@ -341,6 +365,32 @@ class Player(pygame.sprite.Sprite):
             self.change_y = -15
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
+        self.shooting=True
+        """if self.count%15:
+            if self.aiming == "UP":
+                if self.change_x!=0:
+                    if direction == "L":
+                        #spawn bullet travelling up and left
+                    else:
+                        #spawn bullet travelling up and right
+                else:
+                        #spawn bullet travelling upwards
+            elif self.aiming == "MID":
+                if direction == "L":
+                    #spawn bullet travelling left
+                else:
+                    #spawn bullet travelling right
+            elif self.aiming == "DOWN":
+                if self.change_x!=0:
+                    if direction == "L":
+                        #spawn bullet travelling down and left
+                    else:
+                        #spawn bullet travelling down and right
+                else:
+                    if direction == "L":
+                        #spawn bullet travelling left
+                    else:
+                        #spawn bullet travelling left"""
         self.cooldown = 1
 
     # Player-controlled movement:
@@ -368,3 +418,6 @@ class Player(pygame.sprite.Sprite):
 
     def resetaim(self):
         self.aiming = "MID"
+
+    def stopshooting(self):
+        self.shooting=False
