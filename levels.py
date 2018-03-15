@@ -4,6 +4,7 @@ import constants
 import platforms
 import enemy
 
+
 class Level():
     """ This is a generic super-class used to define a level.
         Create a child class for each level with level-specific
@@ -40,8 +41,8 @@ class Level():
         # Draw the background
         # We don't shift the background as much as the sprites are shifted
         # to give a feeling of depth.
-        screen.fill(constants.PINK)
-        screen.blit(self.background,(self.world_shift,0))#
+        #screen.fill(constants.PINK)
+        screen.blit(self.background,(self.world_shift,0))
 
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)
