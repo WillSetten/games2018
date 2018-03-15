@@ -294,6 +294,13 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
                 # Reset our position based on the top/bottom of the object.
+<<<<<<< HEAD
+                #THIS IS WHERE WE CODE LANDING ON PLATFORM
+                #previous moves player into platforms
+                #when new collision occurs, as change_y is set to 1 re. calc_grav
+                #the player will move up
+=======
+>>>>>>> 587657e17ababf65fe42a7081953193dc30129aa
 
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
