@@ -54,6 +54,8 @@ class Player(pygame.sprite.Sprite):
     aim_down_running_r = []
     aim_down_running_l = []
 
+    dead = []
+
     idle_frame_l = None
     idle_frame_r = None
     prone_frame_r = None
@@ -217,6 +219,41 @@ class Player(pygame.sprite.Sprite):
             image = x
             image = pygame.transform.flip(image, True, False)
             self.aim_down_running_l.append(image)
+
+        image = sprite_sheet.get_image(323, 950, 29, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(355, 950, 28, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(386, 950, 32, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(421, 950, 38, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(462, 950, 38, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(503, 950, 37, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(543, 950, 32, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(578, 950, 32, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(613, 950, 29, 42)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(323, 998, 30, 30)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(355, 995, 33, 33)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(391, 997, 36, 31)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(430, 1010, 40, 18)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(473, 1017, 41, 11)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(323, 1031, 43, 11)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(369, 1032, 48, 10)
+        self.dead.append(image)
+        image = sprite_sheet.get_image(420, 1033, 45, 9)
+        self.dead.append(image)
 
         #load the idle aiming up frames
         self.direct_upaim_r = sprite_sheet.get_image(613, 3, 24, 57)
@@ -431,7 +468,10 @@ class Player(pygame.sprite.Sprite):
                 self.change_x=-constants.SCREEN_WIDTH/120
                 self.rect.x+=self.change_x
                 """When this happens, player is dead, need to add in game over screen etc """
-
+                if(self.deathcount<17):
+                    self.image = self.aim_up_running_l[self.deathcount]
+                else:
+                    self.image = self.aim_up_running_l[16]
             #Death animation
             #sys.exit()
             #pygame.exit()
