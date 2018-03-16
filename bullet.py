@@ -34,6 +34,16 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = self.rect.y+self.direction[1]
 
 
+"""Remove if useless"""
+        if player.rect.x >= 500:
+            diff = ((player.rect.x-500) / 5)
+            self.rect.x-=diff
+
+        if player.rect.x <= 120:
+            diff = ((120 - player.rect.x) / 5)
+            self.rect.x+=diff
+    """^^^"""
+
         if self.type == 2:
             if self.bounces == 0:
                 self.destroyed = True
