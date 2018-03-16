@@ -103,6 +103,7 @@ class Enemy(pygame.sprite.Sprite):
             self.image = self.walk_l[0]
 
         elif (self.type==1):
+            self.speed = 2
             self.health = 3
             self.pos = Vector(0,0)
             self.sprite = None
@@ -140,7 +141,10 @@ class Enemy(pygame.sprite.Sprite):
                     self.nokill=False
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
             elif(self.type==1):
+
                 self.calc_grav()
+                self.rect.y+=self.change_y
+
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
                     compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)))
