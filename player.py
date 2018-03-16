@@ -412,7 +412,7 @@ class Player(pygame.sprite.Sprite):
             for enemy in enemy_list:
                 block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
                 for block in block_hit_list:
-                    self.health-=1
+                    #self.health-=1
                     enemy.bullet_list.remove(block)
         else:
             """When this happens, player is dead, need to add in game over screen etc """

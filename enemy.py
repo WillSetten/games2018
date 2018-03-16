@@ -1,7 +1,7 @@
 import pygame
 import random
 import levels
-import random
+import random, time
 import constants
 from bullet import Bullet
 from vector import Vector
@@ -136,6 +136,7 @@ class Enemy(pygame.sprite.Sprite):
             self.spawn(self.rect.x+ (constants.SCREEN_WIDTH),random.randint(0,constants.SCREEN_HEIGHT))
         else:
             if (self.type==0):
+                print(self.count)
                 self.move(player)
                 if(self.direction =="R"):
                     frame = (self.count) % len(self.walk_r)
@@ -145,8 +146,9 @@ class Enemy(pygame.sprite.Sprite):
                     self.image = self.walk_l[frame]
                 if(self.rect.colliderect(player.rect)):
                     self.nokill=False
-                    if (self.count%60 == 0):
-                        player.health-=1
+                    if self.count%60==0:
+                        player.health=player.health-1
+                        time.sleep(0.5)
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 if self.flag == 0:
                     self.count += 1

@@ -32,7 +32,7 @@ def main():
     current_level_no = 0
     current_level = level_list[current_level_no]
 
-    for i in range(0,33):
+    for i in range(0,1):
         enemy_list.append(Enemy(random.randint(0,0)))
         enemy_list[i].level = current_level
 
@@ -40,7 +40,7 @@ def main():
     enemy_sprite_list = pygame.sprite.Group()
     player.level = current_level
 
-    for i in range(0,3):
+    for i in range(0,1):
         x = random.randint(constants.SCREEN_WIDTH/2,constants.SCREEN_WIDTH)
         #y = random.randint(0,constants.SCREEN_HEIGHT-5)
         enemy_list[i].spawn(x,0)
@@ -133,6 +133,8 @@ def main():
         player.bullet_list.draw(screen)
         text = font.render("Score = "+str(player.score),1,(constants.WHITE))
         screen.blit(text,(0,0))
+        text = font.render("Health = "+str(player.health),1,(constants.WHITE))
+        screen.blit(text,(constants.SCREEN_WIDTH-100,0))
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
         # Limit to 60 frames per second
