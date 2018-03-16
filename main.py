@@ -42,8 +42,8 @@ def main():
 
     for i in range(0,3):
         x = random.randint(constants.SCREEN_WIDTH/2,constants.SCREEN_WIDTH)
-        y = random.randint(0,constants.SCREEN_HEIGHT-5)
-        enemy_list[i].spawn(x,y)
+        #y = random.randint(0,constants.SCREEN_HEIGHT-5)
+        enemy_list[i].spawn(x,0)
         enemy_sprite_list.add(enemy_list[i])
 
     player.rect.x = 340

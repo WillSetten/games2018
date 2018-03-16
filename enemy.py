@@ -144,9 +144,27 @@ class Enemy(pygame.sprite.Sprite):
                 if(self.rect.colliderect(player.rect)):
                     self.nokill=False
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
+                if self.flag == 0:
+                    self.count += 1
+                    self.flag=self.framespeed
+                else:
+                    self.flag-=1
             elif(self.type==1):
-
                 self.calc_grav()
+                block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+                for block in block_hit_list:
+                    #if they collide with a platform, this stops user and makes them stand on top
+
+                    if self.change_y > 0:
+                        self.rect.bottom = block.rect.top
+                        self.jumping = False
+                        self.onPlatform = True
+
+                    elif self.change_y < 0:
+                        self.rect.top = block.rect.bottom
+
+                    # Stop our vertical movement
+                    self.change_y = 0
                 self.rect.y+=self.change_y
 
                 if player.rect.x >= 500:
@@ -161,6 +179,7 @@ class Enemy(pygame.sprite.Sprite):
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
                     compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
+                    origin = (self.rect.x,self.rect.y)
                     if compare==(0,-1):
                         if self.direction == "R":
                             self.image = self.up_r
@@ -179,13 +198,14 @@ class Enemy(pygame.sprite.Sprite):
                     if compare==(1,1):
                         self.direction = "R"
                         self.image = self.downangle_r
-                        origin = (self.rect.x+self.rect.width,self.rect.y+self.rect.height)
+                        origin = (self.rect.x+self.rect.width*4/5,self.rect.y+15+self.rect.height/2)
                     if compare==(0,1):
                         if self.direction == "R":
                             self.image = self.down_r
+                            origin = ((self.rect.x+self.rect.width*3/8)+2,self.rect.y+self.rect.height-15)
                         else:
                             self.image = self.down_l
-                        origin = (self.rect.x+self.rect.width/2,self.rect.y+self.rect.height)
+                            origin = (self.rect.x+(self.rect.width/4)+2,self.rect.y+self.rect.height-15)
                     if compare==(-1,-1):
                         self.direction = "L"
                         self.image = self.upangle_l
@@ -197,16 +217,12 @@ class Enemy(pygame.sprite.Sprite):
                     if compare==(-1,1):
                         self.direction = "L"
                         self.image = self.downangle_l
-                        origin = (self.rect.x,self.rect.y+self.rect.height)
+                        origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
                     self.bullet_list.add(Bullet(origin,compare,1))
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 self.change_x=0
-        if self.flag == 0:
-            self.count += 1
-            self.flag=self.framespeed
-        else:
-            self.flag-=1
+                self.count=self.count+1
         self.rect.height = self.image.get_height()
     def spawn(self,x,y):
         self.rect.x = x
