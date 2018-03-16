@@ -152,6 +152,7 @@ class Enemy(pygame.sprite.Sprite):
                 if player.rect.x <= 120:
                     diff = 120 - player.rect.x
                     self.rect.x+=diff
+                    
 
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
