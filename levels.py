@@ -117,6 +117,10 @@ class Level_01(Level):
                   #[platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
                   #[platforms.STONE_PLATFORM_RIGHT, 2750, 430],
 
+                  #[platforms.STONE_PLATFORM_LEFT, 2700, 510],
+                  #[platforms.STONE_PLATFORM_MIDDLE, 2640, 510],
+                  #[platforms.STONE_PLATFORM_RIGHT, 2500, 510]
+
                   ]
 
 
@@ -138,15 +142,15 @@ class Level_01(Level):
 
 
 #def load_tileset(tileset3.png, 30, 30):
-    image = pygame.image.load(tileset3.png).convert()
-    image.width. image.height = image.get_size()
-    tileset = []
-    for tile_x in range(0, image_width//30):
-        line = []
-        tileset,append(line)
-    for tile_y in range(0, image_height//30):
-        rect = (tile_x*width, tile_y*height, 30, 30)
-        line.append(image.subsurface(rect))
-    return tileset
+#    image = pygame.image.load(tileset3.png).convert()
+#    image.width. image.height = image.get_size()
+#    tileset = []
+#    for tile_x in range(0, image_width//30):
+#        line = []
+#        tileset,append(line)
+#    for tile_y in range(0, image_height//30):
+#        rect = (tile_x*width, tile_y*height, 30, 30)
+#        line.append(image.subsurface(rect))
+#    return tileset
 
 #def draw_background(screen, tile_img, field_rect)
