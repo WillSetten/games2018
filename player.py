@@ -171,6 +171,7 @@ class Player(pygame.sprite.Sprite):
         image = sprite_sheet.get_image(323, 579, 40, 41)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(368, 575, 36, 45)
+        image = pygame.transform.flip(image, True, False)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(406, 574, 35, 46)
         self.aim_mid_running_r.append(image)
@@ -179,7 +180,6 @@ class Player(pygame.sprite.Sprite):
 
         for x in self.aim_mid_running_r[:]:
             image = x
-            image = pygame.transform.flip(image, True, False)
             self.aim_mid_running_l.append(image)
 
         image = sprite_sheet.get_image(323, 472, 34, 45)
@@ -223,7 +223,7 @@ class Player(pygame.sprite.Sprite):
         # Set the image the player starts with
         self.image = self.walking_frames_r[0]
 
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
@@ -233,7 +233,6 @@ class Player(pygame.sprite.Sprite):
         self.calc_grav()
         # Move left/right
         self.rect.x += self.change_x
-        pos = self.rect.x + self.level.world_shift
         if self.jumping:
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
@@ -289,7 +288,7 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.image = self.idle_frame_r
 
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
         self.rect.height = self.image.get_height()
         if self.flag == 0:
             self.count += 1

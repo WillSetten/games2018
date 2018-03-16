@@ -39,7 +39,8 @@ class Enemy(pygame.sprite.Sprite):
             self.pos = Vector(0,0)
             self.sprite = None
 
-        self.image = sprite_sheet.get_image(30,0,60,40)
+        self.image = sprite_sheet.get_image(30,0,30,40)#
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
         self.rect = self.image.get_rect()
 
     def update(self, player):
