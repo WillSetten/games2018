@@ -9,6 +9,6 @@ BLUE = (0,   0, 255)
 PINK = (255, 0, 233)
 GRAVITY = 5
 ENEMYFIRERATE = 30
-PLAYERFIRERATE = 20
+PLAYERFIRERATE = 15
 playerscale = 3
 enemyscale = 3

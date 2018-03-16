@@ -348,43 +348,52 @@ class Player(pygame.sprite.Sprite):
                             #spawn bullet travelling up and left
                             #vector will be (-1,-1)
                             aimdirection = (-1,-1)
+                            origin = (self.rect.x,self.rect.y)
                         else:
                             #spawn bullet travelling up and right
                             #vector will be (1,-1)
                             aimdirection = (1,-1)
+                            origin = (self.rect.x,self.rect.y)
                     else:
                             #spawn bullet travelling upwards
                             #vector will be (0,-1)
                             aimdirection = (0,-1)
+                            origin = (self.rect.x,self.rect.y)
                 elif self.aiming == "MID":
                     if self.direction == "L":
                         #spawn bullet travelling left
                         #vector will be (-1,0)
                         aimdirection = (-1,0)
+                        origin = (self.rect.x,self.rect.y)
                     else:
                         #spawn bullet travelling right
                         #vector will be (1,0)
                         aimdirection = (1,0)
+                        origin = (self.rect.x,self.rect.y)
                 elif self.aiming == "DOWN":
                     if self.change_x!=0:
                         if self.direction == "L":
                             #spawn bullet travelling down and left
                             #vector will be (-1,1)
                             aimdirection = (-1,1)
+                            origin = (self.rect.x,self.rect.y)
                         else:
                             #spawn bullet travelling down and right
                             #vector will be (1,1)
                             aimdirection = (1,1)
+                            origin = (self.rect.x,self.rect.y)
                     else:
                         if self.direction == "L":
                             #spawn bullet travelling left
                             #vector will be (-1,0)
                             aimdirection = (-1,0)
+                            origin = (self.rect.x,self.rect.y)
                         else:
                             #spawn bullet travelling right
                             #vector will be (1,0)
                             aimdirection = (1,0)
-                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),0))
+                            origin = (self.rect.x,self.rect.y)
+                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1))
         self.guncount = self.guncount+1
 
     def calc_grav(self):

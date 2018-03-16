@@ -20,6 +20,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         if self.type == 0:
             self.image.fill(constants.WHITE)
+        if self.type == 1:
+            self.image.fill(constants.PINK)
         self.rect.x=p[0]
         self.rect.y=p[1]
     """Bullets will be sorted into two arrays - player and enemy bullets. If"""

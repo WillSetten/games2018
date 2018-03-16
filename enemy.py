@@ -177,7 +177,7 @@ class Enemy(pygame.sprite.Sprite):
 
 
                 if(self.count%constants.ENEMYFIRERATE==0):
-                    aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
+                    aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x*2),self.rect.y-(player.rect.y+player.change_y*2))
                     compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
                     origin = (self.rect.x,self.rect.y)
                     if compare==(0,-1):
