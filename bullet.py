@@ -46,16 +46,6 @@ class Bullet(pygame.sprite.Sprite):
             #    diff = 120 - player.rect.x
             #    self.rect.x+=diff
 
-<<<<<<< HEAD
-"""Remove if useless"""
-        if player.rect.x >= 500:
-            diff = ((player.rect.x-500) / 5)
-            self.rect.x-=diff
-
-        if player.rect.x <= 120:
-            diff = ((120 - player.rect.x) / 5)
-            self.rect.x+=diff
-    """^^^"""
 
         if self.type == 2:
             if self.bounces == 0:
@@ -72,7 +62,8 @@ class Bullet(pygame.sprite.Sprite):
                         self.direction.y = -self.direction.y
                     else:
                         self.direction.x = -self.direction.x
-=======
+
+
             if self.type == 2:
                 if self.bounces == 0:
                     self.destroyed = True
@@ -88,7 +79,7 @@ class Bullet(pygame.sprite.Sprite):
                             self.direction.y = -self.direction.y
                         else:
                             self.direction.x = -self.direction.x
->>>>>>> fac9bc985142464ef510e90d85688a49fb13c0a9
+
 
                     self.bounces -= 1
             "Code for dealing with reflecting off platforms"
