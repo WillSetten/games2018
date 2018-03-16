@@ -3,6 +3,7 @@ import pygame
 import constants
 import platforms
 import enemy
+import main
 
 class Level():
     """ This is a generic super-class used to define a level.
@@ -52,9 +53,6 @@ class Level():
         # Go through all the sprite lists and shift
         for platform in self.platform_list:
             platform.rect.x += shift_x
-
-        #for enemy in self.enemy_list:
-        #    enemy.rect.x += shift_x
 
 #Development of a main menu
 class Level_main_menu(Level):

@@ -40,7 +40,7 @@ def main():
     player.level = current_level
 
     for i in range(0,3):
-        x = random.randint(0,constants.SCREEN_WIDTH-5)
+        x = random.randint(constants.SCREEN_WIDTH,(constants.SCREEN_WIDTH*3)/2)
         y = random.randint(0,constants.SCREEN_HEIGHT-5)
         enemy_list[i].spawn(x,y)
         enemy_sprite_list.add(enemy_list[i])

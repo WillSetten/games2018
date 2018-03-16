@@ -372,26 +372,31 @@ class Player(pygame.sprite.Sprite):
                 if self.change_x!=0:
                     if direction == "L":
                         #spawn bullet travelling up and left
+                        #vector will be (-1,-1)
                     else:
                         #spawn bullet travelling up and right
+                        #vector will be (1,-1)
                 else:
                         #spawn bullet travelling upwards
+                        #vector will be (0,-1)
             elif self.aiming == "MID":
                 if direction == "L":
                     #spawn bullet travelling left
+                    #vector will be (-1,0)
                 else:
                     #spawn bullet travelling right
+                    #vector will be (1,0)
             elif self.aiming == "DOWN":
                 if self.change_x!=0:
                     if direction == "L":
                         #spawn bullet travelling down and left
+                        #vector will be (-1,1)
                     else:
                         #spawn bullet travelling down and right
+                        #vector will be (1,1)
                 else:
-                    if direction == "L":
-                        #spawn bullet travelling left
-                    else:
-                        #spawn bullet travelling left"""
+                    #bullet is travelling down
+                    #vector will be (0,1)"""
         self.cooldown = 1
 
     # Player-controlled movement:
