@@ -122,6 +122,9 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 3070, 510],
                   [platforms.STONE_PLATFORM_RIGHT, 3140, 510],
 
+                  [platforms.STONE_PLATFORM_LEFT, 2100, 300],
+                  [platforms.STONE_PLATFORM_MIDDLE, 2800, 300],
+                  [platforms.STONE_PLATFORM_RIGHT, 3500, 300],
                   ]
 
 
