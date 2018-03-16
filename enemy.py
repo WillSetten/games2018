@@ -133,7 +133,7 @@ class Enemy(pygame.sprite.Sprite):
                 else:
                     frame = (self.count) % len(self.die_R_l)
                     self.image = self.die_R_l[frame]#
-            self.spawn(self.rect.x+ (constants.SCREEN_WIDTH/2),random.randint(0,constants.SCREEN_HEIGHT))
+            self.spawn(self.rect.x+ (constants.SCREEN_WIDTH),random.randint(0,constants.SCREEN_HEIGHT))
         else:
             if (self.type==0):
                 self.move(player)
@@ -144,7 +144,7 @@ class Enemy(pygame.sprite.Sprite):
                     frame = (self.count) % len(self.walk_l)
                     self.image = self.walk_l[frame]
                 if(self.rect.colliderect(player.rect)):
-                    self.nokill=False
+                    self.nokill=True
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 if self.flag == 0:
                     self.count += 1
@@ -155,7 +155,7 @@ class Enemy(pygame.sprite.Sprite):
                 for block in block_hit_list:
                     #self.change_y=-20
                     self.health-=1
-
+                    player.bullet_list.remove(block)
             elif(self.type==1):
                 self.calc_grav()
                 block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -237,6 +237,9 @@ class Enemy(pygame.sprite.Sprite):
                 for block in block_hit_list:
                     self.change_y=-20
                     self.health-=1
+
+                if self.rect.x < player.rect.x-constants.SCREEN_WIDTH+400:# or self.rect.x > player.rect.x+200:
+                    self.spawn(player.rect.x+constants.SCREEN_WIDTH-200,random.randint(0,constants.SCREEN_HEIGHT))
         self.rect.height = self.image.get_height()
     def spawn(self,x,y):
         self.rect.x = x
@@ -267,7 +270,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.change_x = -self.speed
                 self.direction = "L"
         else:
-            self.change_x = -self.speed#
+            self.change_x = 0
             self.direction = "L"
         self.rect.x+=self.change_x
 
