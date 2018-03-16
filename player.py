@@ -6,6 +6,7 @@ import pygame
 import time
 import constants
 from spritesheet_functions import SpriteSheet
+import main
 
 class Player(pygame.sprite.Sprite):
     """ This class represents the bar at the bottom that the player
@@ -297,6 +298,12 @@ class Player(pygame.sprite.Sprite):
             self.flag-=1
 
         #if on top of platform, stop jumping around
+
+        #check bullet collisions
+        #block_hit_list = pygame.sprite.spritecollide(self, main.bullet_list, False)
+    #    for block in block_hit_list:
+    #        pass
+            """Player dies """
 
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)

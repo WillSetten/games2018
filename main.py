@@ -21,18 +21,19 @@ def main():
     player = Player()
     enemy_list = []
 
-
     # Create all the levels
     level_list = []
     level_list.append(levels.Level_01(player))
     #level_list.append(levels.Level_02(player))
+
+    #bullet_list = []
 
     # Set the current level
     current_level_no = 0
     current_level = level_list[current_level_no]
 
     for i in range(0,3):
-        enemy_list.append(Enemy("Infantry"))
+        enemy_list.append(Enemy(0))
         enemy_list[i].level = current_level
 
     active_sprite_list = pygame.sprite.Group()
@@ -40,7 +41,7 @@ def main():
     player.level = current_level
 
     for i in range(0,3):
-        x = random.randint(constants.SCREEN_WIDTH,(constants.SCREEN_WIDTH*3)/2)
+        x = random.randint(constants.SCREEN_WIDTH/2,constants.SCREEN_WIDTH)
         y = random.randint(0,constants.SCREEN_HEIGHT-5)
         enemy_list[i].spawn(x,y)
         enemy_sprite_list.add(enemy_list[i])
