@@ -2,13 +2,13 @@
 <map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
  <tileset firstgid="1" source="tileSet.tsx"/>
  <tileset firstgid="813" source="assets/TileSet.tsx"/>
- <tileset firstgid="1197" source="tileSet3.tsx"/>
+ <tileset firstgid="813" source="tileSet3.tsx"/>
  <imagelayer name="Background">
   <image source="backgroundNew.png" width="6279" height="847"/>
  </imagelayer>
  <layer name="Tile Layer 1" width="100" height="100" offsetx="-4" offsety="15.5">
   <data encoding="base64" compression="zlib">
-   eJzt1dEJgDAQRMFAbD9al12JLYjgnjcD7z9hAxkDAIBuzu2doCrvOIs9uHX6ayr8r8lne1uFPagn9S11feup9+26BwCkW3OMXREd0x5p2SMre2Rlj6zWw74+918DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgMouUZyQsg==
+   eJzt1cEJADAIA0Ch03X/hUp38GHwDvwrCVgFAMA29/QMpNLjWeTBt+nXJPzXybt1S8iDPFO7tLXrU+/dmgcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKR4NfsWkQ==
   </data>
  </layer>
 </map>
