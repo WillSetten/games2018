@@ -1,38 +1,15 @@
-"""
-Sample Python/Pygame Programs
-Simpson College Computer Science
-http://programarcadegames.com/
-http://simpson.edu/computer-science/
 
-Main module for platform scroller example.
-
-From:
-http://programarcadegames.com/python_examples/sprite_sheets/
-
-Explanation video: http://youtu.be/czBDKWJqOao
-
-Part of a series:
-http://programarcadegames.com/python_examples/f.php?file=move_with_walls_example.py
-http://programarcadegames.com/python_examples/f.php?file=maze_runner.py
-http://programarcadegames.com/python_examples/f.php?file=platform_jumper.py
-http://programarcadegames.com/python_examples/f.php?file=platform_scroller.py
-http://programarcadegames.com/python_examples/f.php?file=platform_moving.py
-http://programarcadegames.com/python_examples/sprite_sheets/
-
-Game art from Kenney.nl:
-http://opengameart.org/content/platformer-art-deluxe
-
-"""
 import pygame
 import constants
 import levels
-import enemy
-
+from enemy import Enemy
+import random
 from player import Player
 
 def main():
     """ Main Program """
     pygame.init()
+
 
     # Set the height and width of the screen
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
@@ -42,18 +19,32 @@ def main():
 
     # Create the player
     player = Player()
+    enemy_list = []
 
     # Create all the levels
     level_list = []
     level_list.append(levels.Level_01(player))
     #level_list.append(levels.Level_02(player))
 
+    #bullet_list = []
+
     # Set the current level
     current_level_no = 0
     current_level = level_list[current_level_no]
 
+    for i in range(0,3):
+        enemy_list.append(Enemy(random.randint(0,1)))
+        enemy_list[i].level = current_level
+
     active_sprite_list = pygame.sprite.Group()
+    enemy_sprite_list = pygame.sprite.Group()
     player.level = current_level
+
+    for i in range(0,3):
+        x = random.randint(constants.SCREEN_WIDTH/2,constants.SCREEN_WIDTH)
+        y = random.randint(0,constants.SCREEN_HEIGHT-5)
+        enemy_list[i].spawn(x,y)
+        enemy_sprite_list.add(enemy_list[i])
 
     player.rect.x = 340
     player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
@@ -82,7 +73,7 @@ def main():
                     player.aimup()
                 if event.key == pygame.K_z:
                     player.jump()
-                if event.key == pygame.K_x and player.cooldown == 0:
+                if event.key == pygame.K_x:
                     player.shoot()
 
 
@@ -93,10 +84,12 @@ def main():
                     player.stop()
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player.resetaim()
+                if event.key == pygame.K_x:
+                    player.stopshooting()
 
         # Update the player.
         active_sprite_list.update()
-
+        enemy_sprite_list.update(player)
         #update the enemies
         #for enemy in levels.Level.enemy_list:
         #    enemy.update()
@@ -130,6 +123,7 @@ def main():
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         current_level.draw(screen)
         active_sprite_list.draw(screen)
+        enemy_sprite_list.draw(screen)
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 

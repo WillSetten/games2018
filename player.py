@@ -5,14 +5,17 @@ controlled sprite on the screen.
 import pygame
 import time
 import constants
-from platforms import MovingPlatform
 from spritesheet_functions import SpriteSheet
+import main
 
 class Player(pygame.sprite.Sprite):
     """ This class represents the bar at the bottom that the player
     controls. """
 
     # -- Attributes
+    onPlatform = False#
+
+    bullet_list = []
     # Set speed vector of player
     change_x = 0
     change_y = 0
@@ -24,6 +27,8 @@ class Player(pygame.sprite.Sprite):
     jumping = False
     #isprone tells us if the player is prone.
     isprone = False
+    #shooting tells us if the player is shooting
+    shooting = False
     #aiming tells us which direction in which the player is aiming
     # Holds the cooldown of the shot being fired
     cooldown = 0
@@ -39,6 +44,8 @@ class Player(pygame.sprite.Sprite):
     aim_up_running_r = []
     aim_up_running_l = []
 
+    aim_mid_running_r = []
+    aim_mid_running_l = []
     aim_down_running_r = []
     aim_down_running_l = []
 
@@ -164,6 +171,20 @@ class Player(pygame.sprite.Sprite):
             self.aim_up_running_l.append(image)
 
         #load the sprites for aiming downwards whilst running right
+        image = sprite_sheet.get_image(323, 579, 40, 41)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(368, 575, 36, 45)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(406, 574, 35, 46)
+        self.aim_mid_running_r.append(image)
+        image = sprite_sheet.get_image(444, 574, 35, 46)
+        self.aim_mid_running_r.append(image)
+
+        for x in self.aim_mid_running_r[:]:
+            image = x
+            image = pygame.transform.flip(image, True, False)
+            self.aim_mid_running_l.append(image)
+
         image = sprite_sheet.get_image(323, 472, 34, 45)
         self.aim_down_running_r.append(image)
         image = sprite_sheet.get_image(360, 473, 33, 44)
@@ -205,7 +226,7 @@ class Player(pygame.sprite.Sprite):
         # Set the image the player starts with
         self.image = self.walking_frames_r[0]
 
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
@@ -215,7 +236,6 @@ class Player(pygame.sprite.Sprite):
         self.calc_grav()
         # Move left/right
         self.rect.x += self.change_x
-        pos = self.rect.x + self.level.world_shift
         if self.jumping:
             if self.direction == "L":
                 frame = (self.count) % len(self.jumping_frames_l)
@@ -251,19 +271,27 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.prone_frame_r
         elif(self.aiming == "MID"):
             if self.change_x != 0:
-                if self.direction == "L":
-                    frame = (self.count) % len(self.walking_frames_l)
-                    self.image = self.walking_frames_l[frame]
+                if self.shooting is True:
+                    if self.direction == "L":
+                        frame = (self.count) % len(self.aim_mid_running_l)
+                        self.image = self.aim_mid_running_l[frame]
+                    else:
+                        frame = (self.count) % len(self.aim_mid_running_r)
+                        self.image = self.aim_mid_running_r[frame]
                 else:
-                    frame = (self.count) % len(self.walking_frames_r)
-                    self.image = self.walking_frames_r[frame]
+                    if self.direction == "L":
+                        frame = (self.count) % len(self.walking_frames_l)
+                        self.image = self.walking_frames_l[frame]
+                    else:
+                        frame = (self.count) % len(self.walking_frames_r)
+                        self.image = self.walking_frames_r[frame]
             else:
                 if self.direction == "L":
                     self.image = self.idle_frame_l
                 else:
                     self.image = self.idle_frame_r
 
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*self.playerscale,self.image.get_height()*self.playerscale))
+        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
         self.rect.height = self.image.get_height()
         if self.flag == 0:
             self.count += 1
@@ -273,17 +301,23 @@ class Player(pygame.sprite.Sprite):
 
         #if on top of platform, stop jumping around
 
+        #check bullet collisions
+        for b in self.bullet_list:
+            block_hit_list = pygame.sprite.spritecollide(self,player,False)
+            for block in block_hit_list:
+                """Kill the queen"""
+                bullet_list.remove(b)
 
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
-            # If we are moving right,
-            # set our right side to the left side of the item we hit
-            if self.change_x > 0:
-                self.rect.right = block.rect.left
-            elif self.change_x < 0:
-                # Otherwise if we are moving left, do the opposite.
-                self.rect.left = block.rect.right
+
+            #if self.change_y == 0:
+            if self.onPlatform == False:
+                if self.change_x>0:
+                    self.rect.right = block.rect.left
+                elif self.change_x<0:
+                    self.rect.left = block.rect.right
 
         # Move up/down
         self.rect.y += self.change_y
@@ -291,21 +325,22 @@ class Player(pygame.sprite.Sprite):
         # Check and see if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
+                # Reset our position based on the top/bottom of the object.
+                #THIS IS WHERE WE CODE LANDING ON PLATFORM
+                #previous moves player into platform
+                #when new collision occurs, as change_y is set to 1 re. calc_grav
+                #the player will move up
 
-            # Reset our position based on the top/bottom of the object.
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
-            #THIS IS WHERE WE CODE LANIDN ON platform
+                self.onPlatform = True
+
             elif self.change_y < 0:
                 self.rect.top = block.rect.bottom
 
-
             # Stop our vertical movement
             self.change_y = 0
-
-            if isinstance(block, MovingPlatform):
-                self.rect.x += block.change_x
 
 
     def calc_grav(self):
@@ -322,11 +357,7 @@ class Player(pygame.sprite.Sprite):
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
             self.jumping = False
-        #check if on platform
-        #if (not(self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height) and self.change_y>12):
-        #    self.change_y=0
-        #    self.jumping = False
-
+            self.onPlatform = False
 
         if self.prone == True:
             self.rect.y = self.rect.y + 10
@@ -339,11 +370,43 @@ class Player(pygame.sprite.Sprite):
         platform_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         self.rect.y -= 2
         self.jumping = True
+        self.onPlatform = False
         # If it is ok to jump, set our speed upwards
         if len(platform_hit_list) > 0 or self.rect.bottom >= constants.SCREEN_HEIGHT:
             self.change_y = -15
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
+        self.shooting=True
+        """if self.count%15:
+            if self.aiming == "UP":
+                if self.change_x!=0:
+                    if direction == "L":
+                        #spawn bullet travelling up and left
+                        #vector will be (-1,-1)
+                    else:
+                        #spawn bullet travelling up and right
+                        #vector will be (1,-1)
+                else:
+                        #spawn bullet travelling upwards
+                        #vector will be (0,-1)
+            elif self.aiming == "MID":
+                if direction == "L":
+                    #spawn bullet travelling left
+                    #vector will be (-1,0)
+                else:
+                    #spawn bullet travelling right
+                    #vector will be (1,0)
+            elif self.aiming == "DOWN":
+                if self.change_x!=0:
+                    if direction == "L":
+                        #spawn bullet travelling down and left
+                        #vector will be (-1,1)
+                    else:
+                        #spawn bullet travelling down and right
+                        #vector will be (1,1)
+                else:
+                    #bullet is travelling down
+                    #vector will be (0,1)"""
         self.cooldown = 1
 
     # Player-controlled movement:
@@ -371,3 +434,6 @@ class Player(pygame.sprite.Sprite):
 
     def resetaim(self):
         self.aiming = "MID"
+
+    def stopshooting(self):
+        self.shooting=False
