@@ -400,6 +400,9 @@ class Player(pygame.sprite.Sprite):
                             aimdirection = (1,0)
                             origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
                 self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1))
+                for b in self.bullet_list:
+                    if b.count >600:
+                        self.bullet_list.remove(b)
         self.guncount = self.guncount+1
 
     def calc_grav(self):
