@@ -155,7 +155,7 @@ class Enemy(pygame.sprite.Sprite):
 
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
-                    compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)))
+                    compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
                     if compare=="0,-1":
                         if self.direction == "R":
                             self.image = self.up_r
@@ -272,20 +272,38 @@ class Enemy(pygame.sprite.Sprite):
     def decreaseHealth(self):
         pass
 
-    def normaliseAngle(self,angle):
-        if(angle>22.5 or angle<=67.5):
-            return "1,-1"
-        if(angle>67.5 or angle<=112.5):
-            return "1,0"
-        if(angle>112.5 or angle<=157.5):
-            return "1,1"
-        if(angle>157.5 or angle<=202.5):
+    def normaliseAngle(self,angle, player):
+        print (angle)
+        if(angle>22.5 and angle<=67.5):
+            if self.rect.x < player.rect.x:
+                print("UR")
+                return "1,-1"
+            else:
+                print ("UL")
+                return "-1,-1"
+        elif(angle>67.5 and angle<=112.5):
+            if self.rect.x < player.rect.x:
+                print ("R")
+                return "1,0"
+            else:
+                print ("L")
+                return "-1,0"
+        elif(angle>112.5 and angle<=157.5):
+            if self.rect.x < player.rect.x:
+                print ("DR")
+                return "1,1"
+            else:
+                print ("DL")
+                return "-1,1"
+        elif(angle>157.5 and angle<180):
+            print ("D")
             return "0,1"
-        if(angle>202.5 or angle<=247.5):
-            return "-1,1"
-        if(angle>247.5 or angle<=292.5):
-            return "-1,0"
-        if(angle>292.5 or angle<=337.5):
-            return "-1,-1"
-        else:
+        #elif(angle>202.5 or angle<=247.5):
+        #    return "-1,1"
+        #elif(angle>247.5 or angle<=292.5):
+        #    return "-1,0"
+        #elif(angle>292.5 or angle<=337.5):
+        #    return "-1,-1"
+        elif (angle==0):
+            print ("U")
             return "0,-1"
