@@ -32,13 +32,7 @@ class Bullet(pygame.sprite.Sprite):
     def update(self,player):
         self.rect.x = self.rect.x+self.direction[0]
         self.rect.y = self.rect.y+self.direction[1]
-        if player.rect.x >= 500:
-            diff = player.rect.x-500
-            self.rect.x+=-diff
 
-        if player.rect.x <= 120:
-            diff = 120 - player.rect.x
-            self.rect.x+=diff
 
         if self.type == 2:
             if self.bounces == 0:
