@@ -4,7 +4,6 @@ import levels
 import constants
 from vector import Vector
 from spritesheet_functions import SpriteSheet
-
 class Enemy(pygame.sprite.Sprite):
     #Attributes
     #Melee type animations
@@ -107,7 +106,7 @@ class Enemy(pygame.sprite.Sprite):
             self.health = 3
             self.pos = Vector(0,0)
             self.sprite = None
-            self.image = mid_l
+            self.image = self.mid_l
         self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
         self.rect = self.image.get_rect()
 
@@ -139,10 +138,12 @@ class Enemy(pygame.sprite.Sprite):
                     self.image = self.walk_l[frame]
                 if(self.rect.colliderect(player.rect)):
                     self.nokill=False
+                self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
             elif(self.type==1):
+                self.calc_grav()
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
-                    compare = normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)))
+                    compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)))
                     if compare=="0,-1":
                         if self.direction == "R":
                             self.image = self.up_r
@@ -172,7 +173,7 @@ class Enemy(pygame.sprite.Sprite):
                         self.direction = "L"
                         self.image = self.downangle_l
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
+                    self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
         if self.flag == 0:
             self.count += 1
             self.flag=self.framespeed
