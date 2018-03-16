@@ -99,16 +99,23 @@ class Level_01(Level):
 
                   [platforms.STONE_PLATFORM_LEFT, 740, 290],
                   [platforms.STONE_PLATFORM_MIDDLE, 810, 290],
-                  [platforms.STONE_PLATFORM_MIDDLE, 880,290],
-                  [platforms.STONE_PLATFORM_RIGHT, 850,290],
+                  [platforms.STONE_PLATFORM_RIGHT, 880,290],
 
                   [platforms.STONE_PLATFORM_LEFT, 990, 400],
                   [platforms.STONE_PLATFORM_MIDDLE, 1060, 400],
                   [platforms.STONE_PLATFORM_RIGHT, 1130, 400],
 
-                  [platforms.STONE_PLATFORM_LEFT, 1820, 280],
-                  [platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
-                  [platforms.STONE_PLATFORM_RIGHT, 1960, 280],
+                  [platforms.STONE_PLATFORM_LEFT, 1300, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1370, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1440, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1510, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1570, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1640,200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1710,200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1780,200],
+                  [platforms.STONE_PLATFORM_RIGHT, 1850,200],
+                  #[platforms.STONE_PLATFORM_MIDDLE, 1920,200],
+                  #[platforms.STONE_PLATFORM_RIGHT, 1990, 200],
 
                   [platforms.STONE_PLATFORM_LEFT, 2250, 360],
                   [platforms.STONE_PLATFORM_MIDDLE, 2320, 360],
@@ -126,6 +133,13 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_LEFT, 2100, 300],
                   [platforms.STONE_PLATFORM_MIDDLE, 2800, 300],
                   [platforms.STONE_PLATFORM_RIGHT, 3500, 300],
+
+
+                 # [platforms.STONE_PLATFORM_LEFT, 3430, 300]
+                 # [platforms.STONE_PLATFORM_MIDDLE,3500, 300],
+                 # [platforms.STONE_PLATFORM_RIGHT, 3570, 300],
+
+
                   ]
 
 
