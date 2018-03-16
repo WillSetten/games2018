@@ -56,6 +56,10 @@ def main():
     # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
 
+    #add in a scoreboard
+    font = pygame.font.Font(None, 28)
+
+
     # -------- Main Program Loop -----------
     while not done:
         for event in pygame.event.get(): # User did something
@@ -127,6 +131,8 @@ def main():
         for x in enemy_sprite_list:
             x.bullet_list.draw(screen)
         player.bullet_list.draw(screen)
+        text = font.render("Score = "+str(player.score),1,(constants.WHITE))
+        screen.blit(text,(0,0))
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
         # Limit to 60 frames per second
