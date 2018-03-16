@@ -92,6 +92,7 @@ class Level_01(Level):
 
 
         # Array with type of platform, and x, y location of the platform.
+        #x value is a difference of 70
         level = [ [platforms.STONE_PLATFORM_LEFT, 500, 420],
                   [platforms.STONE_PLATFORM_MIDDLE, 570, 420],
                   [platforms.STONE_PLATFORM_RIGHT, 640, 420],
@@ -117,9 +118,9 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
                   [platforms.STONE_PLATFORM_RIGHT, 2750, 430],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 2700, 510],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 2640, 510],
-                  #[platforms.STONE_PLATFORM_RIGHT, 2500, 510]
+                  [platforms.STONE_PLATFORM_LEFT, 3000, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 3070, 510],
+                  [platforms.STONE_PLATFORM_RIGHT, 3140, 510],
 
                   ]
 
@@ -142,17 +143,17 @@ class Level_01(Level):
 
 
 #def load_tileset(tileset3.png, 30, 30):
-<<<<<<< HEAD
+
 #    image = pygame.image.load(tileset3.png).convert()
 #    image.width. image.height = image.get_size()
 #    tileset = []
 #    for tile_x in range(0, image_width//30):
-=======
+
     #image = pygame.image.load(tileset3.png).convert()
     #image.width. image.height = image.get_size()
     #tileset = []
     #for tile_x in range(0, image_width//30):
->>>>>>> ef8975b954d534b72ef458301ce0326648e1e193
+
 #        line = []
 #        tileset,append(line)
 #    for tile_y in range(0, image_height//30):
