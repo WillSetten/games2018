@@ -174,7 +174,6 @@ class Player(pygame.sprite.Sprite):
         image = sprite_sheet.get_image(323, 579, 40, 41)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(368, 575, 36, 45)
-        image = pygame.transform.flip(image, True, False)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(406, 574, 35, 46)
         self.aim_mid_running_r.append(image)
@@ -183,6 +182,7 @@ class Player(pygame.sprite.Sprite):
 
         for x in self.aim_mid_running_r[:]:
             image = x
+            image = pygame.transform.flip(image, True, False)
             self.aim_mid_running_l.append(image)
 
         image = sprite_sheet.get_image(323, 472, 34, 45)
@@ -230,7 +230,7 @@ class Player(pygame.sprite.Sprite):
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
-    def update(self, enemy_list):
+    def update(self):
         """ Move the player. """
         # Gravity
         self.calc_grav()
