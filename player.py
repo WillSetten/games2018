@@ -54,7 +54,7 @@ class Player(pygame.sprite.Sprite):
     aim_down_running_r = []
     aim_down_running_l = []
 
-    dead = []
+    dead_anim = []
 
     idle_frame_l = None
     idle_frame_r = None
@@ -221,39 +221,39 @@ class Player(pygame.sprite.Sprite):
             self.aim_down_running_l.append(image)
 
         image = sprite_sheet.get_image(323, 950, 29, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(355, 950, 28, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(386, 950, 32, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(421, 950, 38, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(462, 950, 38, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(503, 950, 37, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(543, 950, 32, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(578, 950, 32, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(613, 950, 29, 42)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(323, 998, 30, 30)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(355, 995, 33, 33)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(391, 997, 36, 31)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(430, 1010, 40, 18)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(473, 1017, 41, 11)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(323, 1031, 43, 11)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(369, 1032, 48, 10)
-        self.dead.append(image)
+        self.dead_anim.append(image)
         image = sprite_sheet.get_image(420, 1033, 45, 9)
-        self.dead.append(image)
+        self.dead_anim.append(image)
 
         #load the idle aiming up frames
         self.direct_upaim_r = sprite_sheet.get_image(613, 3, 24, 57)
@@ -274,11 +274,11 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, enemy_list):
         if (self.dead is False):
+            self.calc_grav()
             print(self.score)
             """ Move the player. """
             self.bullet_list.update(self)
             # Gravity
-            self.calc_grav()
             # Move left/right
             self.rect.x += self.change_x
             if self.jumping:
@@ -335,14 +335,13 @@ class Player(pygame.sprite.Sprite):
                         self.image = self.idle_frame_l
                     else:
                         self.image = self.idle_frame_r
-
-            self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
-            self.rect.height = self.image.get_height()
             if self.flag == 0:
                 self.count += 1
                 self.flag=self.framespeed
             else:
                 self.flag-=1
+            self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
+            self.rect.height = self.image.get_height()
 
             #if on top of platform, stop jumping around
 
@@ -465,23 +464,35 @@ class Player(pygame.sprite.Sprite):
 
         else:
             if(self.deathcount<120):
+                self.calc_grav()
+                self.rect.y+=self.change_y
                 self.change_x=-constants.SCREEN_WIDTH/120
                 self.rect.x+=self.change_x
-                """When this happens, player is dead, need to add in game over screen etc """
-                if(self.deathcount<17):
-                    self.image = self.aim_up_running_l[self.deathcount]
+                print(self.deathcount)
+                if(self.deathcount<51):
+                    if(self.deathcount==0):
+                        self.image = self.dead_anim[0]
+                        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
+                        self.rect.height = self.image.get_height()
+                        self.calc_grav()
+                    elif(self.deathcount%3==0):
+                        frame = self.deathcount/3
+                        self.image = self.dead_anim[int(frame)]
+                        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
+                        self.rect.height = self.image.get_height()
+                        self.calc_grav()
                 else:
-                    self.image = self.aim_up_running_l[16]
+                    self.image = self.dead_anim[len(self.dead_anim)-1]
+                    self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
+                    self.rect.height = self.image.get_height()
+                    self.calc_grav()
             #Death animation
-            #sys.exit()
-            #pygame.exit()
             else:
                 #move the player back
                 self.deathcount = 0
                 self.dead = False
                 self.change_x=0
             self.deathcount+=1
-
 
     def calc_grav(self):
         """ Calculate effect of gravity. """
