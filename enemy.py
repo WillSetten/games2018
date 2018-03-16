@@ -145,6 +145,8 @@ class Enemy(pygame.sprite.Sprite):
                     self.image = self.walk_l[frame]
                 if(self.rect.colliderect(player.rect)):
                     self.nokill=False
+                    if (self.count%60 == 0):
+                        player.health-=1
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 if self.flag == 0:
                     self.count += 1
@@ -156,6 +158,7 @@ class Enemy(pygame.sprite.Sprite):
                     #self.change_y=-20
                     self.health-=1
                     player.bullet_list.remove(block)
+                    player.score+=10
             elif(self.type==1):
                 self.calc_grav()
                 block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -237,6 +240,8 @@ class Enemy(pygame.sprite.Sprite):
                 for block in block_hit_list:
                     self.change_y=-20
                     self.health-=1
+                    player.bullet_list.remove(block)
+                    player.score +=10
 
                 if self.rect.x < player.rect.x-constants.SCREEN_WIDTH+400:# or self.rect.x > player.rect.x+200:
                     self.spawn(player.rect.x+constants.SCREEN_WIDTH-200,random.randint(0,constants.SCREEN_HEIGHT))

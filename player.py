@@ -3,6 +3,7 @@ This module is used to hold the Player class. The Player represents the user-
 controlled sprite on the screen.
 """
 import pygame
+import sys
 import time
 import constants
 from spritesheet_functions import SpriteSheet
@@ -20,6 +21,8 @@ class Player(pygame.sprite.Sprite):
     change_y = 0
     count=1
     guncount=0
+    health = 5
+    score = 0
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
     framespeed=4
@@ -231,183 +234,192 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, enemy_list):
-        """ Move the player. """
-        self.bullet_list.update(self)
-        # Gravity
-        self.calc_grav()
-        # Move left/right
-        self.rect.x += self.change_x
-        if self.jumping:
-            if self.direction == "L":
-                frame = (self.count) % len(self.jumping_frames_l)
-                self.image = self.jumping_frames_l[frame]
-            else:
-                frame = (self.count) % len(self.jumping_frames_r)
-                self.image = self.jumping_frames_r[frame]
-        elif(self.aiming == "UP"):
-            if self.change_x != 0:
+        if (self.health>0):
+            print(self.score)
+            """ Move the player. """
+            self.bullet_list.update(self)
+            # Gravity
+            self.calc_grav()
+            # Move left/right
+            self.rect.x += self.change_x
+            if self.jumping:
                 if self.direction == "L":
-                    frame = (self.count) % len(self.aim_up_running_l)
-                    self.image = self.aim_up_running_l[frame]
+                    frame = (self.count) % len(self.jumping_frames_l)
+                    self.image = self.jumping_frames_l[frame]
                 else:
-                    frame = (self.count) % len(self.aim_up_running_r)
-                    self.image = self.aim_up_running_r[frame]
-            else:
-                if self.direction == "L":
-                    self.image = self.direct_upaim_l
-                else:
-                    self.image = self.direct_upaim_r
-        elif(self.aiming == "DOWN"):
-            if self.change_x != 0:
-                if self.direction == "L":
-                    frame = (self.count) % len(self.aim_down_running_l)
-                    self.image = self.aim_down_running_l[frame]
-                else:
-                    frame = (self.count) % len(self.aim_down_running_r)
-                    self.image = self.aim_down_running_r[frame]
-            else:
-                if self.direction == "L":
-                    self.image = self.prone_frame_l
-                else:
-                    self.image = self.prone_frame_r
-        elif(self.aiming == "MID"):
-            if self.change_x != 0:
-                if self.shooting is True:
+                    frame = (self.count) % len(self.jumping_frames_r)
+                    self.image = self.jumping_frames_r[frame]
+            elif(self.aiming == "UP"):
+                if self.change_x != 0:
                     if self.direction == "L":
-                        frame = (self.count) % len(self.aim_mid_running_l)
-                        self.image = self.aim_mid_running_l[frame]
+                        frame = (self.count) % len(self.aim_up_running_l)
+                        self.image = self.aim_up_running_l[frame]
                     else:
-                        frame = (self.count) % len(self.aim_mid_running_r)
-                        self.image = self.aim_mid_running_r[frame]
+                        frame = (self.count) % len(self.aim_up_running_r)
+                        self.image = self.aim_up_running_r[frame]
                 else:
                     if self.direction == "L":
-                        frame = (self.count) % len(self.walking_frames_l)
-                        self.image = self.walking_frames_l[frame]
+                        self.image = self.direct_upaim_l
                     else:
-                        frame = (self.count) % len(self.walking_frames_r)
-                        self.image = self.walking_frames_r[frame]
-            else:
-                if self.direction == "L":
-                    self.image = self.idle_frame_l
+                        self.image = self.direct_upaim_r
+            elif(self.aiming == "DOWN"):
+                if self.change_x != 0:
+                    if self.direction == "L":
+                        frame = (self.count) % len(self.aim_down_running_l)
+                        self.image = self.aim_down_running_l[frame]
+                    else:
+                        frame = (self.count) % len(self.aim_down_running_r)
+                        self.image = self.aim_down_running_r[frame]
                 else:
-                    self.image = self.idle_frame_r
-
-        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
-        self.rect.height = self.image.get_height()
-        if self.flag == 0:
-            self.count += 1
-            self.flag=self.framespeed
-        else:
-            self.flag-=1
-
-        #if on top of platform, stop jumping around
-
-        #check bullet collisions
-
-        # See if we hit anything
-        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
-        for block in block_hit_list:
-
-            #if self.change_y == 0:
-            if self.onPlatform == False:
-                if self.change_x>0:
-                    self.rect.right = block.rect.left
-                elif self.change_x<0:
-                    self.rect.left = block.rect.right
-
-        # Move up/down
-        self.rect.y += self.change_y
-
-        # Check and see if we hit anything
-        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
-        for block in block_hit_list:
-                # Reset our position based on the top/bottom of the object.
-                #THIS IS WHERE WE CODE LANDING ON PLATFORM
-                #previous moves player into platform
-                #when new collision occurs, as change_y is set to 1 re. calc_grav
-                #the player will move up
-
-            if self.change_y > -1:
-                self.rect.bottom = block.rect.top
-                self.jumping = False
-                self.onPlatform = True
-
-            elif self.change_y < 0:
-                pass
-                #self.rect.top = block.rect.bottom
-
-            # Stop our vertical movement
-            self.change_y = 0
-        if self.shooting is True:
-            if self.guncount%constants.PLAYERFIRERATE==0:
-                aimdirection = (0,0)
-                origin = (self.rect.x,self.rect.y)
-                if self.aiming == "UP":
-                    if self.change_x!=0:
+                    if self.direction == "L":
+                        self.image = self.prone_frame_l
+                    else:
+                        self.image = self.prone_frame_r
+            elif(self.aiming == "MID"):
+                if self.change_x != 0:
+                    if self.shooting is True:
                         if self.direction == "L":
-                            #spawn bullet travelling up and left
-                            #vector will be (-1,-1)
-                            aimdirection = (-1,-1)
-                            origin = (self.rect.x,self.rect.y)
+                            frame = (self.count) % len(self.aim_mid_running_l)
+                            self.image = self.aim_mid_running_l[frame]
                         else:
-                            #spawn bullet travelling up and right
-                            #vector will be (1,-1)
-                            aimdirection = (1,-1)
-                            origin = (self.rect.x+self.rect.width,self.rect.y)
+                            frame = (self.count) % len(self.aim_mid_running_r)
+                            self.image = self.aim_mid_running_r[frame]
                     else:
-                            #spawn bullet travelling upwards
-                            #vector will be (0,-1)
-                            aimdirection = (0,-1)
-                            origin = (self.rect.x,self.rect.y)
+                        if self.direction == "L":
+                            frame = (self.count) % len(self.walking_frames_l)
+                            self.image = self.walking_frames_l[frame]
+                        else:
+                            frame = (self.count) % len(self.walking_frames_r)
+                            self.image = self.walking_frames_r[frame]
+                else:
+                    if self.direction == "L":
+                        self.image = self.idle_frame_l
+                    else:
+                        self.image = self.idle_frame_r
+
+            self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.playerscale,self.image.get_height()*constants.playerscale))
+            self.rect.height = self.image.get_height()
+            if self.flag == 0:
+                self.count += 1
+                self.flag=self.framespeed
+            else:
+                self.flag-=1
+
+            #if on top of platform, stop jumping around
+
+            #check bullet collisions
+
+            # See if we hit anything
+            block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+            for block in block_hit_list:
+
+                #if self.change_y == 0:
+                if self.onPlatform == False:
+                    if self.change_x>0:
+                        self.rect.right = block.rect.left
+                    elif self.change_x<0:
+                        self.rect.left = block.rect.right
+
+            # Move up/down
+            self.rect.y += self.change_y
+
+            # Check and see if we hit anything
+            block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+            for block in block_hit_list:
+                    # Reset our position based on the top/bottom of the object.
+                    #THIS IS WHERE WE CODE LANDING ON PLATFORM
+                    #previous moves player into platform
+                    #when new collision occurs, as change_y is set to 1 re. calc_grav
+                    #the player will move up
+
+                if self.change_y > -1:
+                    self.rect.bottom = block.rect.top
+                    self.jumping = False
+                    self.onPlatform = True
+
+                elif self.change_y < 0:
+                    pass
+                    #self.rect.top = block.rect.bottom
+
+                # Stop our vertical movement
+                self.change_y = 0
+            if self.shooting is True:
+                if self.guncount%constants.PLAYERFIRERATE==0:
+                    aimdirection = (0,0)
+                    origin = (self.rect.x,self.rect.y)
+                    if self.aiming == "UP":
+                        if self.change_x!=0:
                             if self.direction == "L":
-                                #spawn bullet travelling up character facing left
-                                origin = (self.rect.x+35,self.rect.y)
+                                #spawn bullet travelling up and left
+                                #vector will be (-1,-1)
+                                aimdirection = (-1,-1)
+                                origin = (self.rect.x,self.rect.y)
                             else:
-                                #spawn bullet travelling up character facing right
-                                origin = (self.rect.x+30,self.rect.y)
-                elif self.aiming == "MID":
-                    if self.direction == "L":
-                        #spawn bullet travelling left
-                        #vector will be (-1,0)
-                        aimdirection = (-1,0)
-                        origin = (self.rect.x,self.rect.y+42)
-                    else:
-                        #spawn bullet travelling right
-                        #vector will be (1,0)
-                        aimdirection = (1,0)
-                        origin = (self.rect.x+self.rect.width,self.rect.y+42)
-                elif self.aiming == "DOWN":
-                    if self.change_x!=0:
-                        if self.direction == "L":
-                            #spawn bullet travelling down and left
-                            #vector will be (-1,1)
-                            aimdirection = (-1,1)
-                            origin = (self.rect.x,self.rect.y+95)
+                                #spawn bullet travelling up and right
+                                #vector will be (1,-1)
+                                aimdirection = (1,-1)
+                                origin = (self.rect.x+self.rect.width,self.rect.y)
                         else:
-                            #spawn bullet travelling down and right
-                            #vector will be (1,1)
-                            aimdirection = (1,1)
-                            origin = (self.rect.x+self.rect.width,self.rect.y+95)
-                    else:
+                                #spawn bullet travelling upwards
+                                #vector will be (0,-1)
+                                aimdirection = (0,-1)
+                                origin = (self.rect.x,self.rect.y)
+                                if self.direction == "L":
+                                    #spawn bullet travelling up character facing left
+                                    origin = (self.rect.x+35,self.rect.y)
+                                else:
+                                    #spawn bullet travelling up character facing right
+                                    origin = (self.rect.x+30,self.rect.y)
+                    elif self.aiming == "MID":
                         if self.direction == "L":
                             #spawn bullet travelling left
                             #vector will be (-1,0)
                             aimdirection = (-1,0)
-                            origin = (self.rect.x,self.rect.y+2+self.rect.width/3)
+                            origin = (self.rect.x,self.rect.y+42)
                         else:
                             #spawn bullet travelling right
                             #vector will be (1,0)
                             aimdirection = (1,0)
-                            origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
-                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1, self.level))
-                for b in self.bullet_list:
-                    if b.count >600:
-                        self.bullet_list.remove(b)
-        self.guncount = self.guncount+1
-        #for enemy in enemy_list:
-        #    block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
-        #    for block in block_hit_list:
-        #        self.health-=1
+                            origin = (self.rect.x+self.rect.width,self.rect.y+42)
+                    elif self.aiming == "DOWN":
+                        if self.change_x!=0:
+                            if self.direction == "L":
+                                #spawn bullet travelling down and left
+                                #vector will be (-1,1)
+                                aimdirection = (-1,1)
+                                origin = (self.rect.x,self.rect.y+95)
+                            else:
+                                #spawn bullet travelling down and right
+                                #vector will be (1,1)
+                                aimdirection = (1,1)
+                                origin = (self.rect.x+self.rect.width,self.rect.y+95)
+                        else:
+                            if self.direction == "L":
+                                #spawn bullet travelling left
+                                #vector will be (-1,0)
+                                aimdirection = (-1,0)
+                                origin = (self.rect.x,self.rect.y+2+self.rect.width/3)
+                            else:
+                                #spawn bullet travelling right
+                                #vector will be (1,0)
+                                aimdirection = (1,0)
+                                origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
+                    self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1, self.level))
+                    for b in self.bullet_list:
+                        if b.count >600:
+                            self.bullet_list.remove(b)
+            self.guncount = self.guncount+1
+            for enemy in enemy_list:
+                block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
+                for block in block_hit_list:
+                    self.health-=1
+                    enemy.bullet_list.remove(block)
+        else:
+            """When this happens, player is dead, need to add in game over screen etc """
+            self.rect.y+=2000
+            print("HE DEAD")
+            sys.exit()
+            #pygame.exit()
 
 
 
