@@ -152,7 +152,7 @@ class Enemy(pygame.sprite.Sprite):
                 if player.rect.x <= 120:
                     diff = 120 - player.rect.x
                     self.rect.x+=diff
-                    
+
 
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
@@ -305,6 +305,6 @@ class Enemy(pygame.sprite.Sprite):
         #    return "-1,0"
         #elif(angle>292.5 or angle<=337.5):
         #    return "-1,-1"
-        elif (angle==0):
+        elif (angle<22.5):
             print ("U")
             return "0,-1"
