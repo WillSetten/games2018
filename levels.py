@@ -59,12 +59,12 @@ class Level():
         for platform in self.platform_list:
             platform.rect.x += shift_x
 
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
->>>>>>> 7a4167d5f863197206f6ca89fe91e6437f8fcee1
+#>>>>>>> 7a4167d5f863197206f6ca89fe91e6437f8fcee1
 #Development of a main menu
 class Level_main_menu(Level):
     def __init__(self):
@@ -86,7 +86,7 @@ class Level_01(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("LevelOne.png").convert()
+        self.background = pygame.image.load("LevelOne.png").convert_alpha()
         self.background.set_colorkey(constants.WHITE)
         #self.level_limit = -2500
 
