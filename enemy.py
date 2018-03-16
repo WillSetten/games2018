@@ -133,7 +133,7 @@ class Enemy(pygame.sprite.Sprite):
                 else:
                     frame = (self.count) % len(self.die_R_l)
                     self.image = self.die_R_l[frame]#
-            self.spawn(self.rect.x+ constants.SCREEN_WIDTH,random.randint(0,constants.SCREEN_HEIGHT))
+            self.spawn(self.rect.x+ (constants.SCREEN_WIDTH/2),random.randint(0,constants.SCREEN_HEIGHT))
         else:
             if (self.type==0):
                 self.move(player)

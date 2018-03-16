@@ -71,27 +71,27 @@ class Player(pygame.sprite.Sprite):
 
         sprite_sheet = SpriteSheet("player1.png")
         # Load all the right facing images into a list
-        image = sprite_sheet.get_image(324, 261, 30, 47)
+        image = sprite_sheet.get_image(324, 261, 30, 45)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(358, 262, 26, 47)
+        image = sprite_sheet.get_image(358, 262, 26, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(388, 262, 24, 47)
+        image = sprite_sheet.get_image(388, 262, 24, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(414, 260, 33, 47)
+        image = sprite_sheet.get_image(414, 260, 33, 46)
         self.walking_frames_r.append(image)
         image = sprite_sheet.get_image(451, 259, 38, 47)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(324, 210, 39, 47)
+        image = sprite_sheet.get_image(324, 210, 39, 45)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(367, 211, 36, 47)
+        image = sprite_sheet.get_image(367, 211, 36, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(408, 211, 32, 47)
+        image = sprite_sheet.get_image(408, 211, 32, 44)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(444, 210, 28, 47)
+        image = sprite_sheet.get_image(444, 210, 28, 45)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(476, 212, 35, 47)
+        image = sprite_sheet.get_image(476, 212, 35, 43)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(515, 212, 38, 47)
+        image = sprite_sheet.get_image(515, 212, 38, 43)
         self.walking_frames_r.append(image)
 
         # Load all the right facing images, then flip them
@@ -137,11 +137,11 @@ class Player(pygame.sprite.Sprite):
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(509, 310, 29, 50)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(544, 309, 29, 50)
+        image = sprite_sheet.get_image(544, 309, 29, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(324, 367, 36, 50)
+        image = sprite_sheet.get_image(324, 367, 36, 48)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(368, 368, 38, 50)
+        image = sprite_sheet.get_image(368, 368, 38, 47)
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(411, 365, 36, 50)
         self.aim_up_running_r.append(image)
@@ -157,13 +157,13 @@ class Player(pygame.sprite.Sprite):
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(323, 310, 35, 50)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(323, 417, 29, 50)
+        image = sprite_sheet.get_image(323, 417, 29, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(355, 417, 30, 50)
+        image = sprite_sheet.get_image(355, 417, 30, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(389, 417, 33, 50)
+        image = sprite_sheet.get_image(389, 417, 33, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(425, 422, 36, 50)
+        image = sprite_sheet.get_image(425, 422, 36, 46)
         self.aim_up_running_r.append(image)
         #load the sprites for aiming upwards whilst running left
         for x in self.aim_up_running_r[:]:
@@ -172,9 +172,9 @@ class Player(pygame.sprite.Sprite):
             self.aim_up_running_l.append(image)
 
         #load the sprites for aiming downwards whilst running right
-        image = sprite_sheet.get_image(323, 579, 40, 46)
+        image = sprite_sheet.get_image(323, 579, 40, 41)
         self.aim_mid_running_r.append(image)
-        image = sprite_sheet.get_image(368, 575, 36, 46)
+        image = sprite_sheet.get_image(368, 575, 36, 45)
         self.aim_mid_running_r.append(image)
         image = sprite_sheet.get_image(406, 574, 35, 46)
         self.aim_mid_running_r.append(image)
@@ -188,15 +188,15 @@ class Player(pygame.sprite.Sprite):
 
         image = sprite_sheet.get_image(323, 472, 34, 45)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(360, 473, 33, 45)
+        image = sprite_sheet.get_image(360, 473, 33, 44)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(396, 473, 31, 45)
+        image = sprite_sheet.get_image(396, 473, 31, 44)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(431, 473, 31, 45)
+        image = sprite_sheet.get_image(431, 473, 31, 44)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(467, 473, 31, 45)
+        image = sprite_sheet.get_image(467, 473, 31, 44)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(502, 473, 31, 45)
+        image = sprite_sheet.get_image(502, 473, 31, 44)
         self.aim_down_running_r.append(image)
         image = sprite_sheet.get_image(535, 472, 31, 45)
         self.aim_down_running_r.append(image)
@@ -328,13 +328,14 @@ class Player(pygame.sprite.Sprite):
                 #when new collision occurs, as change_y is set to 1 re. calc_grav
                 #the player will move up
 
-            if self.change_y > 0:
+            if self.change_y > -1:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
                 self.onPlatform = True
 
             elif self.change_y < 0:
-                self.rect.top = block.rect.bottom
+                pass
+                #self.rect.top = block.rect.bottom
 
             # Stop our vertical movement
             self.change_y = 0
@@ -399,7 +400,7 @@ class Player(pygame.sprite.Sprite):
                             #vector will be (1,0)
                             aimdirection = (1,0)
                             origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
-                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),2, self.level))
+                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1, self.level))
                 for b in self.bullet_list:
                     if b.count >600:
                         self.bullet_list.remove(b)
