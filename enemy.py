@@ -218,7 +218,7 @@ class Enemy(pygame.sprite.Sprite):
                         self.direction = "L"
                         self.image = self.downangle_l
                         origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
-                    self.bullet_list.add(Bullet(origin,(compare[0]*3,compare[1]*3),0))
+                    self.bullet_list.add(Bullet(origin,(compare[0]*3,compare[1]*3),0, self.level))
                     for b in self.bullet_list:
                         if b.count >600:
                             self.bullet_list.remove(b)
@@ -238,14 +238,18 @@ class Enemy(pygame.sprite.Sprite):
 
         #sets them to follow the user wherever they go
         if(self.nokill):
-            if player.rect.x > self.rect.x:
+            if player.rect.x > self.rect.x and self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
                 self.change_x = self.speed
                 self.direction = "R"
+            elif player.rect.x < self.rect.x and self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
+                self.change_x = -self.speed
+                self.direction = "L"
             else:
                 self.change_x = -self.speed
                 self.direction = "L"
         else:
-            self.change_x = -self.speed
+            self.change_x = -self.speed#
+            self.direction = "L"
         self.rect.x+=self.change_x
 
         if player.rect.x >= 500:

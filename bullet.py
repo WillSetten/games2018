@@ -6,10 +6,12 @@ from vector import Vector
 class Bullet(pygame.sprite.Sprite):
     """"Takes in two vectors and an integer at initialisation. First vector is current position of the character, second
     vector is the direction of the bullet"""
+    level = None
     type=1
     """Count is used to track number of frames that the bullet is active for - if over x amount bullet despawns"""
     count=0
-    def __init__(self, p, d, t):
+    def __init__(self, p, d, t, level):
+        self.level=level
         self.direction = d
         self.destroyed = False
         """0=Enemy bullets 1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
@@ -48,7 +50,7 @@ class Bullet(pygame.sprite.Sprite):
                 if self.bounces == 0:
                     self.destroyed = True
                 else:
-                    block_hit_list = pygame.sprite.spritecollide(self,Level.levels.platform_list, False)
+                    block_hit_list = pygame.sprite.spritecollide(self,self.level.platform_list, False)
                     if block_hit_list == None:
                         if self.pos.y == constants.SCREEN_HEIGHT or self.pos.y == 0:
                             self.direction.y = -self.direction.y
