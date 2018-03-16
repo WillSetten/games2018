@@ -2,6 +2,7 @@ import pygame
 import random
 import levels
 import constants
+from bullet import Bullet
 from vector import Vector
 from spritesheet_functions import SpriteSheet
 class Enemy(pygame.sprite.Sprite):
@@ -36,6 +37,7 @@ class Enemy(pygame.sprite.Sprite):
     flag=0
     framespeed = 4
     nokill=True
+    bullet_list = pygame.sprite.Group()
     def __init__(self, type):
 
         pygame.sprite.Sprite.__init__(self)
@@ -108,10 +110,12 @@ class Enemy(pygame.sprite.Sprite):
             self.pos = Vector(0,0)
             self.sprite = None
             self.image = self.mid_l
+            bullet_list = pygame.sprite.Group()
         self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
         self.rect = self.image.get_rect()
 
     def update(self, player):
+        self.bullet_list.update(player)
         if (self.health<1):
             #death animation
             if (self.type==0):
@@ -157,34 +161,44 @@ class Enemy(pygame.sprite.Sprite):
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
                     compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
-                    if compare=="0,-1":
+                    if compare==(0,-1):
                         if self.direction == "R":
                             self.image = self.up_r
+                            origin = (self.rect.x+28,self.rect.y)
                         else:
                             self.image = self.up_l
-                    if compare=="1,-1":
+                            origin = (self.rect.x+self.rect.width/2-self.rect.width/8,self.rect.y)
+                    if compare==(1,-1):
                         self.direction = "R"
                         self.image = self.upangle_r
-                    if compare=="1,0":
+                        origin = (self.rect.x+self.rect.width/2+29,self.rect.y)
+                    if compare==(1,0):
                         self.direction = "R"
                         self.image = self.mid_r
-                    if compare=="1,1":
+                        origin = (self.rect.x+self.rect.width,self.rect.y+self.rect.height/6)
+                    if compare==(1,1):
                         self.direction = "R"
                         self.image = self.downangle_r
-                    if compare=="0,1":
+                        origin = (self.rect.x+self.rect.width,self.rect.y+self.rect.height)
+                    if compare==(0,1):
                         if self.direction == "R":
                             self.image = self.down_r
                         else:
                             self.image = self.down_l
-                    if compare=="-1,-1":
+                        origin = (self.rect.x+self.rect.width/2,self.rect.y+self.rect.height)
+                    if compare==(-1,-1):
                         self.direction = "L"
                         self.image = self.upangle_l
-                    if compare=="-1,0":
+                        origin = (self.rect.x,self.rect.y)
+                    if compare==(-1,0):
                         self.direction = "L"
                         self.image = self.mid_l
-                    if compare=="-1,1":
+                        origin = (self.rect.x,self.rect.y+self.rect.height/6)
+                    if compare==(-1,1):
                         self.direction = "L"
                         self.image = self.downangle_l
+                        origin = (self.rect.x,self.rect.y+self.rect.height)
+                    self.bullet_list.add(Bullet(origin,compare,1))
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 self.change_x=0
@@ -193,7 +207,7 @@ class Enemy(pygame.sprite.Sprite):
             self.flag=self.framespeed
         else:
             self.flag-=1
-
+        self.rect.height = self.image.get_height()
     def spawn(self,x,y):
         self.rect.x = x
         self.rect.y = y
@@ -278,27 +292,27 @@ class Enemy(pygame.sprite.Sprite):
         if(angle>22.5 and angle<=67.5):
             if self.rect.x < player.rect.x:
                 print("UR")
-                return "1,-1"
+                return (1,-1)
             else:
                 print ("UL")
-                return "-1,-1"
+                return (-1,-1)
         elif(angle>67.5 and angle<=112.5):
             if self.rect.x < player.rect.x:
                 print ("R")
-                return "1,0"
+                return (1,0)
             else:
                 print ("L")
-                return "-1,0"
+                return (-1,0)
         elif(angle>112.5 and angle<=157.5):
             if self.rect.x < player.rect.x:
                 print ("DR")
-                return "1,1"
+                return (1,1)
             else:
                 print ("DL")
-                return "-1,1"
+                return (-1,1)
         elif(angle>157.5 and angle<180):
             print ("D")
-            return "0,1"
+            return (0,1)
         #elif(angle>202.5 or angle<=247.5):
         #    return "-1,1"
         #elif(angle>247.5 or angle<=292.5):
@@ -307,4 +321,4 @@ class Enemy(pygame.sprite.Sprite):
         #    return "-1,-1"
         elif (angle<22.5):
             print ("U")
-            return "0,-1"
+            return (0,-1)

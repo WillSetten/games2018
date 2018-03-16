@@ -1,12 +1,13 @@
 import constants
+import pygame
 from vector import Vector
 
 
-class Bullet:
+class Bullet(pygame.sprite.Sprite):
     """"Takes in two vectors and an integer at initialisation. First vector is current position of the character, second
     vector is the direction of the bullet"""
+    type=1
     def __init__(self, p, d, t):
-        self.pos = p
         self.direction = d
         self.destroyed = False
         """1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
@@ -14,13 +15,28 @@ class Bullet:
         self.type = t
         if self.type == 2:
             self.bounces=5
+        super().__init__() #adding super call to make Bullet a pygame Sprite
+        self.image = pygame.Surface([4, 10])
+        self.image.fill(constants.WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x=p[0]
+        self.rect.y=p[1]
     """Bullets will be sorted into two arrays - player and enemy bullets. If"""
     def draw(self, canvas):
         if self.destroyed is False:
             canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
     """Bullet will travel in set direction until it interacts with a character"""
-    def update(self):
-        self.pos.add(self.direction)
+    def update(self,player):
+        self.rect.x = self.rect.x+self.direction[0]
+        self.rect.y = self.rect.y+self.direction[1]
+        if player.rect.x >= 500:
+            diff = player.rect.x-500
+            self.rect.x+=-diff
+
+        if player.rect.x <= 120:
+            diff = 120 - player.rect.x
+            self.rect.x+=diff
+
         if self.type == 2:
             if self.bounces == 0:
                 self.destroyed = True
@@ -38,7 +54,6 @@ class Bullet:
                         self.direction.x = -self.direction.x
 
                 self.bounces -= 1
-        canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
-                "Code for dealing with reflecting off platforms"
+        "Code for dealing with reflecting off platforms"
         if self.type == 4:
             self.pos.subtract(Vector(0, constants.GRAVITY))
