@@ -1,6 +1,5 @@
 import constants
 from vector import Vector
-import main
 
 
 class Bullet:
@@ -15,21 +14,17 @@ class Bullet:
         self.type = t
         if self.type == 2:
             self.bounces=5
-
-        main.bullet_list.add(self)
-
+    """Bullets will be sorted into two arrays - player and enemy bullets. If"""
     def draw(self, canvas):
         if self.destroyed is False:
-                canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
+            canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
     """Bullet will travel in set direction until it interacts with a character"""
-
     def update(self):
         self.pos.add(self.direction)
         if self.type == 2:
             if self.bounces == 0:
                 self.destroyed = True
             else:
-                """Bouncy bullets are all coded algorithmically, just need sprites and retexturing """
                 block_hit_list = pygame.sprite.spritecollide(self,Level.levels.platform_list, False)
                 if block_hit_list == None:
                     if self.pos.y == constants.SCREEN_HEIGHT or self.pos.y == 0:
@@ -43,7 +38,7 @@ class Bullet:
                         self.direction.x = -self.direction.x
 
                 self.bounces -= 1
-
+        canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
                 "Code for dealing with reflecting off platforms"
         if self.type == 4:
             self.pos.subtract(Vector(0, constants.GRAVITY))
