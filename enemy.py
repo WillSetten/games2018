@@ -145,6 +145,14 @@ class Enemy(pygame.sprite.Sprite):
                 self.calc_grav()
                 self.rect.y+=self.change_y
 
+                if player.rect.x >= 500:
+                    diff = player.rect.x-500
+                    self.rect.x+=-diff
+
+                if player.rect.x <= 120:
+                    diff = 120 - player.rect.x
+                    self.rect.x+=diff
+
                 if(self.count%constants.ENEMYFIRERATE==0):
                     aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x),self.rect.y-(player.rect.y+player.change_y))
                     compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)))
@@ -178,11 +186,13 @@ class Enemy(pygame.sprite.Sprite):
                         self.image = self.downangle_l
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
+                self.change_x=0
         if self.flag == 0:
             self.count += 1
             self.flag=self.framespeed
         else:
             self.flag-=1
+
     def spawn(self,x,y):
         self.rect.x = x
         self.rect.y = y
@@ -204,6 +214,13 @@ class Enemy(pygame.sprite.Sprite):
             self.change_x = -self.speed
         self.rect.x+=self.change_x
 
+        if player.rect.x >= 500:
+            diff = player.rect.x-500
+            self.rect.x+=-diff
+
+        if player.rect.x <= 120:
+            diff = 120 - player.rect.x
+            self.rect.x+=diff
     #NEXT SECTION: collisions with platforms, means that enemies can sit on platforms if they wish to do so
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
