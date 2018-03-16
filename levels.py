@@ -118,6 +118,7 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
                   [platforms.STONE_PLATFORM_RIGHT, 2750, 430],
 
+                  #Azhar's Platforms
                   [platforms.STONE_PLATFORM_LEFT, 3000, 510],
                   [platforms.STONE_PLATFORM_MIDDLE, 3070, 510],
                   [platforms.STONE_PLATFORM_RIGHT, 3140, 510],
