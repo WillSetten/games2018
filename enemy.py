@@ -116,138 +116,148 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, player):
-        self.bullet_list.update(player)
-        if (self.health<1):
-            #death animation
-            if (self.type==0):
-                if self.direction == "R":
-                    frame = (self.count) % len(self.die_M_r)
-                    self.image = self.die_M_r[frame]
+        if (player.dead == False):
+            self.bullet_list.update(player)
+            if (self.health<1):
+                #death animation
+                if (self.type==0):
+                    if self.direction == "R":
+                        frame = (self.count) % len(self.die_M_r)
+                        self.image = self.die_M_r[frame]
+                    else:
+                        frame = (self.count) % len(self.die_M_l)
+                        self.image = self.die_M_l[frame]
                 else:
-                    frame = (self.count) % len(self.die_M_l)
-                    self.image = self.die_M_l[frame]
+                    if self.direction == "R":
+                        frame = (self.count) % len(self.die_R_r)
+                        self.image = self.die_R_r[frame]
+                    else:
+                        frame = (self.count) % len(self.die_R_l)
+                        self.image = self.die_R_l[frame]#
+                self.spawn(self.rect.x+ (constants.SCREEN_WIDTH),random.randint(0,constants.SCREEN_HEIGHT))
             else:
-                if self.direction == "R":
-                    frame = (self.count) % len(self.die_R_r)
-                    self.image = self.die_R_r[frame]
-                else:
-                    frame = (self.count) % len(self.die_R_l)
-                    self.image = self.die_R_l[frame]#
-            self.spawn(self.rect.x+ (constants.SCREEN_WIDTH),random.randint(0,constants.SCREEN_HEIGHT))
-        else:
-            if (self.type==0):
-                print(self.count)
-                self.move(player)
-                if(self.direction =="R"):
-                    frame = (self.count) % len(self.walk_r)
-                    self.image = self.walk_r[frame]
-                else:
-                    frame = (self.count) % len(self.walk_l)
-                    self.image = self.walk_l[frame]
-                if(self.rect.colliderect(player.rect)):
-                    self.nokill=False
-                    if self.count%60==0:
-                        player.health=player.health-1
-                        time.sleep(0.5)
-                self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
-                if self.flag == 0:
-                    self.count += 1
-                    self.flag=self.framespeed
-                else:
-                    self.flag-=1
-                block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
-                for block in block_hit_list:
-                    #self.change_y=-20
-                    self.health-=1
-                    player.bullet_list.remove(block)
-                    player.score+=10
-            elif(self.type==1):
-                self.calc_grav()
-                block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
-                for block in block_hit_list:
-                    #if they collide with a platform, this stops user and makes them stand on top
-
-                    if self.change_y > 0:
-                        self.rect.bottom = block.rect.top
-                        self.jumping = False
-                        self.onPlatform = True
-
-                    elif self.change_y < 0:
-                        self.rect.top = block.rect.bottom
-
-                    # Stop our vertical movement
-                    self.change_y = 0
-                self.rect.y+=self.change_y
-
-                if player.rect.x >= 500:
-                    diff = player.rect.x-500
-                    self.rect.x+=-diff
-
-                if player.rect.x <= 120:
-                    diff = 120 - player.rect.x
-                    self.rect.x+=diff
-
-
-                if(self.count%constants.ENEMYFIRERATE==0):
-                    aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x*2),self.rect.y-(player.rect.y+player.change_y*2))
-                    compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
-                    origin = (self.rect.x,self.rect.y)
-                    if compare==(0,-1):
-                        if self.direction == "R":
-                            self.image = self.up_r
-                            origin = (self.rect.x+28,self.rect.y)
-                        else:
-                            self.image = self.up_l
-                            origin = (self.rect.x+self.rect.width/2-self.rect.width/8,self.rect.y)
-                    if compare==(1,-1):
-                        self.direction = "R"
-                        self.image = self.upangle_r
-                        origin = (self.rect.x+self.rect.width/2+29,self.rect.y)
-                    if compare==(1,0):
-                        self.direction = "R"
-                        self.image = self.mid_r
-                        origin = (self.rect.x+self.rect.width,self.rect.y+self.rect.height/6)
-                    if compare==(1,1):
-                        self.direction = "R"
-                        self.image = self.downangle_r
-                        origin = (self.rect.x+self.rect.width*4/5,self.rect.y+15+self.rect.height/2)
-                    if compare==(0,1):
-                        if self.direction == "R":
-                            self.image = self.down_r
-                            origin = ((self.rect.x+self.rect.width*3/8)+2,self.rect.y+self.rect.height-15)
-                        else:
-                            self.image = self.down_l
-                            origin = (self.rect.x+(self.rect.width/4)+2,self.rect.y+self.rect.height-15)
-                    if compare==(-1,-1):
-                        self.direction = "L"
-                        self.image = self.upangle_l
-                        origin = (self.rect.x,self.rect.y)
-                    if compare==(-1,0):
-                        self.direction = "L"
-                        self.image = self.mid_l
-                        origin = (self.rect.x,self.rect.y+self.rect.height/6)
-                    if compare==(-1,1):
-                        self.direction = "L"
-                        self.image = self.downangle_l
-                        origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
-                    self.bullet_list.add(Bullet(origin,(compare[0]*3,compare[1]*3),0, self.level))
-                    for b in self.bullet_list:
-                        if b.count >600:
-                            self.bullet_list.remove(b)
-                        #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
+                if (self.type==0):
+                    print(self.count)
+                    self.move(player)
+                    if(self.direction =="R"):
+                        frame = (self.count) % len(self.walk_r)
+                        self.image = self.walk_r[frame]
+                    else:
+                        frame = (self.count) % len(self.walk_l)
+                        self.image = self.walk_l[frame]
+                    if(self.rect.colliderect(player.rect)):
+                        self.nokill=False
+                        if self.count%60==0:
+                            player.health=player.health-1
+                            time.sleep(0.5)
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
-                self.change_x=0
-                self.count=self.count+1
-                block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
-                for block in block_hit_list:
-                    self.change_y=-20
-                    self.health-=1
-                    player.bullet_list.remove(block)
-                    player.score +=10
+                    if self.flag == 0:
+                        self.count += 1
+                        self.flag=self.framespeed
+                    else:
+                        self.flag-=1
+                    block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
+                    for block in block_hit_list:
+                        #self.change_y=-20
+                        self.health-=1
+                        player.bullet_list.remove(block)
+                        player.score+=10
+                elif(self.type==1):
+                    self.calc_grav()
+                    block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+                    for block in block_hit_list:
+                        #if they collide with a platform, this stops user and makes them stand on top
 
-                if self.rect.x < player.rect.x-constants.SCREEN_WIDTH+400:# or self.rect.x > player.rect.x+200:
-                    self.spawn(player.rect.x+constants.SCREEN_WIDTH-200,random.randint(0,constants.SCREEN_HEIGHT))
-        self.rect.height = self.image.get_height()
+                        if self.change_y > 0:
+                            self.rect.bottom = block.rect.top
+                            self.jumping = False
+                            self.onPlatform = True
+
+                        elif self.change_y < 0:
+                            self.rect.top = block.rect.bottom
+
+                        # Stop our vertical movement
+                        self.change_y = 0
+                    self.rect.y+=self.change_y
+
+                    if player.rect.x >= 500:
+                        diff = player.rect.x-500
+                        self.rect.x+=-diff
+
+                    if player.rect.x <= 120:
+                        diff = 120 - player.rect.x
+                        self.rect.x+=diff
+
+
+                    if(self.count%constants.ENEMYFIRERATE==0):
+                        aim_direction = Vector(self.rect.x-(player.rect.x+player.change_x*2),self.rect.y-(player.rect.y+player.change_y*2))
+                        compare = self.normaliseAngle(aim_direction.angle(Vector(0,self.rect.y)), player)
+                        origin = (self.rect.x,self.rect.y)
+                        if compare==(0,-1):
+                            if self.direction == "R":
+                                self.image = self.up_r
+                                origin = (self.rect.x+28,self.rect.y)
+                            else:
+                                self.image = self.up_l
+                                origin = (self.rect.x+self.rect.width/2-self.rect.width/8,self.rect.y)
+                        if compare==(1,-1):
+                            self.direction = "R"
+                            self.image = self.upangle_r
+                            origin = (self.rect.x+self.rect.width/2+29,self.rect.y)
+                        if compare==(1,0):
+                            self.direction = "R"
+                            self.image = self.mid_r
+                            origin = (self.rect.x+self.rect.width,self.rect.y+self.rect.height/6)
+                        if compare==(1,1):
+                            self.direction = "R"
+                            self.image = self.downangle_r
+                            origin = (self.rect.x+self.rect.width*4/5,self.rect.y+15+self.rect.height/2)
+                        if compare==(0,1):
+                            if self.direction == "R":
+                                self.image = self.down_r
+                                origin = ((self.rect.x+self.rect.width*3/8)+2,self.rect.y+self.rect.height-15)
+                            else:
+                                self.image = self.down_l
+                                origin = (self.rect.x+(self.rect.width/4)+2,self.rect.y+self.rect.height-15)
+                        if compare==(-1,-1):
+                            self.direction = "L"
+                            self.image = self.upangle_l
+                            origin = (self.rect.x,self.rect.y)
+                        if compare==(-1,0):
+                            self.direction = "L"
+                            self.image = self.mid_l
+                            origin = (self.rect.x,self.rect.y+self.rect.height/6)
+                        if compare==(-1,1):
+                            self.direction = "L"
+                            self.image = self.downangle_l
+                            origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
+                        self.bullet_list.add(Bullet(origin,(compare[0]*3,compare[1]*3),0, self.level))
+                        for b in self.bullet_list:
+                            if b.count >600:
+                                self.bullet_list.remove(b)
+                            #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
+                        self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
+                    self.change_x=0
+                    self.count=self.count+1
+                    block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
+                    for block in block_hit_list:
+                        self.change_y=-20
+                        self.health-=1
+                        player.bullet_list.remove(block)
+                        player.score +=10
+
+
+                    if self.rect.x < player.rect.x-constants.SCREEN_WIDTH+400:# or self.rect.x > player.rect.x+200:
+                        self.spawn(player.rect.x+constants.SCREEN_WIDTH-200,random.randint(0,constants.SCREEN_HEIGHT))
+            self.rect.height = self.image.get_height()
+        else:
+            if player.rect.x >= 500:
+                diff = player.rect.x-500
+                self.rect.x+=-diff
+
+            if player.rect.x <= 120:
+                diff = 120 - player.rect.x
+                self.rect.x+=diff
     def spawn(self,x,y):
         self.rect.x = x
         self.rect.y = y

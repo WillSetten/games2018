@@ -17,11 +17,13 @@ class Player(pygame.sprite.Sprite):
     onPlatform = False#
     bullet_list = []
     # Set speed vector of player
+    deathcount = 0
+    dead = False
     change_x = 0
     change_y = 0
     count=1
     guncount=0
-    health = 5
+    lives = 5
     score = 0
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
@@ -234,7 +236,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, enemy_list):
-        if (self.health>0):
+        if (self.dead is False):
             print(self.score)
             """ Move the player. """
             self.bullet_list.update(self)
@@ -409,18 +411,36 @@ class Player(pygame.sprite.Sprite):
                         if b.count >600:
                             self.bullet_list.remove(b)
             self.guncount = self.guncount+1
-            for enemy in enemy_list:
-                block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
-                for block in block_hit_list:
-                    #self.health-=1
-                    enemy.bullet_list.remove(block)
-        else:
-            """When this happens, player is dead, need to add in game over screen etc """
-            self.rect.y+=2000
-            print("HE DEAD")
-            sys.exit()
-            #pygame.exit()
 
+            for enemy in enemy_list:
+                if enemy.type ==0:
+                    if(self.rect.colliderect(enemy.rect)):
+                        self.lives-=1
+                        self.deathcount+=1
+                        self.dead = True
+                else:
+                    block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
+                    for block in block_hit_list:
+                        self.lives-+1
+                        self.deathcount+=1
+                        self.dead = True
+                        enemy.bullet_list.remove(block)
+
+        else:
+            if(self.deathcount<120):
+                self.change_x=-constants.SCREEN_WIDTH/120
+                self.rect.x+=self.change_x
+                """When this happens, player is dead, need to add in game over screen etc """
+
+            #Death animation
+            #sys.exit()
+            #pygame.exit()
+            else:
+                #move the player back
+                self.deathcount = 0
+                self.dead = False
+                self.change_x=0
+            self.deathcount+=1
 
 
     def calc_grav(self):

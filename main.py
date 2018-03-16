@@ -33,7 +33,7 @@ def main():
     current_level = level_list[current_level_no]
 
     for i in range(0,1):
-        enemy_list.append(Enemy(random.randint(0,0)))
+        enemy_list.append(Enemy(random.randint(1,1)))
         enemy_list[i].level = current_level
 
     active_sprite_list = pygame.sprite.Group()
@@ -41,7 +41,7 @@ def main():
     player.level = current_level
 
     for i in range(0,1):
-        x = random.randint(constants.SCREEN_WIDTH/2,constants.SCREEN_WIDTH)
+        x = random.randint(constants.SCREEN_WIDTH,2*constants.SCREEN_WIDTH)
         #y = random.randint(0,constants.SCREEN_HEIGHT-5)
         enemy_list[i].spawn(x,0)
         enemy_sprite_list.add(enemy_list[i])
@@ -60,11 +60,11 @@ def main():
     font = pygame.font.Font(None, 28)
 
 
-    # -------- Main Program Loop -----------
-    while not done:
+    # -------- Main Game Loop -----------
+    while player.lives>0:
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
-                done = True # Flag that we are done so we exit this loop
+                player.lives=0 # Flag that we are done so we exit this loop
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
@@ -133,7 +133,7 @@ def main():
         player.bullet_list.draw(screen)
         text = font.render("Score = "+str(player.score),1,(constants.WHITE))
         screen.blit(text,(0,0))
-        text = font.render("Health = "+str(player.health),1,(constants.WHITE))
+        text = font.render("Lives = "+str(player.lives),1,(constants.WHITE))
         screen.blit(text,(constants.SCREEN_WIDTH-100,0))
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
