@@ -1,6 +1,7 @@
 import pygame
 import random
 import levels
+import random
 import constants
 from bullet import Bullet
 from vector import Vector
@@ -106,7 +107,7 @@ class Enemy(pygame.sprite.Sprite):
 
         elif (self.type==1):
             self.speed = 2
-            self.health = 3
+            self.health = 1
             self.pos = Vector(0,0)
             self.sprite = None
             self.image = self.mid_l
@@ -131,7 +132,8 @@ class Enemy(pygame.sprite.Sprite):
                     self.image = self.die_R_r[frame]
                 else:
                     frame = (self.count) % len(self.die_R_l)
-                    self.image = self.die_R_l[frame]
+                    self.image = self.die_R_l[frame]#
+            self.spawn(self.rect.x+ constants.SCREEN_WIDTH,random.randint(0,constants.SCREEN_HEIGHT))
         else:
             if (self.type==0):
                 self.move(player)
@@ -149,6 +151,11 @@ class Enemy(pygame.sprite.Sprite):
                     self.flag=self.framespeed
                 else:
                     self.flag-=1
+                block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
+                for block in block_hit_list:
+                    #self.change_y=-20
+                    self.health-=1
+
             elif(self.type==1):
                 self.calc_grav()
                 block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -226,10 +233,22 @@ class Enemy(pygame.sprite.Sprite):
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 self.change_x=0
                 self.count=self.count+1
+                block_hit_list = pygame.sprite.spritecollide(self,player.bullet_list,False)
+                for block in block_hit_list:
+                    self.change_y=-20
+                    self.health-=1
         self.rect.height = self.image.get_height()
     def spawn(self,x,y):
         self.rect.x = x
         self.rect.y = y
+        if (self.type==0):
+            self.health = 1
+            self.image = self.walk_l[0]
+
+        elif (self.type==1):
+            self.health = 1
+            self.image = self.mid_l
+
 
 
     def move(self, player):
