@@ -59,7 +59,7 @@ def main():
     #add in a scoreboard
     font = pygame.font.Font(None, 28)
     #----------MAIN MENU-----------------
-    put up main menu;
+    #put up main menu;
 
     # -------- Main Game Loop -----------
     while player.lives>0:
