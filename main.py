@@ -126,6 +126,7 @@ def main():
         enemy_sprite_list.draw(screen)
         for x in enemy_sprite_list:
             x.bullet_list.draw(screen)
+        player.bullet_list.draw(screen)
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
         # Limit to 60 frames per second

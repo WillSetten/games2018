@@ -10,15 +10,16 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, p, d, t):
         self.direction = d
         self.destroyed = False
-        """1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
+        """0=Enemy bullets 1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
         groups), 4 = Grenade (travels in a parabola then damages enemies in a radius after a set time)"""
         self.type = t
         if self.type == 2:
             self.bounces=5
         super().__init__() #adding super call to make Bullet a pygame Sprite
-        self.image = pygame.Surface([4, 10])
-        self.image.fill(constants.WHITE)
+        self.image = pygame.Surface([5, 5])
         self.rect = self.image.get_rect()
+        if self.type == 0:
+            self.image.fill(constants.WHITE)
         self.rect.x=p[0]
         self.rect.y=p[1]
     """Bullets will be sorted into two arrays - player and enemy bullets. If"""

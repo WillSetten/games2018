@@ -7,7 +7,7 @@ import time
 import constants
 from spritesheet_functions import SpriteSheet
 import main
-
+from bullet import Bullet
 class Player(pygame.sprite.Sprite):
     """ This class represents the bar at the bottom that the player
     controls. """
@@ -20,6 +20,7 @@ class Player(pygame.sprite.Sprite):
     change_x = 0
     change_y = 0
     count=1
+    guncount=0
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
     framespeed=4
@@ -58,7 +59,7 @@ class Player(pygame.sprite.Sprite):
     direct_upaim_r = None
     # What direction is the player facing?
     direction = "R"
-
+    bullet_list = pygame.sprite.Group()
     # List of sprites we can bump against
     level = None
 
@@ -232,6 +233,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         """ Move the player. """
+        self.bullet_list.update(self)
         # Gravity
         self.calc_grav()
         # Move left/right
@@ -302,11 +304,6 @@ class Player(pygame.sprite.Sprite):
         #if on top of platform, stop jumping around
 
         #check bullet collisions
-        for b in self.bullet_list:
-            block_hit_list = pygame.sprite.spritecollide(self,player,False)
-            for block in block_hit_list:
-                """Kill the queen"""
-                bullet_list.remove(b)
 
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -341,7 +338,54 @@ class Player(pygame.sprite.Sprite):
 
             # Stop our vertical movement
             self.change_y = 0
-
+        if self.shooting is True:
+            if self.guncount%constants.PLAYERFIRERATE==0:
+                aimdirection = (0,0)
+                origin = (self.rect.x,self.rect.y)
+                if self.aiming == "UP":
+                    if self.change_x!=0:
+                        if self.direction == "L":
+                            #spawn bullet travelling up and left
+                            #vector will be (-1,-1)
+                            aimdirection = (-1,-1)
+                        else:
+                            #spawn bullet travelling up and right
+                            #vector will be (1,-1)
+                            aimdirection = (1,-1)
+                    else:
+                            #spawn bullet travelling upwards
+                            #vector will be (0,-1)
+                            aimdirection = (0,-1)
+                elif self.aiming == "MID":
+                    if self.direction == "L":
+                        #spawn bullet travelling left
+                        #vector will be (-1,0)
+                        aimdirection = (-1,0)
+                    else:
+                        #spawn bullet travelling right
+                        #vector will be (1,0)
+                        aimdirection = (1,0)
+                elif self.aiming == "DOWN":
+                    if self.change_x!=0:
+                        if self.direction == "L":
+                            #spawn bullet travelling down and left
+                            #vector will be (-1,1)
+                            aimdirection = (-1,1)
+                        else:
+                            #spawn bullet travelling down and right
+                            #vector will be (1,1)
+                            aimdirection = (1,1)
+                    else:
+                        if self.direction == "L":
+                            #spawn bullet travelling left
+                            #vector will be (-1,0)
+                            aimdirection = (-1,0)
+                        else:
+                            #spawn bullet travelling right
+                            #vector will be (1,0)
+                            aimdirection = (1,0)
+                self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),0))
+        self.guncount = self.guncount+1
 
     def calc_grav(self):
         """ Calculate effect of gravity. """
@@ -377,37 +421,7 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self): #To be called with the user hits the shoot button, "x"?
         self.shooting=True
-        """if self.count%15:
-            if self.aiming == "UP":
-                if self.change_x!=0:
-                    if direction == "L":
-                        #spawn bullet travelling up and left
-                        #vector will be (-1,-1)
-                    else:
-                        #spawn bullet travelling up and right
-                        #vector will be (1,-1)
-                else:
-                        #spawn bullet travelling upwards
-                        #vector will be (0,-1)
-            elif self.aiming == "MID":
-                if direction == "L":
-                    #spawn bullet travelling left
-                    #vector will be (-1,0)
-                else:
-                    #spawn bullet travelling right
-                    #vector will be (1,0)
-            elif self.aiming == "DOWN":
-                if self.change_x!=0:
-                    if direction == "L":
-                        #spawn bullet travelling down and left
-                        #vector will be (-1,1)
-                    else:
-                        #spawn bullet travelling down and right
-                        #vector will be (1,1)
-                else:
-                    #bullet is travelling down
-                    #vector will be (0,1)"""
-        self.cooldown = 1
+        self.guncount = 0
 
     # Player-controlled movement:
     def go_left(self):

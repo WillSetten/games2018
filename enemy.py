@@ -218,7 +218,7 @@ class Enemy(pygame.sprite.Sprite):
                         self.direction = "L"
                         self.image = self.downangle_l
                         origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
-                    self.bullet_list.add(Bullet(origin,compare,1))
+                    self.bullet_list.add(Bullet(origin,compare,0))
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
                     self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 self.change_x=0
