@@ -1,4 +1,4 @@
-
+import time
 import pygame
 import constants
 import levels
@@ -59,8 +59,15 @@ def main():
     #add in a scoreboard
     font = pygame.font.Font(None, 28)
     #----------MAIN MENU-----------------
-    put up main menu;
 
+    screen.fill(constants.BLACK)
+    title = pygame.font.Font(None,120)
+    textsurf = title.render("ARTNOC", True, constants.WHITE)
+    textrect = (constants.SCREEN_WIDTH/2,constants.SCREEN_HEIGHT/2)
+    screen.blit(textsurf, textrect)
+    pygame.display.update()
+    time.sleep(5)
+    clock.tick(15)
     # -------- Main Game Loop -----------
     while player.lives>0:
         for event in pygame.event.get(): # User did something

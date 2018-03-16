@@ -456,10 +456,12 @@ class Player(pygame.sprite.Sprite):
                         self.dead = True
                         self.change_y=-10
                         enemy.rect.x+=(constants.SCREEN_WIDTH)
+                        enemy.bullet_list = pygame.sprite.Group()
+                        self.bullet_list = pygame.sprite.Group()
                 else:
                     block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
                     for block in block_hit_list:
-                        self.lives-+1
+                        self.lives-=1
                         self.deathcount+=1
                         self.dead = True
                         enemy.bullet_list = pygame.sprite.Group()
