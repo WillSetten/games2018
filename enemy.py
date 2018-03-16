@@ -117,7 +117,8 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self, player):
         if (player.dead == False):
-            self.bullet_list.update(player)
+            if self.bullet_list!=None:
+                self.bullet_list.update(player)
             if (self.health<1):
                 #death animation
                 if (self.type==0):
@@ -134,7 +135,7 @@ class Enemy(pygame.sprite.Sprite):
                     else:
                         frame = (self.count) % len(self.die_R_l)
                         self.image = self.die_R_l[frame]#
-                self.spawn(self.rect.x+ (constants.SCREEN_WIDTH),random.randint(0,constants.SCREEN_HEIGHT))
+                self.spawn(self.rect.x+constants.SCREEN_WIDTH,random.randint(0,constants.SCREEN_HEIGHT))
             else:
                 if (self.type==0):
                     print(self.count)
@@ -231,7 +232,7 @@ class Enemy(pygame.sprite.Sprite):
                             self.direction = "L"
                             self.image = self.downangle_l
                             origin = (self.rect.x,self.rect.y+15+self.rect.height/2)
-                        self.bullet_list.add(Bullet(origin,(compare[0]*3,compare[1]*3),0, self.level))
+                        self.bullet_list.add(Bullet(origin,(compare[0]*6,compare[1]*6),0, self.level))
                         for b in self.bullet_list:
                             if b.count >600:
                                 self.bullet_list.remove(b)

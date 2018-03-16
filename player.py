@@ -442,7 +442,7 @@ class Player(pygame.sprite.Sprite):
                                 #vector will be (1,0)
                                 aimdirection = (1,0)
                                 origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
-                    self.bullet_list.add(Bullet(origin,(aimdirection[0]*6,aimdirection[1]*6),1, self.level))
+                    self.bullet_list.add(Bullet(origin,(aimdirection[0]*8,aimdirection[1]*8),1, self.level))
                     for b in self.bullet_list:
                         if b.count >600:
                             self.bullet_list.remove(b)
@@ -454,21 +454,28 @@ class Player(pygame.sprite.Sprite):
                         self.lives-=1
                         self.deathcount+=1
                         self.dead = True
+                        self.change_y=-10
+                        enemy.rect.x+=(constants.SCREEN_WIDTH)
                 else:
                     block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
                     for block in block_hit_list:
                         self.lives-+1
                         self.deathcount+=1
                         self.dead = True
-                        enemy.bullet_list.remove(block)
+                        enemy.bullet_list = pygame.sprite.Group()
+                        self.bullet_list = pygame.sprite.Group()
+                        self.change_y=-10
 
         else:
             if(self.deathcount<120):
                 self.calc_grav()
                 self.rect.y+=self.change_y
-                self.change_x=-constants.SCREEN_WIDTH/120
-                self.rect.x+=self.change_x
-                print(self.deathcount)
+                if self.rect.x<121:
+                    self.change_x=0
+                else:
+                    self.change_x=-constants.SCREEN_WIDTH/120
+                    self.rect.x+=self.change_x
+
                 if(self.deathcount<51):
                     if(self.deathcount==0):
                         self.image = self.dead_anim[0]

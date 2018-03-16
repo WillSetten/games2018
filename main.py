@@ -32,16 +32,16 @@ def main():
     current_level_no = 0
     current_level = level_list[current_level_no]
 
-    for i in range(0,1):
-        enemy_list.append(Enemy(random.randint(1,1)))
+    for i in range(0,3):
+        enemy_list.append(Enemy(random.randint(0,1)))
         enemy_list[i].level = current_level
 
     active_sprite_list = pygame.sprite.Group()
     enemy_sprite_list = pygame.sprite.Group()
     player.level = current_level
 
-    for i in range(0,1):
-        x = random.randint(constants.SCREEN_WIDTH,2*constants.SCREEN_WIDTH)
+    for i in range(0,3):
+        x = random.randint(constants.SCREEN_WIDTH,constants.SCREEN_WIDTH+1)
         #y = random.randint(0,constants.SCREEN_HEIGHT-5)
         enemy_list[i].spawn(x,0)
         enemy_sprite_list.add(enemy_list[i])
@@ -58,7 +58,8 @@ def main():
 
     #add in a scoreboard
     font = pygame.font.Font(None, 28)
-
+    #----------MAIN MENU-----------------
+    put up main menu;
 
     # -------- Main Game Loop -----------
     while player.lives>0:
@@ -129,8 +130,11 @@ def main():
         active_sprite_list.draw(screen)
         enemy_sprite_list.draw(screen)
         for x in enemy_sprite_list:
-            x.bullet_list.draw(screen)
-        player.bullet_list.draw(screen)
+                if x.bullet_list!=None:
+                    x.bullet_list.draw(screen)
+        if player.dead==False:
+            if player.bullet_list!=None:
+                player.bullet_list.draw(screen)
         text = font.render("Score = "+str(player.score),1,(constants.WHITE))
         screen.blit(text,(0,0))
         text = font.render("Lives = "+str(player.lives),1,(constants.WHITE))
