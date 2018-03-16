@@ -275,7 +275,6 @@ class Player(pygame.sprite.Sprite):
     def update(self, enemy_list):
         if (self.dead is False):
             self.calc_grav()
-            print(self.score)
             """ Move the player. """
             self.bullet_list.update(self)
             # Gravity

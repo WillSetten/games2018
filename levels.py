@@ -23,12 +23,13 @@ class Level():
     world_shift = 0
     level_limit = -3000
 
-    def __init__(self, player):
+    def __init__(self, player1, player2):
         """ Constructor. Pass in a handle to player. Needed for when moving platforms
             collide with the player. """
         self.platform_list = pygame.sprite.Group()
         self.enemy_list = pygame.sprite.Group()
-        self.player = player
+        self.player1 = player1
+        self.player2 = player2
 
     # Update everythign on this level
     def update(self):
@@ -80,11 +81,11 @@ class Level_main_menu(Level):
 class Level_01(Level):
     """ Definition for level 1. """
 
-    def __init__(self, player):
+    def __init__(self, player1, player2):
         """ Create level 1. """
 
         # Call the parent constructor
-        Level.__init__(self, player)
+        Level.__init__(self, player1, player2)
 
         self.background = pygame.image.load("backgroundNew.png").convert_alpha()
         self.background.set_colorkey(constants.WHITE)
@@ -151,7 +152,8 @@ class Level_01(Level):
             block = platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
-            block.player = self.player
+            block.player1 = self.player1
+            block.player2 = self.player2
             self.platform_list.add(block)
 
 
