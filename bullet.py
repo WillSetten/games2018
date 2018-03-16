@@ -6,8 +6,12 @@ from vector import Vector
 class Bullet(pygame.sprite.Sprite):
     """"Takes in two vectors and an integer at initialisation. First vector is current position of the character, second
     vector is the direction of the bullet"""
+    level = None
     type=1
-    def __init__(self, p, d, t):
+    """Count is used to track number of frames that the bullet is active for - if over x amount bullet despawns"""
+    count=0
+    def __init__(self, p, d, t, level):
+        self.level=level
         self.direction = d
         self.destroyed = False
         """0=Enemy bullets 1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
@@ -30,10 +34,19 @@ class Bullet(pygame.sprite.Sprite):
             canvas.draw_circle(constants.WHITE, self.pos, self.radius, 0)
     """Bullet will travel in set direction until it interacts with a character"""
     def update(self,player):
-        self.rect.x = self.rect.x+self.direction[0]
-        self.rect.y = self.rect.y+self.direction[1]
+        """self.count increments so that each bullet is on screen for no more than 10 seconds"""
+        if self.count<600:
+            self.rect.x = self.rect.x+self.direction[0]
+            self.rect.y = self.rect.y+self.direction[1]
+            #if player.rect.x >= 500:
+            #    diff = player.rect.x-500
+            #    self.rect.x+=-diff
 
+            #if player.rect.x <= 120:
+            #    diff = 120 - player.rect.x
+            #    self.rect.x+=diff
 
+<<<<<<< HEAD
 """Remove if useless"""
         if player.rect.x >= 500:
             diff = ((player.rect.x-500) / 5)
@@ -59,8 +72,30 @@ class Bullet(pygame.sprite.Sprite):
                         self.direction.y = -self.direction.y
                     else:
                         self.direction.x = -self.direction.x
+=======
+            if self.type == 2:
+                if self.bounces == 0:
+                    self.destroyed = True
+                else:
+                    block_hit_list = pygame.sprite.spritecollide(self,self.level.platform_list, False)
+                    if block_hit_list == None:
+                        if self.pos.y == constants.SCREEN_HEIGHT or self.pos.y == 0:
+                            self.direction.y = -self.direction.y
+                        elif self.pos.x == constants.SCREEN_WIDTH or self.pos.x == 0:
+                            self.direction.x = -self.direction.x
+                    for block in block_hit_list:
+                        if self.pos.y == block.rect.top or self.pos.y == block.rect.bottom:
+                            self.direction.y = -self.direction.y
+                        else:
+                            self.direction.x = -self.direction.x
+>>>>>>> fac9bc985142464ef510e90d85688a49fb13c0a9
 
-                self.bounces -= 1
-        "Code for dealing with reflecting off platforms"
-        if self.type == 4:
-            self.pos.subtract(Vector(0, constants.GRAVITY))
+                    self.bounces -= 1
+            "Code for dealing with reflecting off platforms"
+            if self.type == 4:
+                self.pos.subtract(Vector(0, constants.GRAVITY))
+            self.count+=1
+        else:
+            self.rect.x = -100
+            self.rect.y = -100
+            self.direction = (0,0)
