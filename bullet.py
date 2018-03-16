@@ -46,6 +46,24 @@ class Bullet(pygame.sprite.Sprite):
             #    diff = 120 - player.rect.x
             #    self.rect.x+=diff
 
+
+        if self.type == 2:
+            if self.bounces == 0:
+                self.destroyed = True
+            else:
+                block_hit_list = pygame.sprite.spritecollide(self,Level.levels.platform_list, False)
+                if block_hit_list == None:
+                    if self.pos.y == constants.SCREEN_HEIGHT or self.pos.y == 0:
+                        self.direction.y = -self.direction.y
+                    elif self.pos.x == constants.SCREEN_WIDTH or self.pos.x == 0:
+                        self.direction.x = -self.direction.x
+                for block in block_hit_list:
+                    if self.pos.y == block.rect.top or self.pos.y == block.rect.bottom:
+                        self.direction.y = -self.direction.y
+                    else:
+                        self.direction.x = -self.direction.x
+
+
             if self.type == 2:
                 if self.bounces == 0:
                     self.destroyed = True
@@ -61,6 +79,7 @@ class Bullet(pygame.sprite.Sprite):
                             self.direction.y = -self.direction.y
                         else:
                             self.direction.x = -self.direction.x
+
 
                     self.bounces -= 1
             "Code for dealing with reflecting off platforms"
