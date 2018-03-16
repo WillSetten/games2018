@@ -33,7 +33,7 @@ def main():
     current_level = level_list[current_level_no]
 
     for i in range(0,3):
-        enemy_list.append(Enemy(0))
+        enemy_list.append(Enemy(random.randint(0,1)))
         enemy_list[i].level = current_level
 
     active_sprite_list = pygame.sprite.Group()
@@ -88,7 +88,7 @@ def main():
                     player.stopshooting()
 
         # Update the player.
-        active_sprite_list.update()
+        active_sprite_list.update(enemy_list)
         enemy_sprite_list.update(player)
         #update the enemies
         #for enemy in levels.Level.enemy_list:

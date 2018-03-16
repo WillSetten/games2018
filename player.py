@@ -13,7 +13,9 @@ class Player(pygame.sprite.Sprite):
     controls. """
 
     # -- Attributes
-    onPlatform = False
+    onPlatform = False#
+
+    bullet_list = []
     # Set speed vector of player
     change_x = 0
     change_y = 0
@@ -228,7 +230,7 @@ class Player(pygame.sprite.Sprite):
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
-    def update(self):
+    def update(self, enemy_list):
         """ Move the player. """
         # Gravity
         self.calc_grav()
@@ -300,10 +302,11 @@ class Player(pygame.sprite.Sprite):
         #if on top of platform, stop jumping around
 
         #check bullet collisions
-        #block_hit_list = pygame.sprite.spritecollide(self, main.bullet_list, False)
-    #    for block in block_hit_list:
-    #        pass
-            """Player dies """
+        for b in self.bullet_list:
+            block_hit_list = pygame.sprite.spritecollide(self,player,False)
+            for block in block_hit_list:
+                """Kill the queen"""
+                bullet_list.remove(b)
 
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
