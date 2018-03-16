@@ -102,4 +102,4 @@ class Vector:
     # You will need to use the arccosine function:
     # acos in the math library
     def angle(self, other):
-        pass
+        return (arccosine(self.dot()/self.length()*other.length()))
