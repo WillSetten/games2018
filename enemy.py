@@ -69,13 +69,13 @@ class Enemy(pygame.sprite.Sprite):
         self.up_r=sprite_sheet.get_image(321, 246, 25, 60)
         self.up_l=pygame.transform.flip(self.up_r, True, False)
         self.upangle_r = sprite_sheet.get_image(405, 250, 31, 56)
-        self.upangle_r = pygame.transform.flip(self.up_r, True, False)
+        self.upangle_l = pygame.transform.flip(self.upangle_r, True, False)
         self.mid_r = sprite_sheet.get_image(507, 261, 36, 45)
-        self.mid_l = pygame.transform.flip(self.up_r, True, False)
+        self.mid_l = pygame.transform.flip(self.mid_r, True, False)
         self.downangle_r = sprite_sheet.get_image(321, 312, 32, 45)
-        self.downangle_l = pygame.transform.flip(self.up_r, True, False)
+        self.downangle_l = pygame.transform.flip(self.downangle_r, True, False)
         self.down_r = sprite_sheet.get_image(426, 312, 25, 45)
-        self.down_l = pygame.transform.flip(self.up_r, True, False)
+        self.down_l = pygame.transform.flip(self.down_r, True, False)
 
         image = sprite_sheet.get_image(528, 216, 49, 38)
         self.die_R_r.append(image)
@@ -175,13 +175,13 @@ class Enemy(pygame.sprite.Sprite):
                             self.image = self.down_r
                         else:
                             self.image = self.down_l
-                    if compare=="-1,1":
+                    if compare=="-1,-1":
                         self.direction = "L"
                         self.image = self.upangle_l
                     if compare=="-1,0":
                         self.direction = "L"
                         self.image = self.mid_l
-                    if compare=="-1,-1":
+                    if compare=="-1,1":
                         self.direction = "L"
                         self.image = self.downangle_l
                         #add a bullet to the enemy bullet list in main travelling in the direction aim_direction
