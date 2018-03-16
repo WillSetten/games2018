@@ -144,7 +144,7 @@ class Enemy(pygame.sprite.Sprite):
                     frame = (self.count) % len(self.walk_l)
                     self.image = self.walk_l[frame]
                 if(self.rect.colliderect(player.rect)):
-                    self.nokill=True
+                    self.nokill=False
                 self.image = pygame.transform.scale(self.image,(self.image.get_width()*constants.enemyscale,self.image.get_height()*constants.enemyscale))
                 if self.flag == 0:
                     self.count += 1
@@ -247,6 +247,7 @@ class Enemy(pygame.sprite.Sprite):
         if (self.type==0):
             self.health = 1
             self.image = self.walk_l[0]
+            self.nokill = True
 
         elif (self.type==1):
             self.health = 1
@@ -270,8 +271,14 @@ class Enemy(pygame.sprite.Sprite):
                 self.change_x = -self.speed
                 self.direction = "L"
         else:
-            self.change_x = 0
-            self.direction = "L"
+            if player.rect.x > self.rect.x:
+                self.change_x = self.speed
+                self.direction = "R"
+            else:
+                self.change_x = -self.speed
+                self.direction = "L"
+            #self.change_x = 0
+            #self.direction = "L"
         self.rect.x+=self.change_x
 
         if player.rect.x >= 500:
@@ -333,30 +340,22 @@ class Enemy(pygame.sprite.Sprite):
         pass
 
     def normaliseAngle(self,angle, player):
-        print (angle)
         if(angle>22.5 and angle<=67.5):
             if self.rect.x < player.rect.x:
-                print("UR")
                 return (1,-1)
             else:
-                print ("UL")
                 return (-1,-1)
         elif(angle>67.5 and angle<=112.5):
             if self.rect.x < player.rect.x:
-                print ("R")
                 return (1,0)
             else:
-                print ("L")
                 return (-1,0)
         elif(angle>112.5 and angle<=157.5):
             if self.rect.x < player.rect.x:
-                print ("DR")
                 return (1,1)
             else:
-                print ("DL")
                 return (-1,1)
         elif(angle>157.5 and angle<180):
-            print ("D")
             return (0,1)
         #elif(angle>202.5 or angle<=247.5):
         #    return "-1,1"
@@ -365,5 +364,4 @@ class Enemy(pygame.sprite.Sprite):
         #elif(angle>292.5 or angle<=337.5):
         #    return "-1,-1"
         elif (angle<22.5):
-            print ("U")
             return (0,-1)

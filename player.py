@@ -14,7 +14,6 @@ class Player(pygame.sprite.Sprite):
 
     # -- Attributes
     onPlatform = False#
-
     bullet_list = []
     # Set speed vector of player
     change_x = 0
@@ -231,7 +230,7 @@ class Player(pygame.sprite.Sprite):
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
-    def update(self):
+    def update(self, enemy_list):
         """ Move the player. """
         self.bullet_list.update(self)
         # Gravity
@@ -405,6 +404,12 @@ class Player(pygame.sprite.Sprite):
                     if b.count >600:
                         self.bullet_list.remove(b)
         self.guncount = self.guncount+1
+        #for enemy in enemy_list:
+        #    block_hit_list = pygame.sprite.spritecollide(self,enemy.bullet_list,False)
+        #    for block in block_hit_list:
+        #        self.health-=1
+
+
 
     def calc_grav(self):
         """ Calculate effect of gravity. """

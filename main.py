@@ -88,7 +88,7 @@ def main():
                     player.stopshooting()
 
         # Update the player.
-        active_sprite_list.update()
+        active_sprite_list.update(enemy_list)
         enemy_sprite_list.update(player)
         #update the enemies
         #for enemy in levels.Level.enemy_list:
