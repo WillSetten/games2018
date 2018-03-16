@@ -86,36 +86,36 @@ class Level_01(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("LevelOne.png").convert_alpha()
+        self.background = pygame.image.load("backgroundNew.png").convert_alpha()
         self.background.set_colorkey(constants.WHITE)
         #self.level_limit = -2500
 
 
         # Array with type of platform, and x, y location of the platform.
-        level = [# [platforms.STONE_PLATFORM_LEFT, 500, 580],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 570, 580],
-                  #[platforms.STONE_PLATFORM_RIGHT, 640, 580],
+        level = [ [platforms.STONE_PLATFORM_LEFT, 500, 420],
+                  [platforms.STONE_PLATFORM_MIDDLE, 570, 420],
+                  [platforms.STONE_PLATFORM_RIGHT, 640, 420],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 740, 510],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 810, 510],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 880,510],
-                  #[platforms.STONE_PLATFORM_RIGHT, 850,510],
+                  [platforms.STONE_PLATFORM_LEFT, 740, 290],
+                  [platforms.STONE_PLATFORM_MIDDLE, 810, 290],
+                  [platforms.STONE_PLATFORM_MIDDLE, 880,290],
+                  [platforms.STONE_PLATFORM_RIGHT, 850,290],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 990, 400],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 1060, 400],
-                  #[platforms.STONE_PLATFORM_RIGHT, 1130, 400],
+                  [platforms.STONE_PLATFORM_LEFT, 990, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1060, 400],
+                  [platforms.STONE_PLATFORM_RIGHT, 1130, 400],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 1820, 280],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
-                  #[platforms.STONE_PLATFORM_RIGHT, 1960, 280],
+                  [platforms.STONE_PLATFORM_LEFT, 1820, 280],
+                  [platforms.STONE_PLATFORM_MIDDLE, 1890, 280],
+                  [platforms.STONE_PLATFORM_RIGHT, 1960, 280],
 
-                 # [platforms.STONE_PLATFORM_LEFT, 2250, 360],
-                 # [platforms.STONE_PLATFORM_MIDDLE, 2320, 360],
-                 # [platforms.STONE_PLATFORM_RIGHT, 2390, 360],
+                  [platforms.STONE_PLATFORM_LEFT, 2250, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 2320, 360],
+                  [platforms.STONE_PLATFORM_RIGHT, 2390, 360],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 2610, 430],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
-                  #[platforms.STONE_PLATFORM_RIGHT, 2750, 430],
+                  [platforms.STONE_PLATFORM_LEFT, 2610, 430],
+                  [platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
+                  [platforms.STONE_PLATFORM_RIGHT, 2750, 430],
 
                   ]
 
@@ -138,15 +138,15 @@ class Level_01(Level):
 
 
 #def load_tileset(tileset3.png, 30, 30):
-    image = pygame.image.load(tileset3.png).convert()
-    image.width. image.height = image.get_size()
-    tileset = []
-    for tile_x in range(0, image_width//30):
-        line = []
-        tileset,append(line)
-    for tile_y in range(0, image_height//30):
-        rect = (tile_x*width, tile_y*height, 30, 30)
-        line.append(image.subsurface(rect))
-    return tileset
+    #image = pygame.image.load(tileset3.png).convert()
+    #image.width. image.height = image.get_size()
+    #tileset = []
+    #for tile_x in range(0, image_width//30):
+#        line = []
+#        tileset,append(line)
+#    for tile_y in range(0, image_height//30):
+#        rect = (tile_x*width, tile_y*height, 30, 30)
+#        line.append(image.subsurface(rect))
+#    return tileset
 
 #def draw_background(screen, tile_img, field_rect)
