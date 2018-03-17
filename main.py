@@ -51,8 +51,8 @@ def main():
         # Set the current level
         current_level = level_list[0]
 
-        for i in range(0,1):
-            enemy_list.append(Enemy(random.randint(0,0)))
+        for i in range(0,3):
+            enemy_list.append(Enemy(random.randint(0,1)))
             enemy_list[i].level = current_level
 
         active_sprite_list = pygame.sprite.Group()
@@ -61,7 +61,7 @@ def main():
         if multiplayer==True:
             player2.level = current_level
 
-        for i in range(0,1):
+        for i in range(0,3):
             x = random.randint(constants.SCREEN_WIDTH,constants.SCREEN_WIDTH+1)
             #y = random.randint(0,constants.SCREEN_HEIGHT-5)
             enemy_list[i].spawn(x,0)
@@ -223,11 +223,13 @@ def main():
             if multiplayer==True:
                 text = font.render("P2 Score = "+str(player2.score),1,(constants.WHITE))
                 screen.blit(text,(0,40))
+            text = font.render("Quit to Main Menu (Esc)",1,constants.WHITE)
+            screen.blit(text,(constants.SCREEN_WIDTH/2-120,0))
             text = font.render("P1 Lives = "+str(player1.lives),1,(constants.WHITE))
-            screen.blit(text,(constants.SCREEN_WIDTH-150,0))
+            screen.blit(text,(constants.SCREEN_WIDTH-115,0))
             if multiplayer==True:
                 text = font.render("P2 Lives = "+str(player2.lives),1,(constants.WHITE))
-                screen.blit(text,(constants.SCREEN_WIDTH-150,40))
+                screen.blit(text,(constants.SCREEN_WIDTH-115,40))
             # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
             # Limit to 60 frames per second
