@@ -23,28 +23,66 @@ def main():
     #----------MAIN MENU-----------------
 
     screen.fill(constants.BLACK)
-    title = pygame.font.Font(None,150)
+    title = pygame.font.Font(None,180)
     textsurf = title.render("ARTNOC", True, constants.WHITE)
-    textrect = (constants.SCREEN_WIDTH/2-220,constants.SCREEN_HEIGHT/2-200)
+    textrect = (constants.SCREEN_WIDTH/2-530,constants.SCREEN_HEIGHT/2-250)
     screen.blit(textsurf, textrect)
     pygame.display.update()
-    title = pygame.font.Font(None,80)
+    title = pygame.font.Font(None,75)
+    font = pygame.font.Font(None, 45)
     text1 = title.render("Single Player - 1", True, constants.WHITE)
-    screen.blit(text1, (constants.SCREEN_WIDTH/2-220, constants.SCREEN_HEIGHT/2))
-    text2 = title.render("Multi Player - 2", True, constants.WHITE)
-    screen.blit(text2, (constants.SCREEN_WIDTH/2-220, constants.SCREEN_HEIGHT/2+100))
+    screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2-100))
+    text1 = title.render("Multi Player - 2", True, constants.WHITE)
+    screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2+50))
+    text1 = title.render("Quit - Esc", True, constants.WHITE)
+    screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2+200))
+    title = pygame.font.Font(None, 70)
+    text1 = title.render("Player 1 controls:", True, constants.RED)
+    screen.blit(text1, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2-100))
+    text2 = font.render("Move = Arrow Keys", True, constants.RED)
+    text3 =font.render("Jump = J    Shoot = K", True, constants.RED)
+    screen.blit(text2, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2-20))
+    screen.blit(text3, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2+50))
+    text1 = title.render("Player 2 controls:", True, constants.RED)
+    screen.blit(text1, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2+130))
+    text2 = font.render("Move = W A S D", True, constants.RED)
+    text3 =font.render("Jump = 1    Shoot = 2", True, constants.RED)
+    screen.blit(text2, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2+210))
+    screen.blit(text3, (constants.SCREEN_WIDTH/2+100, constants.SCREEN_HEIGHT/2+280))
+    arrow = title.render(">", True, constants.WHITE)
+
+    apos1 = (constants.SCREEN_WIDTH/2-570, constants.SCREEN_HEIGHT/2-100)
+    apos2 = (constants.SCREEN_WIDTH/2-570, constants.SCREEN_HEIGHT/2+50)
+    apos3 = (constants.SCREEN_WIDTH/2-570, constants.SCREEN_HEIGHT/2+200)
+    poslist = [apos1,apos2,apos3]
+    point = 0
+
     pygame.display.update()
     while play == False:
+        pygame.draw.rect(screen,constants.BLACK,(constants.SCREEN_WIDTH/2-570,constants.SCREEN_HEIGHT/2-100,27,350))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    sys.exit()
-                if event.key == pygame.K_1:
-                    multiplayer = False
-                    play = True
-                elif event.key == pygame.K_2:
-                    multiplayer= True
-                    play = True
+                if event.key == pygame.K_DOWN:
+                    if point>1:
+                        point = 0
+                    else:
+                        point += 1
+                if event.key == pygame.K_UP:
+                    if point<1:
+                        point = 2
+                    else:
+                        point-=1
+                if event.key == pygame.K_RETURN:
+                    if point ==0:
+                        multiplayer = False
+                        play = True
+                    elif point == 1:
+                        multiplayer = True
+                        play = True
+                    else:
+                        sys.exit()
+        screen.blit(arrow, poslist[point])
+        pygame.display.flip()
 
     #----------END MAIN MENU, START INITIALISATION-------------
 
