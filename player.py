@@ -145,9 +145,9 @@ class Player(pygame.sprite.Sprite):
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(544, 309, 29, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(324, 367, 36, 51)
+        image = sprite_sheet.get_image(324, 366, 36, 51)
         self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(368, 368, 38, 51)
+        image = sprite_sheet.get_image(368, 368, 38, 49)
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(411, 365, 36, 51)
         self.aim_up_running_r.append(image)
@@ -160,8 +160,6 @@ class Player(pygame.sprite.Sprite):
         image = sprite_sheet.get_image(564, 365, 29, 51)
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(596, 365, 29, 51)
-        self.aim_up_running_r.append(image)
-        image = sprite_sheet.get_image(323, 310, 35, 51)
         self.aim_up_running_r.append(image)
         image = sprite_sheet.get_image(323, 417, 29, 51)
         self.aim_up_running_r.append(image)
@@ -212,7 +210,7 @@ class Player(pygame.sprite.Sprite):
         self.aim_down_running_r.append(image)
         image = sprite_sheet.get_image(323, 523, 32, 45)
         self.aim_down_running_r.append(image)
-        image = sprite_sheet.get_image(359, 523, 36, 45)
+        image = sprite_sheet.get_image(359, 528, 36, 45)
         self.aim_down_running_r.append(image)
 
         for x in self.aim_down_running_r[:]:
@@ -281,6 +279,7 @@ class Player(pygame.sprite.Sprite):
             # Move left/right
             self.rect.x += self.change_x
             if self.jumping:
+                self.framespeed = 2
                 if self.direction == "L":
                     frame = (self.count) % len(self.jumping_frames_l)
                     self.image = self.jumping_frames_l[frame]
@@ -289,6 +288,7 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.jumping_frames_r[frame]
             elif(self.aiming == "UP"):
                 if self.change_x != 0:
+                    self.framespeed = 2
                     if self.direction == "L":
                         frame = (self.count) % len(self.aim_up_running_l)
                         self.image = self.aim_up_running_l[frame]
@@ -296,12 +296,14 @@ class Player(pygame.sprite.Sprite):
                         frame = (self.count) % len(self.aim_up_running_r)
                         self.image = self.aim_up_running_r[frame]
                 else:
+                    self.framespeed = 4
                     if self.direction == "L":
                         self.image = self.direct_upaim_l
                     else:
                         self.image = self.direct_upaim_r
             elif(self.aiming == "DOWN"):
                 if self.change_x != 0:
+                    self.framespeed = 2
                     if self.direction == "L":
                         frame = (self.count) % len(self.aim_down_running_l)
                         self.image = self.aim_down_running_l[frame]
@@ -314,6 +316,7 @@ class Player(pygame.sprite.Sprite):
                     else:
                         self.image = self.prone_frame_r
             elif(self.aiming == "MID"):
+                self.framespeed = 3
                 if self.change_x != 0:
                     if self.shooting is True:
                         if self.direction == "L":
