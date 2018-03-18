@@ -89,7 +89,7 @@ class Level_01(Level):
 
         self.background = pygame.image.load("backgroundNew.png").convert_alpha()
         self.background.set_colorkey(constants.WHITE)
-        #self.level_limit = -2500
+        #self.level_limit = -3000
 
 
         # Array with type of platform, and x, y location of the platform.
@@ -136,13 +136,13 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 2080, 300],
                   [platforms.STONE_PLATFORM_RIGHT, 2150, 300],
 
+                  #[platforms.STONE_PLATFORM_LEFT, 3430, 300]
+                  #[platforms.STONE_PLATFORM_MIDDLE, 3500, 300],
+                  #[platforms.STONE_PLATFORM_RIGHT, 3570, 300],
 
-
-
-                 # [platforms.STONE_PLATFORM_LEFT, 3430, 300]
-                 # [platforms.STONE_PLATFORM_MIDDLE,3500, 300],
-                 # [platforms.STONE_PLATFORM_RIGHT, 3570, 300],
-
+                  #[platforms.GRASS_LEFT, 4000, 200]
+                  #[platforms.GRASS_MIDDLE, 4070, 200],
+                  #[platforms.GRASS_RIGHT, 4280,200],
 
                   ]
 
