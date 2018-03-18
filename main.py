@@ -5,7 +5,7 @@ import levels
 from enemy import Enemy
 import random
 from player import Player
-
+from powerup import PowerUp
 def main():
     """ Main Program """
     pygame.init()
@@ -43,7 +43,7 @@ def main():
         player1 = Player()
         player2 = Player()
         enemy_list = []
-
+        powerup_list = []
         # Create all the levels
         level_list = []
         level_list.append(levels.Level_01(player1, player2))
@@ -54,9 +54,13 @@ def main():
         for i in range(0,3):
             enemy_list.append(Enemy(random.randint(0,1)))
             enemy_list[i].level = current_level
+        for i in range(0,2):
+            powerup_list.append(PowerUp())
+            powerup_list[i].level = current_level
 
         active_sprite_list = pygame.sprite.Group()
         enemy_sprite_list = pygame.sprite.Group()
+        powerup_sprite_list = pygame.sprite.Group()
         player1.level = current_level
         if multiplayer==True:
             player2.level = current_level
@@ -66,7 +70,10 @@ def main():
             #y = random.randint(0,constants.SCREEN_HEIGHT-5)
             enemy_list[i].spawn(x,0)
             enemy_sprite_list.add(enemy_list[i])
-
+        for i in range(0,2):
+            x = random.randint(constants.SCREEN_WIDTH,constants.SCREEN_WIDTH+1)
+            powerup_list[i].spawn(x,100)
+            powerup_sprite_list.add(powerup_list[i])
         player1.rect.x = 340
         player1.rect.y = constants.SCREEN_HEIGHT - player1.rect.height
         active_sprite_list.add(player1)
@@ -143,9 +150,10 @@ def main():
             # Update the player1.
             active_sprite_list.update(enemy_list)
             enemy_sprite_list.update(player1)
-
+            powerup_sprite_list.update(player1)
             if multiplayer==True:
                 enemy_sprite_list.update(player2)
+                powerup_sprite_list.update(player2)
 
             #update the enemies
             #for enemy in levels.Level.enemy_list:
@@ -203,6 +211,7 @@ def main():
             current_level.draw(screen)
             active_sprite_list.draw(screen)
             enemy_sprite_list.draw(screen)
+            powerup_sprite_list.draw(screen)
             for x in enemy_sprite_list:
                     if x.bullet_list!=None:
                         x.bullet_list.draw(screen)
