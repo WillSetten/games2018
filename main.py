@@ -89,8 +89,6 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         play = False
-                    if event.key == pygame.K_e:
-                        play = False
                     if event.key == pygame.K_DOWN:
                         player1.prone()
                     if event.key == pygame.K_LEFT:
@@ -252,11 +250,11 @@ def mainMenu(screen, play, multiplayer):
     pygame.display.update()
     title = pygame.font.Font(None,75)
     font = pygame.font.Font(None, 45)
-    text1 = title.render("Single Player - 1", True, constants.WHITE)
+    text1 = title.render("Single Player", True, constants.WHITE)
     screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2-100))
-    text1 = title.render("Multi Player - 2", True, constants.WHITE)
+    text1 = title.render("Multi Player", True, constants.WHITE)
     screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2+50))
-    text1 = title.render("Quit - Esc", True, constants.WHITE)
+    text1 = title.render("Quit", True, constants.WHITE)
     screen.blit(text1, (constants.SCREEN_WIDTH/2-530, constants.SCREEN_HEIGHT/2+200))
     title = pygame.font.Font(None, 70)
     text1 = title.render("Player 1 controls:", True, constants.RED)
