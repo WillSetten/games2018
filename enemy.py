@@ -45,7 +45,7 @@ class Enemy(pygame.sprite.Sprite):
 
         self.type = type
 
-        sprite_sheet = SpriteSheet("enemies1.png")
+        sprite_sheet = SpriteSheet("assets\\enemies1.png")
         image = sprite_sheet.get_image(321, 1, 32, 47)
         self.walk_r.append(image)
         image = sprite_sheet.get_image(356, 1, 21, 47)

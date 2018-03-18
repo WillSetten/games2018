@@ -20,7 +20,7 @@ class Bullet(pygame.sprite.Sprite):
         if self.type == 2:
             self.bounces=5
         super().__init__() #adding super call to make Bullet a pygame Sprite
-        self.image = pygame.Surface([5, 5])
+        self.image = pygame.Surface([10, 10])
         self.rect = self.image.get_rect()
         if self.type == 0:
             self.image.fill(constants.WHITE)

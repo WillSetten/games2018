@@ -75,7 +75,7 @@ class Player(pygame.sprite.Sprite):
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
 
-        sprite_sheet = SpriteSheet("player1.png")
+        sprite_sheet = SpriteSheet("assets\\player1.png")
         # Load all the right facing images into a list
         image = sprite_sheet.get_image(324, 261, 30, 47)
         self.walking_frames_r.append(image)
