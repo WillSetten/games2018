@@ -7,3 +7,12 @@ __pycache__/platforms.cpython-36.pyc
 __pycache__/player.cpython-36.pyc
 __pycache__/spritesheet_functions.cpython-36.pyc
 __pycache__/vector.cpython-36.pyc
+bullet.py
+__pycache__/constants.cpython-36.pyc
+*.pyc
+assets/background1sectionNew.png
+assets/backgroundNew.png
+assets/tiles_spritesheet.png
+bullet.py
+levels.py
+player.py

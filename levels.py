@@ -170,12 +170,28 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 7640, 360],
                   [platforms.STONE_PLATFORM_MIDDLE, 7710, 360],
                   [platforms.STONE_PLATFORM_RIGHT, 7780, 360],
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
 
                   [platforms.STONE_PLATFORM_LEFT, 8000, 510],
                   [platforms.STONE_PLATFORM_MIDDLE, 8070, 510],
                   [platforms.STONE_PLATFORM_MIDDLE, 8140, 510],
                   [platforms.STONE_PLATFORM_RIGHT, 8210, 510],
 
+=======
+
+>>>>>>> ed806028c88a9a7f9048e475c9c8bff5788e2b4e
+                  [platforms.STONE_PLATFORM_LEFT, 8000, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8070, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8140, 510],
+                  [platforms.STONE_PLATFORM_RIGHT, 8210, 510],
+
+<<<<<<< HEAD
+=======
+>>>>>>> d5304ee1b4ade8917b15262eee219d6ed46fd4f6
+>>>>>>> ed806028c88a9a7f9048e475c9c8bff5788e2b4e
                   [platforms.STONE_PLATFORM_LEFT, 8600, 400],
                   [platforms.STONE_PLATFORM_MIDDLE, 8670, 400],
                   [platforms.STONE_PLATFORM_MIDDLE, 8740, 400],
