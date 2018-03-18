@@ -21,7 +21,7 @@ class Level():
 
     # How far this world has been scrolled left/right
     world_shift = 0
-    level_limit = -3000
+    level_limit = -10000
 
     def __init__(self, player1, player2):
         """ Constructor. Pass in a handle to player. Needed for when moving platforms
@@ -94,6 +94,7 @@ class Level_01(Level):
 
         # Array with type of platform, and x, y location of the platform.
         #x value is a difference of 70
+
         level = [ [platforms.STONE_PLATFORM_LEFT, 500, 420],
                   [platforms.STONE_PLATFORM_MIDDLE, 570, 420],
                   [platforms.STONE_PLATFORM_RIGHT, 640, 420],
@@ -136,16 +137,62 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 2080, 300],
                   [platforms.STONE_PLATFORM_RIGHT, 2150, 300],
 
-                  #[platforms.STONE_PLATFORM_LEFT, 3430, 300]
-                  #[platforms.STONE_PLATFORM_MIDDLE, 3500, 300],
-                  #[platforms.STONE_PLATFORM_RIGHT, 3570, 300],
+                  [platforms.STONE_PLATFORM_LEFT, 3430, 300],
+                  [platforms.STONE_PLATFORM_MIDDLE, 3500, 300],
+                  [platforms.STONE_PLATFORM_RIGHT, 3570, 300],
 
-                  #[platforms.GRASS_LEFT, 4000, 200]
-                  #[platforms.GRASS_MIDDLE, 4070, 200],
-                  #[platforms.GRASS_RIGHT, 4280,200],
+                  [platforms.STONE_PLATFORM_LEFT, 5000, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 5070, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 5140, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 5210, 360],
+                  [platforms.STONE_PLATFORM_RIGHT, 5280, 360],
+
+                  [platforms.STONE_PLATFORM_LEFT, 5600, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 5670, 200],
+                  [platforms.STONE_PLATFORM_RIGHT, 5740, 200],
+
+                  [platforms.STONE_PLATFORM_LEFT, 6000, 300],
+                  [platforms.STONE_PLATFORM_MIDDLE, 6070, 300],
+                  [platforms.STONE_PLATFORM_RIGHT, 6140, 300],
+
+                  [platforms.STONE_PLATFORM_LEFT, 6500, 430],
+                  [platforms.STONE_PLATFORM_MIDDLE, 6570, 430],
+                  [platforms.STONE_PLATFORM_RIGHT, 6640, 430],
+
+                  [platforms.STONE_PLATFORM_LEFT, 7000, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 7070, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 7140, 400],
+                  [platforms.STONE_PLATFORM_RIGHT, 7210, 400],
+
+                  [platforms.STONE_PLATFORM_LEFT, 7500, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 7570, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 7640, 360],
+                  [platforms.STONE_PLATFORM_MIDDLE, 7710, 360],
+                  [platforms.STONE_PLATFORM_RIGHT, 7780, 360],
+
+                  [platforms.STONE_PLATFORM_LEFT, 8000, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8070, 510],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8140, 510],
+                  [platforms.STONE_PLATFORM_RIGHT, 8210, 510],
+
+                  [platforms.STONE_PLATFORM_LEFT, 8600, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8670, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8740, 400],
+                  [platforms.STONE_PLATFORM_MIDDLE, 8810, 400],
+                  [platforms.STONE_PLATFORM_RIGHT, 8880, 400],
+
+                  [platforms.STONE_PLATFORM_LEFT, 9000, 200],
+                  [platforms.STONE_PLATFORM_MIDDLE, 9070, 200],
+                  [platforms.STONE_PLATFORM_RIGHT, 9140, 200],
+
+
+                  [platforms.STONE_PLATFORM_LEFT, 9400, 300],
+                  [platforms.STONE_PLATFORM_MIDDLE, 9470, 300],
+                  [platforms.STONE_PLATFORM_MIDDLE, 9540, 300],
+                  [platforms.STONE_PLATFORM_RIGHT, 9610, 510],
+
 
                   ]
-
 
         # Go through the array above and add platforms
         for platform in level:
