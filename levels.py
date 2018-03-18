@@ -54,7 +54,7 @@ class Level():
         """ When the user moves left/right and we need to scroll everything: """
 
         # Keep track of the shift amount
-        self.world_shift += shift_x
+        self.world_shift += shift_x/2
 
         # Go through all the sprite lists and shift
         for platform in self.platform_list:
