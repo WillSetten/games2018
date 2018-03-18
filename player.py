@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
     guncount=0
     lives = 5
     score = 0
+    bullet_type=1
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
     framespeed=4
@@ -35,8 +36,8 @@ class Player(pygame.sprite.Sprite):
     #shooting tells us if the player is shooting
     shooting = False
     #aiming tells us which direction in which the player is aiming
-    # Holds the cooldown of the shot being fired
-    cooldown = 0
+    # Holds the firerate of the player
+    firerate = constants.PLAYERFIRERATE
     aiming = "MID"
     #playerscale is the multiplier by which the size of the player sprite is increased
     playerscale = 3
@@ -384,7 +385,9 @@ class Player(pygame.sprite.Sprite):
                 # Stop our vertical movement
                 self.change_y = 0
             if self.shooting is True:
-                if self.guncount%constants.PLAYERFIRERATE==0:
+                if(self.bullet_type==3):
+                    self.firerate = constants.PLAYERFIRERATE*2
+                if self.guncount%self.firerate==0:
                     aimdirection = (0,0)
                     origin = (self.rect.x,self.rect.y)
                     if self.aiming == "UP":
@@ -569,3 +572,11 @@ class Player(pygame.sprite.Sprite):
 
     def stopshooting(self):
         self.shooting=False
+    def changebullet1():
+        self.bullet_type = 1
+    def changebullet2():
+        self.bullet_type = 2
+    def changebullet3():
+        self.bullet_type = 3
+    def changebullet4():
+        self.bullet_type = 4

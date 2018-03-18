@@ -13,3 +13,4 @@ ENEMYFIRERATE = 45
 PLAYERFIRERATE = 15
 playerscale = 3
 enemyscale = 3
+powerupscale = 4

@@ -10,12 +10,12 @@ class Bullet(pygame.sprite.Sprite):
     type=1
     """Count is used to track number of frames that the bullet is active for - if over x amount bullet despawns"""
     count=0
+    bounces = 5
     def __init__(self, p, d, t, level):
         self.level=level
         self.direction = d
         self.destroyed = False
-        """0=Enemy bullets 1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Shotgun (slightly weaker bullet, to be shot in
-        groups), 4 = Grenade (travels in a parabola then damages enemies in a radius after a set time)"""
+        """0=Enemy bullets 1 = Standard, 2 = Bouncy (will reflect off platforms/walls, 3= Rapid Fire, 4 = Grenade (travels in a parabola then damages enemies in a radius after a set time)"""
         self.type = t
         if self.type == 2:
             self.bounces=5
@@ -25,7 +25,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         if self.type == 0:
             self.image = sprite_sheet.get_image(0,0,10,10)
-        if self.type == 1:
+        else:
             self.image = sprite_sheet.get_image(10,0,10,10)
         self.rect.x=p[0]
         self.rect.y=p[1]
