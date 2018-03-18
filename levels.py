@@ -61,12 +61,12 @@ class Level():
         for platform in self.platform_list:
             platform.rect.x += shift_x
 
-#<<<<<<< HEAD
-#=======
+
+
+
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
-#>>>>>>> 7a4167d5f863197206f6ca89fe91e6437f8fcee1
 #Development of a main menu
 class Level_main_menu(Level):
     def __init__(self):
@@ -77,6 +77,8 @@ class Level_main_menu(Level):
         self.menu = Main_menu(self)
         self.list_draw.append(self.menu)
         self.list_update.append(self.menu)
+
+    
 
 # Create platforms for the level
 class Level_01(Level):
@@ -91,6 +93,8 @@ class Level_01(Level):
         self.background = pygame.image.load("assets\\backgroundNew.png").convert_alpha()
         self.background.set_colorkey(constants.WHITE)
         #self.level_limit = -3000
+
+
 
 
         # Array with type of platform, and x, y location of the platform.
@@ -118,8 +122,7 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 1710,200],
                   [platforms.STONE_PLATFORM_MIDDLE, 1780,200],
                   [platforms.STONE_PLATFORM_RIGHT, 1850,200],
-                  #[platforms.STONE_PLATFORM_MIDDLE, 1920,200],
-                  #[platforms.STONE_PLATFORM_RIGHT, 1990, 200],
+
 
                   [platforms.STONE_PLATFORM_LEFT, 2250, 360],
                   [platforms.STONE_PLATFORM_MIDDLE, 2320, 360],
@@ -129,18 +132,18 @@ class Level_01(Level):
                   [platforms.STONE_PLATFORM_MIDDLE, 2680, 430],
                   [platforms.STONE_PLATFORM_RIGHT, 2750, 430],
 
-                  #Azhar's Platforms
+                  #Azhar's Platforms (LINE 132-143)
                   [platforms.STONE_PLATFORM_LEFT, 3000, 510],
                   [platforms.STONE_PLATFORM_MIDDLE, 3070, 510],
                   [platforms.STONE_PLATFORM_RIGHT, 3140, 510],
 
                   [platforms.STONE_PLATFORM_LEFT, 2010, 300],
-                  [platforms.STONE_PLATFORM_MIDDLE, 2080, 300],
                   [platforms.STONE_PLATFORM_RIGHT, 2150, 300],
 
                   [platforms.STONE_PLATFORM_LEFT, 3430, 300],
                   [platforms.STONE_PLATFORM_MIDDLE, 3500, 300],
                   [platforms.STONE_PLATFORM_RIGHT, 3570, 300],
+
 
                   [platforms.STONE_PLATFORM_LEFT, 5000, 360],
                   [platforms.STONE_PLATFORM_MIDDLE, 5070, 360],

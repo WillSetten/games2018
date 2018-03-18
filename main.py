@@ -108,6 +108,7 @@ def main():
                         player1.jump()
                     if event.key == pygame.K_k:
                         player1.shoot()
+                    
 
 
                 if event.type == pygame.KEYUP:
