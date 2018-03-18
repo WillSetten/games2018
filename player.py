@@ -257,7 +257,7 @@ class Player(pygame.sprite.Sprite):
         self.direct_upaim_r = sprite_sheet.get_image(613, 3, 24, 57)
         self.direct_upaim_l = pygame.transform.flip(self.direct_upaim_r, True, False)
         #load the idle frames
-        self.idle_frame_r = sprite_sheet.get_image(324, 93, 35, 46)
+        self.idle_frame_r = sprite_sheet.get_image(324, 93, 35, 42)
         self.idle_frame_l = pygame.transform.flip(self.idle_frame_r, True, False)
         #load the prone frames
         self.prone_frame_r = sprite_sheet.get_image(324, 139, 50, 19)

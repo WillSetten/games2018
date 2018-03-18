@@ -1,7 +1,7 @@
 import constants
 import pygame
 from vector import Vector
-from spritesheet_functions import SpriteSheet
+
 
 class Bullet(pygame.sprite.Sprite):
     """"Takes in two vectors and an integer at initialisation. First vector is current position of the character, second
@@ -21,12 +21,11 @@ class Bullet(pygame.sprite.Sprite):
             self.bounces=5
         super().__init__() #adding super call to make Bullet a pygame Sprite
         self.image = pygame.Surface([10, 10])
-        sprite_sheet = SpriteSheet("assets\\bullets.png")
         self.rect = self.image.get_rect()
         if self.type == 0:
-            self.image = sprite_sheet.get_image(0,0,10,10)
+            self.image.fill(constants.WHITE)
         if self.type == 1:
-            self.image = sprite_sheet.get_image(10,0,10,10)
+            self.image.fill(constants.PINK)
         self.rect.x=p[0]
         self.rect.y=p[1]
     """Bullets will be sorted into two arrays - player and enemy bullets. If"""
