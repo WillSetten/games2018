@@ -38,7 +38,6 @@ def main():
 
     while True:
         multiplayer = mainMenu(screen, play, multiplayer)
-        print (multiplayer)
         # Create the player1
         player1 = Player()
         player2 = Player()
@@ -54,8 +53,9 @@ def main():
         for i in range(0,3):
             enemy_list.append(Enemy(random.randint(0,1)))
             enemy_list[i].level = current_level
-        for i in range(0,2):
-            powerup_list.append(PowerUp())
+        for i in range(0,4):
+            powerup_type = random.randint(2,4)
+            powerup_list.append(PowerUp(powerup_type))
             powerup_list[i].level = current_level
 
         active_sprite_list = pygame.sprite.Group()
@@ -70,9 +70,9 @@ def main():
             #y = random.randint(0,constants.SCREEN_HEIGHT-5)
             enemy_list[i].spawn(x,0)
             enemy_sprite_list.add(enemy_list[i])
-        for i in range(0,2):
-            x = random.randint(constants.SCREEN_WIDTH,constants.SCREEN_WIDTH+1)
-            powerup_list[i].spawn(x,100)
+        for i in range(0,1):
+            x = random.randint(0,10000)
+            powerup_list[i].spawn(x,0)
             powerup_sprite_list.add(powerup_list[i])
         player1.rect.x = 340
         player1.rect.y = constants.SCREEN_HEIGHT - player1.rect.height
@@ -85,9 +85,9 @@ def main():
         # Used to manage how fast the screen updates
         clock = pygame.time.Clock()
         play = True
-
+        newpoweruplength=constants.SCREEN_WIDTH
+        powerupflag = False
         #----------END MAIN MENU, START INITIALISATION-------------
-        print(multiplayer)
         #init(multiplayer)
 
         # -------- Main Game Loop -----------
@@ -109,7 +109,7 @@ def main():
                     if event.key == pygame.K_k:
                         player1.shoot()
 
-                
+
 
 
                 if event.type == pygame.KEYUP:
@@ -150,6 +150,7 @@ def main():
 
 
             # Update the player1.
+
             active_sprite_list.update(enemy_list)
             enemy_sprite_list.update(player1)
             powerup_sprite_list.update(player1)
@@ -304,7 +305,6 @@ def mainMenu(screen, play, multiplayer):
                     else:
                         point-=1
                 if event.key == pygame.K_RETURN:
-                    print(point)
                     if point == 1:
                         multiplayer = True
                         play = True

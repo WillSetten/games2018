@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
     guncount=0
     lives = 5
     score = 0
-    bullet_type=1
+    bullet_type=4
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
     framespeed=4
@@ -272,6 +272,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, enemy_list):
+        print(str(self.bullet_type))
         if (self.dead is False):
             self.calc_grav()
             """ Move the player. """
@@ -385,8 +386,6 @@ class Player(pygame.sprite.Sprite):
                 # Stop our vertical movement
                 self.change_y = 0
             if self.shooting is True:
-                if(self.bullet_type==3):
-                    self.firerate = constants.PLAYERFIRERATE*2
                 if self.guncount%self.firerate==0:
                     aimdirection = (0,0)
                     origin = (self.rect.x,self.rect.y)
@@ -447,7 +446,7 @@ class Player(pygame.sprite.Sprite):
                                 #vector will be (1,0)
                                 aimdirection = (1,0)
                                 origin = (self.rect.x+self.rect.width+50,self.rect.y+2+self.rect.width/3)
-                    self.bullet_list.add(Bullet(origin,(aimdirection[0]*8,aimdirection[1]*8),1, self.level))
+                    self.bullet_list.add(Bullet(origin,(aimdirection[0]*8,aimdirection[1]*8),self.bullet_type, self.level))
                     for b in self.bullet_list:
                         if b.count >600:
                             self.bullet_list.remove(b)
@@ -503,6 +502,7 @@ class Player(pygame.sprite.Sprite):
             #Death animation
             else:
                 #move the player back
+                self.changebullet1()
                 self.deathcount = 0
                 self.dead = False
                 self.change_x=0
@@ -572,11 +572,19 @@ class Player(pygame.sprite.Sprite):
 
     def stopshooting(self):
         self.shooting=False
-    def changebullet1():
+
+    def changebullet1(self):
         self.bullet_type = 1
-    def changebullet2():
+        self.firerate = constants.PLAYERFIRERATE
+
+    def changebullet2(self):
         self.bullet_type = 2
-    def changebullet3():
+        self.firerate = constants.PLAYERFIRERATE
+
+    def changebullet3(self):
         self.bullet_type = 3
-    def changebullet4():
+        self.firerate = constants.PLAYERFIRERATE/3
+
+    def changebullet4(self):
         self.bullet_type = 4
+        self.firerate = constants.PLAYERFIRERATE
