@@ -7,7 +7,7 @@ from bullet import Bullet
 from vector import Vector
 from spritesheet_functions import SpriteSheet
 class Enemy(pygame.sprite.Sprite):
-    #Attributes
+    #AttmyGametes
     #Melee type animations
     walk_r = []
     walk_l = []

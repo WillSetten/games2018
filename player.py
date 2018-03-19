@@ -7,7 +7,7 @@ import sys
 import time
 import constants
 from spritesheet_functions import SpriteSheet
-import main
+import myGame
 from bullet import Bullet
 class Player(pygame.sprite.Sprite):
     """ This class represents the bar at the bottom that the player
@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
     guncount=0
     lives = 5
     score = 0
-    bullet_type=4
+    bullet_type=1
     #framespeed is the number of iterations the sprite will stay on the same frame so 0=fastest animation
     flag = 0
     framespeed=4

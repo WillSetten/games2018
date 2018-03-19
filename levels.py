@@ -3,7 +3,7 @@ import pygame
 import constants
 import platforms
 import enemy
-import main
+import myGame
 
 
 class Level():
@@ -67,18 +67,18 @@ class Level():
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
-#Development of a main menu
-class Level_main_menu(Level):
+#Development of a myGame menu
+class Level_myGame_menu(Level):
     def __init__(self):
-        super(Level_menu_main, self).__init__()
+        super(Level_menu_myGame, self).__init__()
 
         self.create_gradient_background((0, 0, 0), (255, 255, 255))
 
-        self.menu = Main_menu(self)
+        self.menu = myGame_menu(self)
         self.list_draw.append(self.menu)
         self.list_update.append(self.menu)
 
-    
+
 
 # Create platforms for the level
 class Level_01(Level):
